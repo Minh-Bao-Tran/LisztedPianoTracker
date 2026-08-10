@@ -1,0 +1,28 @@
+.header {
+  margin-top: 3vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.pieceTitle > div {
+  display: flex;
+  flex-direction: row;
+  gap: 1vw;
+}
+
+.pieceTitle > div > h2 {
+  max-width: 30vw;
+}
+
+.pieceTitle>h3{
+  margin-left: 10px;
+}
+
+.additionalInfo {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 3vw;
+}

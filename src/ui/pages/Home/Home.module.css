@@ -1,0 +1,38 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.welcomeBackSection {
+  width: 100%;
+  height: 12.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.welcome-back-section h1 {
+  font-weight: 600;
+}
+
+.statistics {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.statistics .h2 {
+  color: var(--color-b2);
+}
+
+.pieceSection {
+  gap: 0.75rem;
+  justify-content: space-between;
+  display: flex;
+  flex-direction: column;
+}
+
+.pieceSection .h2 {
+  margin-left: 20px;
+}

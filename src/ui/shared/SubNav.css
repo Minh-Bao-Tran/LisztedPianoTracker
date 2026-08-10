@@ -1,0 +1,19 @@
+
+
+nav.sub-nav  {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.sub-nav ul {
+  margin-left: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  gap: clamp(30px, 4.5vh, 40px);
+  list-style: none;
+  font-size: clamp(20px, 2.75vh, 25px);
+}
+
+

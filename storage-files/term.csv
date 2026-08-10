@@ -1,0 +1,50 @@
+M0001,Adagio,Slow and expressive,Tempo,A calm and gentle tempo.
+M0002,Allegro,Fast and lively,Tempo,Commonly used for energetic movements.
+M0003,Andante,At a walking pace,Tempo,Moderate and steady.
+M0004,Forte,Loud,Dynamic,Careful and do not confuse with Fortissimo.
+M0005,Piano,Soft,Dynamic,Usually abbreviated as p.
+M0006,Fortissimo,Very loud,Dynamic,Usually abbreviated as ff.
+M0007,Pianissimo,Very soft,Dynamic,Usually abbreviated as pp.
+M0008,Crescendo,Gradually becoming louder,Dynamic,Often shown with a hairpin opening toward the right.
+M0009,Diminuendo,Gradually becoming softer,Dynamic,Also called decrescendo.
+M0010,Accelerando,Gradually becoming faster,Tempo,The tempo increases gradually.
+M0011,Ritardando,Gradually becoming slower,Tempo,Often abbreviated as rit.
+M0012,Rubato,Flexible treatment of tempo,Expression,Allows expressive freedom while maintaining the overall musical flow.
+M0013,Staccato,Short and detached,Technique,Notes are played with separation.
+M0014,Legato,Smoothly connected,Technique,Notes should flow into one another.
+M0015,Tenuto,Held for the full value,Technique,Often marked with a horizontal line above or below a note.
+M0016,Accent,An emphasis placed on a note,Technique,The exact effect depends on the instrument and musical context.
+M0017,Marcato,Marked or strongly accented,Technique,Notes are played with strong emphasis.
+M0018,Arpeggio,Notes of a chord played successively,Chord,Common in both piano and orchestral music.
+M0019,Glissando,A continuous slide between pitches,Technique,Often indicated by a straight line between two notes.
+M0020,Trill,Rapid alternation between adjacent pitches,Technique,Usually alternates between the written note and the note above it.
+M0021,Mordent,A rapid alternation involving a principal note and a neighboring note,Technique,The direction of the alternation depends on the mordent type.
+M0022,Turn,An ornament surrounding a principal note,Technique,Typically includes the note above and below the principal note.
+M0023,Grace Note,A small note played quickly before a principal note,Technique,Its rhythmic treatment varies by style and period.
+M0024,Scale,A sequence of notes arranged by pitch,Technique,Scales are fundamental for developing technique.
+M0025,Chromatic Scale,A scale consisting entirely of semitone steps,Technique,It contains all twelve pitches within an octave.
+M0026,Major Scale,A seven note scale with a major third,Technique,Its pattern of whole and half steps is W W H W W W H.
+M0027,Minor Scale,A scale associated with a minor tonal quality,Technique,There are several forms including natural harmonic and melodic minor.
+M0028,Major Chord,A chord containing a root major third and perfect fifth,Chord,Often perceived as bright or stable.
+M0029,Minor Chord,A chord containing a root minor third and perfect fifth,Chord,Often perceived as darker or more subdued.
+M0030,Diminished Chord,A chord built from stacked minor thirds,Chord,It has an unstable and tense sound.
+M0031,Augmented Chord,A chord containing a major third and augmented fifth,Chord,It has a bright and unsettled quality.
+M0032,Major Seventh,A chord containing a major triad and major seventh,Chord,Common in jazz and sophisticated harmonic writing.
+M0033,Minor Seventh,A chord containing a minor triad and minor seventh,Chord,Common in jazz and popular music.
+M0034,Sforzando,A sudden strong emphasis,Dynamic,Often abbreviated as sfz.
+M0035,Subito,Immediately or suddenly,Expression,Often used with a dynamic marking such as subito piano.
+M0036,Con Moto,With movement,Expression,Indicates that the music should maintain forward motion.
+M0037,Dolce,Sweetly or gently,Expression,Encourages a soft and expressive character.
+M0038,Espressivo,Expressively,Expression,Indicates that the performer should emphasize musical expression.
+M0039,Cantabile,In a singing style,Expression,The melody should sound smooth and vocal.
+M0040,Maestoso,Majestically,Expression,Indicates a grand and dignified character.
+M0041,Con Brio,With brilliance or spirit,Expression,Usually indicates energetic and lively playing.
+M0042,Con Fuoco,With fire,Expression,Indicates passionate and intense playing.
+M0043,Grave,Very slow and solemn,Tempo,Often associated with a serious or weighty character.
+M0044,Largo,Very slow and broad,Tempo,Generally slower than Adagio.
+M0045,Moderato,At a moderate tempo,Tempo,Indicates a middle range of speed.
+M0046,Presto,Very fast,Tempo,Usually faster than Allegro.
+M0047,Fermata,A pause or prolongation of a note or rest,Expression,The performer usually holds the marked element longer than its written value.
+M0048,Da Capo,Return to the beginning,Expression,Usually abbreviated as D.C.
+M0049,Al Fine,To the end,Expression,Indicates that the piece should end at the marked Fine.
+M0050,Repeat Sign,A notation indicating that a section should be repeated,Others,Repeat signs are commonly shown as paired barlines with dots.

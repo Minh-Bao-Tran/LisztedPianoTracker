@@ -1,0 +1,24 @@
+.div {
+  margin: 0;
+}
+
+.pieceComponent {
+  width: 30rem;
+  height: 11rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.pieceComponent .pieceTitle {
+  width: 100%;
+  text-overflow: clip;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.pieceComponent .pieceParagraph {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}

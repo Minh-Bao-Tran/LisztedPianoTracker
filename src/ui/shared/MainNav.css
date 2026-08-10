@@ -1,0 +1,36 @@
+#root {
+  display: flex;
+}
+
+.main-nav {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--color-g4);
+  width: 100px;
+  min-width: 100px;
+  height: 100%;
+  padding-top: 20px;
+}
+
+.main-nav .app-logo {
+  width: 50px;
+  height: 50px;
+
+}
+
+.main-nav ul {
+  position: absolute;
+  top: 0px;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  gap: 30px;
+}
+
+.main-nav img {
+  width: 50px;
+  height: auto;
+}

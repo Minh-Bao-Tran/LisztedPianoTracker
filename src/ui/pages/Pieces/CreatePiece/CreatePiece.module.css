@@ -1,0 +1,10 @@
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 3vh;
+}
+
+.header h2 {
+  margin-left: 10px;
+  font-weight: 700;
+}
