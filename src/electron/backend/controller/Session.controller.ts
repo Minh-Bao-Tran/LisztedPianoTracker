@@ -204,4 +204,46 @@ export default class SessionController {
     }
     return true;
   }
+
+  public getAllPieceSubsession(pieceId: string): Subsession[] {
+    const subsessionTable = db.getDb("subsession");
+    const goalDejoin = db
+      .getDb("goal")
+      .reverseJoin(subsessionTable, "subsessions");
+
+    //Join Piece with Goal
+    const pieceDejoin = db.getDb("piece").join("goalIds");
+
+    let returnedObj: IndexedObj<Piece> | null;
+
+    returnedObj = db.getDb("piece").findOnePrimaryKey(pieceId);
+    if (!returnedObj) {
+      throw new Error("No object found");
+    }
+
+    const piece = returnedObj.obj;
+
+    //@ts-ignore
+    const goalLists = [...piece.goals];
+
+    //get all subsession
+    const allSubsessions: Subsession[] = [];
+
+    //Eliminate Repeats
+    for (const goal of goalLists) {
+      for (const subsession of goal.subsessions) {
+        if (allSubsessions.includes(subsession)) {
+          //already counted
+          continue;
+        }
+        allSubsessions.push(subsession);
+      }
+    }
+
+    goalDejoin();
+    // console.log(piece);
+    pieceDejoin(); //not needed. Only reverseJoin usually need
+
+    return allSubsessions;
+  }
 }

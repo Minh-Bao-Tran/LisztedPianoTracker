@@ -49,6 +49,17 @@ interface SessionData {
   subsessionIds: string[]; //Required
 }
 
+interface SubsessionData{
+     id: string;
+   title: string;
+   time: number; //in minutes
+   maxTime: number; //in minutes
+   startDate?: Date | null;
+   endDate?: Date | null;
+   reflections?: string;
+   goalIds?: string[]; //Foreign Key
+}
+
 interface AnalyticsData {
   totalTime: number;
   averageTime: number;
