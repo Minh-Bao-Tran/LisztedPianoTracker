@@ -107,12 +107,12 @@ export class Piece implements TableModel, PieceData {
       let currentLatestDate: Date = new Date(0);
 
       for (const subsession of goal.subsessions as Subsession[]) {
-        if (!subsession.startDate || !subsession.endDate) {
+        if (!subsession.date) {
           continue;
         }
 
-        if (subsession.endDate.getTime() > currentLatestDate.getTime()) {
-          currentLatestDate = subsession.endDate;
+        if (subsession.date.getTime() > currentLatestDate.getTime()) {
+          currentLatestDate = subsession.date;
         }
       }
 

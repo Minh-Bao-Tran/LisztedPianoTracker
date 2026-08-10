@@ -41,6 +41,13 @@ interface GoalData {
   lastPractice?: Date;
 }
 
+interface ResourceData {
+  id: string;
+  resourceType: string;
+  notes?: string;
+  resourceLink: string;
+}
+
 interface SessionData {
   id: string;
   title: string;
@@ -49,15 +56,19 @@ interface SessionData {
   subsessionIds: string[]; //Required
 }
 
-interface SubsessionData{
-     id: string;
-   title: string;
-   time: number; //in minutes
-   maxTime: number; //in minutes
-   startDate?: Date | null;
-   endDate?: Date | null;
-   reflections?: string;
-   goalIds?: string[]; //Foreign Key
+interface SubsessionData {
+  id: string;
+  title: string;
+  ratings: number; //percentage (0 - 100)
+  time: number; //in minutes
+  maxTime: number; //in minutes
+  date?: Date;
+  reflections?: string;
+  goalIds?: string[]; //Foreign Key
+}
+
+interface ExtendedSubsessionData extends SubsessionData {
+  sessionId?: string;
 }
 
 interface AnalyticsData {
@@ -75,14 +86,26 @@ interface AnalyticsData {
 type EventMapping = {
   statistics: { req: undefined; res: Statistics };
   getStaticData: { req: undefined; res: StaticData };
+
+  //----Piece Routes----
   getAllPiece: { req: undefined; res: ExtendedPieceData[] };
   getOnePiece: { req: { id: string }; res: ExtendedPieceData | null };
   addPiece: { req: Omit<PieceData, "id">; res: ValidationResult };
 
+  //----Goal Routes----
   getAllPieceGoals: { req: { pieceId: string }; res: GoalData[] };
 
-  getAllPieceSessions: { req: { pieceId: string }; res: SessionData[] };
+  //----Resource Routes----
+  getAllPieceResources: { req: { pieceId: string }; res: ResourceData[] };
 
+  //----Session Routes----
+  getAllPieceSessions: { req: { pieceId: string }; res: SessionData[] };
+  getAllPieceSubsessions: {
+    req: { pieceId: string };
+    res: ExtendedSubsessionData[];
+  };
+
+  //----Analytics Routes----
   getAnalytics: {
     req: { id: string; timeFrameEndDate?: Date; timeFrameStartDate?: Date };
     res: AnalyticsData;
@@ -95,14 +118,25 @@ interface Window {
   electron: {
     subscribeStatistics: (callback: (statistics: Statistics) => {}) => void;
     getStaticData: () => Promise<StaticData>;
+
+    //----Piece Routes----
     getAllPiece: () => Promise<ExtendedPieceData[]>;
     getOnePiece: ({ id }: { id: string }) => Promise<ExtendedPieceData | null>;
     addPiece: (req: Omit<PieceData, "id">) => Promise<ValidationResult>;
 
+    //----Goal Routes----
     getAllPieceGoals: (req: { pieceId: string }) => Promise<GoalData[]>;
 
-    getAllPieceSessions: (req: { pieceId: string }) => Promise<SessionData[]>;
+    //----Resource Routes----
+    getAllPieceResources: (req: { pieceId: string }) => Promise<ResourceData[]>;
 
+    //----Session Routes----
+    getAllPieceSessions: (req: { pieceId: string }) => Promise<SessionData[]>;
+    getAllPieceSubsessions: (req: {
+      pieceId: string;
+    }) => Promise<ExtendedSubsessionData[]>;
+
+    //----Analytics Routes----
     getAnalytics: (req: {
       id: string;
       timeFrameEndDate?: Date;

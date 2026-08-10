@@ -10,7 +10,7 @@ const RESOURCETYPE = [
 
 type ResourceType = (typeof RESOURCETYPE)[number];
 
-export class Resource {
+export class Resource implements ResourceData{
   public id: string;
   public resourceType: ResourceType;
   public notes?: string;

@@ -1,5 +1,10 @@
 .header {
-  margin-top: 3vh;
+  display: flex;
+  flex-direction: column;
+  gap: 3vh;
+}
+
+.pieceCard {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -15,7 +20,7 @@
   max-width: 30vw;
 }
 
-.pieceTitle>h3{
+.pieceTitle > h3 {
   margin-left: 10px;
 }
 

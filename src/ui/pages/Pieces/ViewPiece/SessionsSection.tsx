@@ -1,16 +1,26 @@
 import { useOutletContext } from "react-router";
 export default function SessionsSection() {
-  const props: { sessions: SessionData[] } = useOutletContext<{
-    sessions: SessionData[];
+  const props: { subsessions: ExtendedSubsessionData[] } = useOutletContext<{
+    subsessions: ExtendedSubsessionData[];
   }>();
 
-  let sessions: SessionData[] = [];
-  if (props.sessions) {
-    console.log(props.sessions);
-    sessions = props.sessions;
+  let subsessions: ExtendedSubsessionData[] = [];
+  if (props.subsessions) {
+    console.log(props.subsessions);
+    subsessions = props.subsessions;
   }
 
-  const sessionElements = sessions.map((session, index) => {
-    return <li key={index}></li>;
+  const subsessionElements = subsessions.map((subsession, index) => {
+    return (
+      <li key={index} className="card-box">
+        <p>{subsession.title}</p>
+        <p>{subsession.reflections ?? "N/A"}</p>
+        <p>{subsession.time} minutes</p>
+        <p>{subsession.ratings}%</p>
+        {/* Transform this into a star rating later */}
+      </li>
+    );
   });
+
+  return <>{subsessions && subsessionElements}</>;
 }

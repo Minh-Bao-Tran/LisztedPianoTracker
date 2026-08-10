@@ -85,11 +85,10 @@ export default class AnalyticsController {
     const newSubsessions = [...allSubsessions];
 
     for (let i = allSubsessions.length - 1; i >= 0; i--) {
-      const { startDate, endDate, time } = allSubsessions[i];
+      const { date, time } = allSubsessions[i];
 
       //-----Validation-----
-      //@ts-ignore
-      if (!startDate.getTime() || !endDate.getTime()) {
+      if (!date.getTime()) {
         //Not started yet
         console.log(1);
 
@@ -97,10 +96,8 @@ export default class AnalyticsController {
         continue;
       }
       if (
-        // @ts-ignore
-        startDate.getTime() < timeFrameStartDate.getTime() ||
-        // @ts-ignore
-        endDate.getTime() > timeFrameEndDate.getTime()
+        date.getTime() < timeFrameStartDate.getTime() ||
+        date.getTime() > timeFrameEndDate.getTime()
       ) {
         //Out of timeframe
         newSubsessions.splice(i, 1);
@@ -116,15 +113,18 @@ export default class AnalyticsController {
     return { totalTime, allSubsessions: newSubsessions }; //in minutes
   }
 
-  public getAnalytics(
-    {
-      id,
-      timeFrameEndDate = new Date(Date.now()),
-      timeFrameStartDate = new Date(
-        timeFrameEndDate.getTime() - 7 * 24 * 60 * 60 * 1000, //Default to 1 week timeFrame
-      ),
-    }: { id: string; timeFrameStartDate?: Date; timeFrameEndDate?: Date },
-  ) {
+  public getAnalytics({
+    id,
+    timeFrameEndDate = new Date(Date.now()),
+    // timeFrameStartDate = new Date(
+    //   timeFrameEndDate.getTime() - 7 * 24 * 60 * 60 * 1000, //Default to 1 week timeFrame
+    // ),
+    timeFrameStartDate = new Date(0),
+  }: {
+    id: string;
+    timeFrameStartDate?: Date;
+    timeFrameEndDate?: Date;
+  }) {
     const { totalTime, allSubsessions } =
       this.calculateTotalPieceTimeAndGetAllSubsessions({
         id: id,
@@ -144,8 +144,7 @@ export default class AnalyticsController {
 
     const totalSubsessionsNumber = allSubsessions.length;
     const sortedTotalSubsessions = [...allSubsessions].sort((a, b) => {
-      // @ts-ignore
-      return b.startDate.getTime() - a.startDate.getTime();
+      return b.date.getTime() - a.date.getTime();
     });
 
     //Find Streak
@@ -154,8 +153,7 @@ export default class AnalyticsController {
     let streak = 0;
     let currentDate = timeFrameEndDate;
     for (const subsession of sortedTotalSubsessions) {
-      // @ts-ignore
-      const removedStartDate = subsession.startDate.toDateString();
+      const removedStartDate = subsession.date.toDateString();
       const removedCurrentDate = currentDate.toDateString();
       if (
         new Date(removedStartDate).getTime() - new Date().getTime() >
@@ -172,8 +170,7 @@ export default class AnalyticsController {
         continue;
       }
       streak += 1;
-      // @ts-ignore
-      currentDate = subsession.startDate;
+      currentDate = subsession.date;
     }
 
     const allGoalCompleted = this.getAllGoalCompleted(id).length;

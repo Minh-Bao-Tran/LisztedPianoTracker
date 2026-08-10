@@ -14,7 +14,7 @@ export default class ResourceController {
     }
   }
 
-  public getAllPieceResource(_: any, pieceId: string): Resource[] {
+  public getAllPieceResources(pieceId: string): Resource[] {
     let piece: Piece;
     try {
       //Join Piece with Resource

@@ -2,6 +2,7 @@
 import { Session } from "../class/Session.model.js";
 import { Subsession } from "../class/Subsession.model.js";
 import { Piece } from "../class/Piece.model.js";
+import { Goal } from "../class/Goal.model.js";
 
 import { db } from "../database/database.js";
 
@@ -29,20 +30,20 @@ export default class SessionController {
     }
     allSessions = allSessions.filter((obj) => {
       //Loop through all subsession
-      // @ts-ignore
-      for (const { startDate, endDate } of obj.subsessions) {
+
+      for (const { date } of obj.subsessions ?? []) {
         //-----Validation-----
-        if (!startDate || !endDate) {
+        if (!date) {
           console.log(1);
           return false;
         }
-        if (!startDate.getTime() || !endDate.getTime()) {
+        if (!date.getTime()) {
           console.log(2);
           return false;
         }
         if (
-          startDate.getTime() < timeFrameStartDate.getTime() ||
-          endDate.getTime() > timeFrameEndDate.getTime()
+          date.getTime() < timeFrameStartDate.getTime() ||
+          date.getTime() > timeFrameEndDate.getTime()
         ) {
           return false;
         }
@@ -156,8 +157,7 @@ export default class SessionController {
           ...subsession,
           id: null,
           time: 0,
-          startDate: new Date(new Date().toDateString()),
-          endDate: null,
+          date: new Date(new Date().toDateString()), //Deleting hours, minutes data
         };
         const newId = db.getDb("subsession").insertOne(newSubsession);
         idList.push(newId);
@@ -205,8 +205,15 @@ export default class SessionController {
     return true;
   }
 
-  public getAllPieceSubsession(pieceId: string): Subsession[] {
+  public getAllPieceSubsessions(pieceId: string): ExtendedSubsessionData[] {
+    const sessionTable = db.getDb("session");
     const subsessionTable = db.getDb("subsession");
+
+    const subsessionDejoin = subsessionTable.reverseJoin(
+      sessionTable,
+      "sessions",
+    );
+
     const goalDejoin = db
       .getDb("goal")
       .reverseJoin(subsessionTable, "subsessions");
@@ -218,31 +225,36 @@ export default class SessionController {
 
     returnedObj = db.getDb("piece").findOnePrimaryKey(pieceId);
     if (!returnedObj) {
+      goalDejoin();
+      pieceDejoin();
+      subsessionDejoin();
       throw new Error("No object found");
     }
 
     const piece = returnedObj.obj;
 
-    //@ts-ignore
-    const goalLists = [...piece.goals];
+    const goalLists: Goal[] = [...(piece.goals ?? [])];
 
     //get all subsession
     const allSubsessions: Subsession[] = [];
 
     //Eliminate Repeats
     for (const goal of goalLists) {
-      for (const subsession of goal.subsessions) {
+      for (const subsession of goal.subsessions ?? []) {
         if (allSubsessions.includes(subsession)) {
           //already counted
           continue;
         }
         allSubsessions.push(subsession);
+        if (subsession.sessions && subsession.sessions.length) {
+          subsession.sessionId = subsession.sessions[0].id; //add to ID
+        }
       }
     }
 
     goalDejoin();
-    // console.log(piece);
-    pieceDejoin(); //not needed. Only reverseJoin usually need
+    pieceDejoin();
+    subsessionDejoin();
 
     return allSubsessions;
   }

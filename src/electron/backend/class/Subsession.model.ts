@@ -8,13 +8,13 @@ import {
 import { Goal } from "./Goal.model.js";
 import { Session } from "./Session.model.js";
 
-export class Subsession {
+export class Subsession implements SubsessionData {
   public id: string;
   public title: string;
   public time: number; //in minutes
   public maxTime: number; //in minutes
-  public startDate?: Date | null;
-  public endDate?: Date | null;
+  public date: Date;
+  public ratings: number; //out of 100%
   public reflections?: string;
   public goalIds?: string[]; //Foreign Key
 
@@ -22,24 +22,25 @@ export class Subsession {
   public goals?: Goal[] = [];
 
   //Initialise for reverse-joining
+  public sessionId?: string;
   public sessions?: Session[];
 
   constructor({
     id = "",
     title,
+    ratings = 0,
     time = 0,
     maxTime = 0,
-    startDate = null,
-    endDate = null,
+    date = new Date(),
     reflections = "",
     goalIds = [], //Default to Others
   }: {
     id?: string;
     title: string;
     time?: number;
+    ratings?: number;
     maxTime?: number;
-    startDate?: Date | null;
-    endDate?: Date | null;
+    date?: Date;
     reflections?: string;
     goalIds?: string[];
   }) {
@@ -47,9 +48,9 @@ export class Subsession {
     this.id = id ?? null;
     this.title = title;
     this.time = time;
+    this.ratings = ratings;
     this.maxTime = maxTime;
-    this.startDate = startDate;
-    this.endDate = endDate;
+    this.date = date;
     this.reflections = reflections;
     this.goalIds = goalIds;
   }
@@ -59,12 +60,13 @@ export class Subsession {
       console.log(obj);
       throw new Error("Missing Properties");
     }
-    if (obj.startDate && isNaN(new Date(obj.startDate).getTime())) {
-      throw new Error("Start Date is not a number");
+    if (obj.date && isNaN(new Date(obj.date).getTime())) {
+      throw new Error("date is not a number");
     }
 
-    if (obj.endDate && isNaN(new Date(obj.endDate).getTime())) {
-      throw new Error("End Date is not a number");
+    if (obj.ratings > 100 || obj.ratings < 0) {
+      //Exist but wrong
+      throw new Error("Ratings out of range");
     }
 
     if (obj.time > obj.maxTime) {
@@ -96,9 +98,9 @@ export class Subsession {
       id: stringConverter,
       title: stringConverter,
       time: numberConverter,
+      ratings: numberConverter,
       maxTime: numberConverter,
-      startDate: Subsession.nullDateConverter,
-      endDate: Subsession.nullDateConverter,
+      date: dateConverter,
       reflections: stringConverter,
       goalIds: stringArrayConverter,
     },
