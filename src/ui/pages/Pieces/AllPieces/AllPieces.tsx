@@ -1,4 +1,4 @@
-import { NavLink } from "react-router";
+import { NavLink, useLocation } from "react-router";
 // import type { SetStateAction } from "react";
 // import SubNav from "../../shared/SubNav";
 import ExtendedPieceCard from "../util/ExtendedPieceCard";
@@ -7,6 +7,8 @@ import styles from "./AllPieces.module.css";
 import { useEffect, useState } from "react";
 
 export default function AllPiecesPage() {
+  const location = useLocation();
+
   const [allPieces, setAllPieces] = useState<ExtendedPieceData[]>([]);
 
   //Load all pieces
@@ -16,7 +18,7 @@ export default function AllPiecesPage() {
       setAllPieces(data);
     }
     loadPieces();
-  }, []);
+  }, [location.pathname]);
 
   //Create PieceCards
   const allPiecesCardList = allPieces.map((piece, index) => {

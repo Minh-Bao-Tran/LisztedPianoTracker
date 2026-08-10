@@ -66,7 +66,13 @@ export default function CreatePiecePage() {
             <label htmlFor="status" className="p">
               Status
             </label>
-            <select name="status" id="piece-status" className="input-deco" defaultValue="">
+            <select
+              name="status"
+              id="piece-status"
+              className="input-deco"
+              defaultValue=""
+              required
+            >
               <option value="" disabled hidden>
                 ---Select a status---
               </option>
@@ -80,7 +86,13 @@ export default function CreatePiecePage() {
             <label htmlFor="pieceType" className="p">
               Piece Type
             </label>
-            <select name="pieceType" id="pieceType" className="input-deco" defaultValue="">
+            <select
+              name="pieceType"
+              id="pieceType"
+              className="input-deco"
+              defaultValue=""
+              required
+            >
               <option value="" disabled hidden>
                 ---Select Piece's Type---
               </option>
@@ -110,7 +122,13 @@ export default function CreatePiecePage() {
             <label htmlFor="freqFrame" className="p">
               Time Frame
             </label>
-            <select name="freqFrame" id="freqFrame" className="input-deco" defaultValue="">
+            <select
+              name="freqFrame"
+              id="freqFrame"
+              className="input-deco"
+              defaultValue=""
+              required
+            >
               <option value="" disabled hidden>
                 ---Select Time Frame---
               </option>

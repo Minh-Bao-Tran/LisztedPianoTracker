@@ -3,6 +3,24 @@
   flex-direction: column;
   gap: 3vh;
 }
+.topButtonDiv{
+  display: flex;
+  justify-content: space-between;
+}
+
+.main {
+  flex: 1;
+  max-width: 100%;
+  /* max-height: 70%; */
+  min-height: 0;
+  overflow-y: auto;
+}
+
+.main::-webkit-scrollbar {
+  display: none; /* Chrome, Edge, Electron, Safari */
+}
+
+
 
 .pieceCard {
   display: flex;

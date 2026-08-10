@@ -20,7 +20,7 @@ export default class TermController {
     }
   }
 
-  public getAllPieceTerm(_: any, pieceId: string): Term[] {
+  public getAllPieceTerms(pieceId: string): Term[] {
     let piece: Piece;
     try {
       //Join Piece with Term

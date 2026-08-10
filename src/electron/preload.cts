@@ -30,6 +30,9 @@ electron.contextBridge.exposeInMainWorld("electron", {
   getAllPieceSubsessions: (req) =>
     electron.ipcRenderer.invoke("getAllPieceSubsessions", req),
 
+  //----Term Routes----
+  getAllPieceTerms: (req) =>
+    electron.ipcRenderer.invoke("getAllPieceTerms", req),
   //----Analytics Routes----
   getAnalytics: (req) => electron.ipcRenderer.invoke("getAnalytics", req),
 } satisfies Window["electron"]);

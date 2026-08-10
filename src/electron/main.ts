@@ -10,11 +10,13 @@ import GoalController from "./backend/controller/Goal.controller.js";
 import ResourceController from "./backend/controller/Resource.controller.js";
 import SessionController from "./backend/controller/Session.controller.js";
 import AnalyticsController from "./backend/controller/Analytics.controller.js";
+import TermController from "./backend/controller/Term.controller.js";
 
 const pieceController = new PieceController();
 const goalController = new GoalController();
-const resourceController =  new ResourceController();
+const resourceController = new ResourceController();
 const sessionController = new SessionController();
+const termController = new TermController();
 const analyticsController = new AnalyticsController();
 
 app.on("ready", () => {
@@ -66,9 +68,13 @@ app.on("ready", () => {
     return sessionController.getAllPieceSubsessions(req.pieceId);
   });
 
+  //----Term----
+  ipcMainHandle("getAllPieceTerms", (req) => {
+    return termController.getAllPieceTerms(req.pieceId);
+  });
+
   //----Analytics----
   ipcMainHandle("getAnalytics", (req) => {
     return analyticsController.getAnalytics(req);
   });
-
 });

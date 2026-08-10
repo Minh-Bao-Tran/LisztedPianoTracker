@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, NavLink, Outlet } from "react-router";
 
+import EditIcon from "../../../assets/icon/Edit_icon.svg";
 import SubNav from "../../../shared/SubNav";
 
 import styles from "./ViewPiece.module.css";
@@ -47,8 +48,8 @@ export default function ViewPiecePage() {
       .then((data) => {
         // console.log(data);
         if (!data) {
-          alert("No Analytics found");
-          throw new Error("No Analytics found");
+          alert("No Resources found");
+          throw new Error("No Resources found");
         }
         setResources(data);
       });
@@ -61,10 +62,24 @@ export default function ViewPiecePage() {
       })
       .then((data) => {
         if (!data) {
-          alert("No Analytics found");
-          throw new Error("No Analytics found");
+          alert("No Sessions found");
+          throw new Error("No Sessions found");
         }
         setSubsessions(data);
+      });
+  }
+
+  async function loadTerms() {
+    window.electron
+      .getAllPieceTerms({
+        pieceId: pieceId as string,
+      })
+      .then((data) => {
+        if (!data) {
+          alert("No Terms found");
+          throw new Error("No Terms found");
+        }
+        setTerms(data);
       });
   }
 
@@ -88,6 +103,7 @@ export default function ViewPiecePage() {
   const [piece, setPiece] = useState<ExtendedPieceData | undefined>(undefined);
   const [goals, setGoals] = useState<GoalData[] | undefined>([]);
   const [resources, setResources] = useState<ResourceData[] | undefined>([]);
+  const [terms, setTerms] = useState<TermData[] | undefined>([]);
   const [subsessions, setSubsessions] = useState<
     ExtendedSubsessionData[] | undefined
   >([]);
@@ -97,24 +113,37 @@ export default function ViewPiecePage() {
 
   //Fetch the Piece
   useEffect(() => {
+    console.log(pieceId);
     loadPieces();
     loadGoals();
     loadResources();
     loadSubsessions();
+    loadTerms();
     loadAnalytics();
   }, [pieceId]);
 
   return (
     <>
       <header className={styles.header}>
-        <NavLink to="/pieces" className="small">
-          &lt; Back
-        </NavLink>
+        <div className={styles.topButtonDiv}>
+          <NavLink to="/pieces" className="small">
+            &lt; Back
+          </NavLink>
+          <NavLink to={`/pieces/${pieceId}/edit`} className="h3" style={{display: "flex", alignItems: "bottom", gap: "10px"}}>
+            <img src={EditIcon} alt="" />
+            Edit
+          </NavLink>
+        </div>
+
         <div className={`card-box ${styles.pieceCard}`}>
           <div className={styles.pieceTitle}>
             <div>
               <h2>{piece && piece.name}</h2>
-              <em className={`class-tag`}>Active </em>
+              <em
+                className={`class-tag ${piece && (piece.status === "Completed" ? "alt1" : piece.status === "Planned" ? "alt2" : null)}`}
+              >
+                {piece && piece.status}
+              </em>
             </div>
             <h3>{piece && piece.composer}</h3>
           </div>
@@ -163,7 +192,7 @@ export default function ViewPiecePage() {
       <main className={styles.main}>
         <section>
           <Outlet
-            context={{ piece, analytics, goals, subsessions, resources }}
+            context={{ piece, analytics, goals, subsessions, resources, terms }}
           />
         </section>
       </main>

@@ -71,11 +71,19 @@ interface ExtendedSubsessionData extends SubsessionData {
   sessionId?: string;
 }
 
+interface TermData {
+  id: string;
+  term: string;
+  definition: string;
+  type: string; // "Tempo","Technique","Dynamic","Chord","Expression","Others",
+  notes?: string;
+}
+
 interface AnalyticsData {
   totalTime: number;
   averageTime: number;
   totalReflections: number;
-  allGoalCompleted: number;
+  allGoalsCompleted: number;
   totalSubsessionsNumber: number;
   streak: number;
   latestSubsession: Record<string, any>;
@@ -104,6 +112,9 @@ type EventMapping = {
     req: { pieceId: string };
     res: ExtendedSubsessionData[];
   };
+
+  //----Term Routes----
+  getAllPieceTerms: { req: { pieceId: string }; res: TermData[] };
 
   //----Analytics Routes----
   getAnalytics: {
@@ -135,6 +146,9 @@ interface Window {
     getAllPieceSubsessions: (req: {
       pieceId: string;
     }) => Promise<ExtendedSubsessionData[]>;
+
+    //----Term Routes----
+    getAllPieceTerms: (req: { pieceId: string }) => Promise<TermData[]>;
 
     //----Analytics Routes----
     getAnalytics: (req: {

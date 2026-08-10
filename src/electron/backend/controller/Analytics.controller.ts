@@ -5,7 +5,7 @@ import { Subsession } from "../class/Subsession.model.js";
 import { db } from "../database/database.js";
 
 export default class AnalyticsController {
-  private getAllGoalCompleted(pieceId: string): Goal[] | [] {
+  private getallGoalsCompleted(pieceId: string): Goal[] | [] {
     //Join Piece with Goal
     const pieceDejoin = db.getDb("piece").join("goalIds");
 
@@ -173,13 +173,13 @@ export default class AnalyticsController {
       currentDate = subsession.date;
     }
 
-    const allGoalCompleted = this.getAllGoalCompleted(id).length;
+    const allGoalsCompleted = this.getallGoalsCompleted(id).length;
 
     return {
       totalTime,
       averageTime,
       totalReflections,
-      allGoalCompleted,
+      allGoalsCompleted,
       totalSubsessionsNumber,
       streak,
       latestSubsession,
