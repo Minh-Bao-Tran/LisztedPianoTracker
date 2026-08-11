@@ -4,13 +4,12 @@ import {
   numberArrayConverter,
   numberConverter,
 } from "../database/table/converters.js";
-import { Status, STATUSES } from "./Piece.model.js";
+import { STATUSES } from "./Piece.model.js";
 import { Subsession } from "./Subsession.model.js";
 
 const GOALTYPE = ["Dynamic", "Tempo", "Technique", "Expression", "Others"];
-type GoalType = (typeof GOALTYPE)[number];
 
-export class Goal implements GoalData{
+export class Goal implements GoalData {
   public id: string;
   public name: string;
   public status: Status;

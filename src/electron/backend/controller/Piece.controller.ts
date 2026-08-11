@@ -1,4 +1,4 @@
-import { Piece, Status } from "../class/Piece.model.js";
+import { Piece } from "../class/Piece.model.js";
 
 import { db } from "../database/database.js";
 
@@ -71,7 +71,7 @@ export default class PieceController {
         extendedData = {
           lastPracticeDate: latestGoal.lastPractice,
           lastPracticeGoalName: latestGoal.name,
-          lastGoalProgress: latestGoal.ratings
+          lastGoalProgress: latestGoal.ratings,
         };
       }
 
@@ -96,16 +96,13 @@ export default class PieceController {
     return { valid: true, value: newPieceId };
   }
 
-  public updatePiece(
-    _: any,
-    {
-      updateCriteria,
-      updatingFields,
-    }: {
-      updateCriteria: Partial<Pick<Piece, keyof Piece>>;
-      updatingFields: Partial<Piece>;
-    },
-  ) {
+  public updatePiece({
+    updateCriteria,
+    updatingFields,
+  }: {
+    updateCriteria: Partial<Pick<Piece, keyof Piece>>;
+    updatingFields: Partial<Piece>;
+  }): true {
     let result: Piece;
     try {
       result = db.getDb("piece").updateOne(updateCriteria, updatingFields);

@@ -129,7 +129,7 @@ export default function ViewPiecePage() {
           <NavLink to="/pieces" className="small">
             &lt; Back
           </NavLink>
-          <NavLink to={`/pieces/${pieceId}/edit`} className="h3" style={{display: "flex", alignItems: "bottom", gap: "10px"}}>
+          <NavLink to={`/piece/${pieceId}/edit`} className="h3" style={{display: "flex", alignItems: "bottom", gap: "10px"}}>
             <img src={EditIcon} alt="" />
             Edit
           </NavLink>

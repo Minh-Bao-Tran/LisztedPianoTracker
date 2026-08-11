@@ -6,7 +6,9 @@ import HomePage from "./pages/Home/Home";
 import AllPiecesPage from "./pages/Pieces/AllPieces/AllPieces";
 import SessionPage from "./pages/Session/Session";
 import GlossaryPage from "./pages/Glossary/Glossary";
+
 import CreatePiecePage from "./pages/Pieces/CreatePiece/CreatePiece";
+import EditPiecePage from "./pages/Pieces/EditPiece/EditPiece";
 
 //---View Piece---
 import ViewPiecePage from "./pages/Pieces/ViewPiece/ViewPiece";
@@ -32,6 +34,7 @@ export default function App() {
           <Route path="terms" element={<TermsSection />} />
           <Route path="analytics" element={<AnalyticsSection />} />
         </Route>
+        <Route path="piece/:id/edit" element={<EditPiecePage />}></Route>
         <Route path="sessions" element={<SessionPage />} />
         <Route path="glossary" element={<GlossaryPage />} />
       </Route>

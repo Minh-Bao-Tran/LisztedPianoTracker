@@ -6,8 +6,6 @@ import { Subsession } from "./Subsession.model.js";
 
 const SESSIONSTRUCTURE = ["Blocked", "Interleaved", "Unstructured"] as const;
 
-type SessionStructure = (typeof SESSIONSTRUCTURE)[number];
-
 export class Session implements SessionData{
   public id: string;
   public title: string;

@@ -8,16 +8,38 @@ type StaticData = string;
 
 type ValidationResult = { valid: boolean; value?: any };
 
+//Literal Types
+type Status = "Active" | "Completed" | "Planned";
+type PieceType =
+  | "Performance"
+  | "Technical"
+  | "Scale/Arpeggio"
+  | "Sight Reading"
+  | "Improvisation"
+  | "Others";
+
+type FreqFrame = "week" | "fortnight" | "month";
+
+type GoalType = "Dynamic" | "Tempo" | "Technique" | "Expression" | "Others";
+
+type ResourceType =
+  | "Sheet Music"
+  | "Recording"
+  | "Practice"
+  | "Guides"
+  | "Others";
 // Data types(From model)
+
+type SessionStructure = "Blocked" | "Interleaved" | "Unstructured";
 interface PieceData {
   id: string;
   name: string;
   composer: string;
-  status: string;
-  pieceType: string;
+  status: Status;
+  pieceType: PieceType;
 
   freqNumber?: number;
-  freqFrame?: string;
+  freqFrame?: FreqFrame;
   notes?: string;
   totalTime?: number; //In minutes
   termIds?: string[]; //Foreign Key
@@ -33,8 +55,8 @@ interface ExtendedPieceData extends PieceData {
 interface GoalData {
   id: string;
   name: string;
-  status: string; //"Active", "Completed", "Planned"
-  goalType?: string; //"Dynamic", "Tempo", "Technique", "Expression", "Others"
+  status: Status;
+  goalType?: GoalType;
   notes: string;
   ratings: number; //percentage (0 - 100)
 
@@ -43,7 +65,7 @@ interface GoalData {
 
 interface ResourceData {
   id: string;
-  resourceType: string;
+  resourceType: ResourceType;
   notes?: string;
   resourceLink: string;
 }
@@ -51,7 +73,7 @@ interface ResourceData {
 interface SessionData {
   id: string;
   title: string;
-  structure: string;
+  structure: SessionStructure;
   notes?: string;
   subsessionIds: string[]; //Required
 }
@@ -99,7 +121,13 @@ type EventMapping = {
   getAllPiece: { req: undefined; res: ExtendedPieceData[] };
   getOnePiece: { req: { id: string }; res: ExtendedPieceData | null };
   addPiece: { req: Omit<PieceData, "id">; res: ValidationResult };
-
+  updatePiece: {
+    req: {
+      updateCriteria: Partial<Pick<PieceData, keyof PieceData>>;
+      updatingFields: Partial<PieceData>;
+    };
+    res: true;
+  };
   //----Goal Routes----
   getAllPieceGoals: { req: { pieceId: string }; res: GoalData[] };
 
@@ -134,6 +162,10 @@ interface Window {
     getAllPiece: () => Promise<ExtendedPieceData[]>;
     getOnePiece: ({ id }: { id: string }) => Promise<ExtendedPieceData | null>;
     addPiece: (req: Omit<PieceData, "id">) => Promise<ValidationResult>;
+    updatePiece: (req: {
+      updateCriteria: Partial<Pick<PieceData, keyof PieceData>>;
+      updatingFields: Partial<PieceData>;
+    }) => Promise<true>;
 
     //----Goal Routes----
     getAllPieceGoals: (req: { pieceId: string }) => Promise<GoalData[]>;

@@ -11,7 +11,6 @@ import { Term } from "./Term.model.js";
 import { Subsession } from "./Subsession.model.js";
 
 export const STATUSES = ["Active", "Completed", "Planned"] as const;
-export type Status = (typeof STATUSES)[number];
 
 const PIECETYPES = [
   "Performance",
@@ -21,10 +20,8 @@ const PIECETYPES = [
   "Improvisation",
   "Others",
 ] as const;
-type PieceType = (typeof PIECETYPES)[number];
 
 const FREQ_FRAME = ["week", "fortnight", "month"] as const;
-type FreqFrame = (typeof FREQ_FRAME)[number]; // This needs to be convert separately when read data as it is string and vice versa when writing
 
 export class Piece implements TableModel, PieceData {
   public id: string;

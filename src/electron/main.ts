@@ -49,7 +49,9 @@ app.on("ready", () => {
   ipcMainHandle("addPiece", (req) => {
     return pieceController.addPiece(req);
   });
-
+  ipcMainHandle("updatePiece", (req) => {
+    return pieceController.updatePiece(req);
+  });
   //----Goal----
   ipcMainHandle("getAllPieceGoals", (req) => {
     return goalController.getAllPieceGoals(req.pieceId);

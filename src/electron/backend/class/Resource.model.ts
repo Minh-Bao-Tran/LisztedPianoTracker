@@ -8,8 +8,6 @@ const RESOURCETYPE = [
   "Others",
 ] as const;
 
-type ResourceType = (typeof RESOURCETYPE)[number];
-
 export class Resource implements ResourceData{
   public id: string;
   public resourceType: ResourceType;

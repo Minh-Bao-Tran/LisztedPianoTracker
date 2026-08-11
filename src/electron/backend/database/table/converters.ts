@@ -1,4 +1,4 @@
-import { STATUSES, Status } from "../../class/Piece.model.js";
+import { STATUSES } from "../../class/Piece.model.js";
 
 //----Primitive----
 export const stringConverter: Converter<string> = {
