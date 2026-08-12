@@ -16,9 +16,11 @@ electron.contextBridge.exposeInMainWorld("electron", {
   getOnePiece: (req) => electron.ipcRenderer.invoke("getOnePiece", req),
   addPiece: (req) => electron.ipcRenderer.invoke("addPiece", req),
   updatePiece: (req) => electron.ipcRenderer.invoke("updatePiece", req),
+
   //----Goal Routes----
   getAllPieceGoals: (req) =>
     electron.ipcRenderer.invoke("getAllPieceGoals", req),
+  addGoal: (req) => electron.ipcRenderer.invoke("addGoal", req),
 
   //----Resource Routes----
   getAllPieceResources: (req) =>

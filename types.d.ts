@@ -130,6 +130,7 @@ type EventMapping = {
   };
   //----Goal Routes----
   getAllPieceGoals: { req: { pieceId: string }; res: GoalData[] };
+  addGoal: { req: { pieceId: string; goal: Omit<GoalData, "id"> }; res: string };
 
   //----Resource Routes----
   getAllPieceResources: { req: { pieceId: string }; res: ResourceData[] };
@@ -183,6 +184,10 @@ interface Window {
 
     //----Goal Routes----
     getAllPieceGoals: (req: { pieceId: string }) => Promise<GoalData[]>;
+    addGoal: (req: {
+      pieceId: string;
+      goal: Omit<GoalData, "id">;
+    }) => Promise<string>;
 
     //----Resource Routes----
     getAllPieceResources: (req: { pieceId: string }) => Promise<ResourceData[]>;

@@ -56,6 +56,9 @@ app.on("ready", () => {
   ipcMainHandle("getAllPieceGoals", (req) => {
     return goalController.getAllPieceGoals(req.pieceId);
   });
+  ipcMainHandle("addGoal", (req)=>{
+    return goalController.addGoal(req)
+  });
 
   //----Resource----
   ipcMainHandle("getAllPieceResources", (req) => {

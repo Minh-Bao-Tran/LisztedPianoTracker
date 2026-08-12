@@ -37,12 +37,10 @@ export default class GoalController {
 
   public addGoal(
     //Add
-    _: any,
-    { pieceId, goal }: { pieceId: string; goal: Omit<Goal, "id"> },
-  ) {
+    { pieceId, goal }: { pieceId: string; goal: Omit<GoalData, "id"> },
+  ): string {
     //Get Piece
-    // @ts-ignore
-    const returnedPieceObj: IndexedObj<Piece> = db
+    const returnedPieceObj: IndexedObj<Piece> | null= db
       .getDb("piece")
       .findOnePrimaryKey(pieceId);
 
@@ -66,7 +64,7 @@ export default class GoalController {
       throw err;
     }
 
-    return true;
+    return newGoalId;
   }
 
   public updateGoal(
