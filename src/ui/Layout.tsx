@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Outlet } from "react-router";
+import { useEffect, useState } from "react";
+import { Outlet, useLocation } from "react-router";
 import MainNav from "./shared/MainNav";
 
 import AddResourcePopUp from "./pages/Pieces/util/AddResourcePopUp";
@@ -108,11 +108,14 @@ const popupMapping: Record<PopupState["type"], PopupMappingElement> = {
 };
 
 export default function Layout() {
+  const location = useLocation();
   const [popup, setPopup] = useState<PopupData | undefined>();
 
   function closeForm() {
     setPopup(undefined);
   }
+
+  useEffect(closeForm, [location.pathname]);
 
   const PopupElement = popup ? popupMapping[popup.type] : null;
 
@@ -122,8 +125,8 @@ export default function Layout() {
       <div className="layout">
         <Outlet context={{ setPopup: setPopup }} />
         {popup && (
-          <div className="popup-overlay">
-            <div className="popup">
+          <div className="popup-overlay" onClick={closeForm}>
+            <div className="popup" onClick={(e) => e.stopPropagation()}>
               {
                 <PopupElement
                   currentValues={popup.currentValues}

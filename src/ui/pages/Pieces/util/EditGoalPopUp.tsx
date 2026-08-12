@@ -24,7 +24,9 @@ export default function EditGoalPopUp({
       name: formData.get("name") as string,
       status: formData.get("status") as Status,
       goalType: formData.get("goalType") as GoalType,
-      ratings: 0,
+      ratings: Number.parseInt(
+        formData.get("ratings") as string,
+      ) as number,
       notes: formData.get("notes") as string,
     };
 
