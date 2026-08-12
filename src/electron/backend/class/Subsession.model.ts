@@ -61,6 +61,7 @@ export class Subsession implements SubsessionData {
       throw new Error("Missing Properties");
     }
     if (obj.date && isNaN(new Date(obj.date).getTime())) {
+      console.log(obj);
       throw new Error("date is not a number");
     }
 

@@ -204,6 +204,13 @@ textarea {
   resize: none;
 }
 
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--color-b2);
+}
+
 .class-tag {
   font-weight: bold;
   font-size: clamp(20px, 2.75vh, 25px);

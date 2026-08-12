@@ -103,10 +103,6 @@ export const dateConverter: Converter<Date> = {
     return new Date(value);
   },
   toDB(value: Date): string {
-    return value.toLocaleString("en-AU", {
-      day: "2-digit",
-      month: "2-digit",
-      year: "2-digit",
-    });
+    return value.toISOString();
   },
 };
