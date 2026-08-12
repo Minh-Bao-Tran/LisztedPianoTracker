@@ -3,10 +3,7 @@ import { Piece } from "../class/Piece.model.js";
 
 import { db } from "../database/database.js";
 export default class ResourceController {
-  public getResourceById(
-    _: any,
-    resourceId: string,
-  ): IndexedObj<Resource> | null {
+  public getResourceById(resourceId: string): IndexedObj<Resource> | null {
     try {
       return db.getDb("resource").findOnePrimaryKey(resourceId);
     } catch (err) {
@@ -37,10 +34,13 @@ export default class ResourceController {
     return piece.resources;
   }
 
-  public addResource(
-    _: any,
-    { pieceId, resource }: { pieceId: string; resource: Omit<Resource, "id"> },
-  ) {
+  public addResource({
+    pieceId,
+    resource,
+  }: {
+    pieceId: string;
+    resource: Omit<Resource, "id">;
+  }): string {
     //Get Piece
     // @ts-ignore
     const returnedPieceObj: IndexedObj<Piece> = db
@@ -67,23 +67,25 @@ export default class ResourceController {
       throw err;
     }
 
-    return true;
+    return newResourceId;
   }
 
-  public updateResource(
-    _: any,
-    criteria: Partial<Pick<Resource, keyof Resource>>,
-    updatingFields: Partial<Resource>,
-  ): boolean {
+  public updateResource({
+    updateCriteria,
+    updatingFields,
+  }: {
+    updateCriteria: Partial<Pick<ResourceData, keyof ResourceData>>;
+    updatingFields: Partial<ResourceData>;
+  }): true {
     try {
-      db.getDb("resource").updateOne(criteria, updatingFields);
+      db.getDb("resource").updateOne(updateCriteria, updatingFields);
     } catch (err) {
       throw err;
     }
     return true;
   }
 
-  public deleteResource(_: any, resourceId: Resource["id"]) {
+  public deleteResource(resourceId: string): true {
     try {
       const pieceTable = db.getDb("piece");
       db.getDb("resource").deleteOne({ id: resourceId }, [pieceTable]);

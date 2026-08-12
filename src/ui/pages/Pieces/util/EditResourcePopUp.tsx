@@ -4,19 +4,19 @@ import type { SubmitEvent } from "react";
 
 // import type { PopupData } from "../../../Layout";
 
-
-export default function AddResourcePopUp({
+export default function EditResourcePopUp({
   currentValues = {},
   handleFormPredicate,
-  submitButtonText = "+Add Resource",
+  handleDeletePredicate,
+  submitButtonText = "Update",
   closeForm,
 }: {
   currentValues?: Partial<ResourceData>;
   handleFormPredicate: (newResource: Omit<ResourceData, "id">) => void;
+  handleDeletePredicate: () => void;
   submitButtonText?: string;
   closeForm: () => void;
 }) {
-
   async function handleFormSubmit(
     event: SubmitEvent<HTMLFormElement>,
     handleFormPredicate: any,
@@ -99,6 +99,15 @@ export default function AddResourcePopUp({
           defaultValue={values.notes}
         ></textarea>
       </div>
+      <button
+        type="button"
+        className="btn-blue btn-blue-alt"
+        onClick={() => {
+          handleDeletePredicate();
+        }}
+      >
+        Delete
+      </button>
       <button
         type="button"
         className="btn-blue btn-blue-alt"

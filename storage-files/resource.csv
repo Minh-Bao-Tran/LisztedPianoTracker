@@ -1,5 +1,4 @@
-R0001,Sheet Music,https://example.com/kreutzer-sonata-9,Reference score for practice.
-R0002,Recording,https://example.com/kreutzer-recording,Reference performance for interpretation.
+R0002,Practice,https://example.com/kreutzer-recording,Reference performance for interpretation. added notes
 R0003,Sheet Music,https://example.com/clair-de-lune-score,Primary score.
 R0004,Recording,https://example.com/clair-de-lune-recording,Reference recording for phrasing.
 R0005,Sheet Music,https://example.com/invention-no-8-score,Practice score.
@@ -19,3 +18,4 @@ R0018,Guides,https://example.com/sonata-k331-guide,Guide to ornamentation.
 R0019,Sheet Music,https://example.com/prelude-op28-no4-score,Main score.
 R0020,Sheet Music,https://example.com/sight-reading-exercise-1,Reading exercise.
 R0021,Guides,https://example.com/sight-reading-guide,General sight reading guide.
+R0000,Recording,http://implsd,Just some notes

@@ -1,7 +1,14 @@
 import { useOutletContext } from "react-router";
+
+import type { PopupData } from "../../../Layout";
+
 export default function GoalsSection() {
-  const props: { goals: GoalData[] } = useOutletContext<{
+  const props: {
     goals: GoalData[];
+    setPopup: (value: React.SetStateAction<PopupData | undefined>) => void;
+  } = useOutletContext<{
+    goals: GoalData[];
+    setPopup: (value: React.SetStateAction<PopupData | undefined>) => void;
   }>();
 
   let goals: GoalData[] = [];
@@ -42,6 +49,7 @@ export default function GoalsSection() {
     <>
       <section>
         <h3>Current Goals</h3>
+        <button>+Add New Goal</button>
         {activeGoalElements.length && activeGoalElements}
       </section>
       <section>

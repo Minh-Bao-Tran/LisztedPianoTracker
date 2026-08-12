@@ -133,7 +133,21 @@ type EventMapping = {
 
   //----Resource Routes----
   getAllPieceResources: { req: { pieceId: string }; res: ResourceData[] };
-
+  addResource: {
+    req: { pieceId: string; resource: Omit<ResourceData, "id"> };
+    res: string; //return ResourceId
+  };
+  updateResource: {
+    req: {
+      updateCriteria: Partial<Pick<ResourceData, keyof ResourceData>>;
+      updatingFields: Partial<ResourceData>;
+    };
+    res: true;
+  };
+  deleteResource: {
+    req: { id: string };
+    res: true;
+  };
   //----Session Routes----
   getAllPieceSessions: { req: { pieceId: string }; res: SessionData[] };
   getAllPieceSubsessions: {
@@ -172,6 +186,16 @@ interface Window {
 
     //----Resource Routes----
     getAllPieceResources: (req: { pieceId: string }) => Promise<ResourceData[]>;
+    addResource: (req: {
+      pieceId: string;
+      resource: Omit<ResourceData, "id">;
+    }) => Promise<string>; //return ResourceId
+
+    updateResource: (req: {
+      updateCriteria: Partial<Pick<ResourceData, keyof ResourceData>>;
+      updatingFields: Partial<ResourceData>;
+    }) => Promise<true>;
+    deleteResource: (req: { id: string }) => Promise<true>;
 
     //----Session Routes----
     getAllPieceSessions: (req: { pieceId: string }) => Promise<SessionData[]>;

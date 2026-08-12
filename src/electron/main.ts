@@ -62,6 +62,16 @@ app.on("ready", () => {
     return resourceController.getAllPieceResources(req.pieceId);
   });
 
+  ipcMainHandle("addResource", (req) => {
+    return resourceController.addResource(req);
+  });
+  ipcMainHandle("updateResource", (req) => {
+    return resourceController.updateResource(req);
+  });
+  ipcMainHandle("deleteResource", (req) => {
+    return resourceController.deleteResource(req.id);
+  });
+
   //----Session----
   ipcMainHandle("getAllPieceSessions", (req) => {
     return sessionController.getAllPieceSessions(req.pieceId);

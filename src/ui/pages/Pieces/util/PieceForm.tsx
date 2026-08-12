@@ -153,7 +153,7 @@ export default function PieceForm({
         {/* No current goal. This is added later */}
       </div>
       <button type="reset" className="btn-blue btn-blue-alt">
-        Cancel
+        Reset
       </button>
 
       <button type="submit" className="btn-blue">

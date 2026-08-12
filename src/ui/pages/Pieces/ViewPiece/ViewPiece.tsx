@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
-import { useParams, NavLink, Outlet } from "react-router";
+import { useParams, NavLink, Outlet, useOutletContext } from "react-router";
+
+import type { PopupData } from "../../../Layout";
 
 import EditIcon from "../../../assets/icon/Edit_icon.svg";
 import SubNav from "../../../shared/SubNav";
@@ -8,6 +10,13 @@ import styles from "./ViewPiece.module.css";
 
 export default function ViewPiecePage() {
   const pieceId = useParams().id;
+  const { setPopup } = useOutletContext<{
+    setPopup: (value: React.SetStateAction<PopupData | undefined>) => void;
+  }>();
+
+  // function closeForm() {
+  //   setPopup(undefined);
+  // }
 
   //Fetching Function
   async function loadPieces() {
@@ -24,7 +33,6 @@ export default function ViewPiecePage() {
         setPiece(data);
       });
   }
-
   async function loadGoals() {
     window.electron
       .getAllPieceGoals({
@@ -39,7 +47,6 @@ export default function ViewPiecePage() {
         setGoals(data);
       });
   }
-
   async function loadResources() {
     window.electron
       .getAllPieceResources({
@@ -54,7 +61,6 @@ export default function ViewPiecePage() {
         setResources(data);
       });
   }
-
   async function loadSubsessions() {
     window.electron
       .getAllPieceSubsessions({
@@ -68,7 +74,6 @@ export default function ViewPiecePage() {
         setSubsessions(data);
       });
   }
-
   async function loadTerms() {
     window.electron
       .getAllPieceTerms({
@@ -82,7 +87,6 @@ export default function ViewPiecePage() {
         setTerms(data);
       });
   }
-
   async function loadAnalytics() {
     window.electron
       .getAnalytics({
@@ -98,7 +102,63 @@ export default function ViewPiecePage() {
       });
   }
 
+  //Submit Functions
+  async function handleAddResource(newResource: Omit<ResourceData, "id">) {
+    console.log(newResource);
+    window.electron
+      .addResource({
+        pieceId: pieceId as string,
+        resource: newResource,
+      })
+      .then((resourceId) => {
+        // console.log(data);
+        if (!resourceId) {
+          alert("No Piece found");
+          throw new Error("No piece found");
+        }
+        setPopup(undefined);
+        setReloadCount((reloadCount) => reloadCount + 1);
+      });
+  }
+  async function handleUpdateResource(
+    resourceId: string,
+    newResource: Omit<ResourceData, "id">,
+  ) {
+    console.log(resourceId);
+    window.electron
+      .updateResource({
+        updateCriteria: { id: resourceId },
+        updatingFields: newResource,
+      })
+      .then((resourceId) => {
+        // console.log(data);
+        if (!resourceId) {
+          alert("No Piece found");
+          throw new Error("No piece found");
+        }
+        setPopup(undefined);
+        setReloadCount((reloadCount) => reloadCount + 1);
+      });
+  }
+  async function handleDeleteResource(resourceId: string) {
+    console.log(resourceId);
+    window.electron
+      .deleteResource({
+        id: resourceId,
+      })
+      .then((resourceId) => {
+        // console.log(data);
+        if (!resourceId) {
+          alert("No Piece found");
+          throw new Error("No piece found");
+        }
+        setPopup(undefined);
+        setReloadCount((reloadCount) => reloadCount + 1);
+      });
+  }
+
   //---State Management---
+  const [reloadCount, setReloadCount] = useState<number>(0);
 
   const [piece, setPiece] = useState<ExtendedPieceData | undefined>(undefined);
   const [goals, setGoals] = useState<GoalData[] | undefined>([]);
@@ -120,7 +180,7 @@ export default function ViewPiecePage() {
     loadSubsessions();
     loadTerms();
     loadAnalytics();
-  }, [pieceId]);
+  }, [pieceId, reloadCount]);
 
   return (
     <>
@@ -129,7 +189,11 @@ export default function ViewPiecePage() {
           <NavLink to="/pieces" className="small">
             &lt; Back
           </NavLink>
-          <NavLink to={`/piece/${pieceId}/edit`} className="h3" style={{display: "flex", alignItems: "bottom", gap: "10px"}}>
+          <NavLink
+            to={`/piece/${pieceId}/edit`}
+            className="h3"
+            style={{ display: "flex", alignItems: "bottom", gap: "10px" }}
+          >
             <img src={EditIcon} alt="" />
             Edit
           </NavLink>
@@ -192,7 +256,20 @@ export default function ViewPiecePage() {
       <main className={styles.main}>
         <section>
           <Outlet
-            context={{ piece, analytics, goals, subsessions, resources, terms }}
+            context={{
+              piece,
+              analytics,
+              goals,
+              subsessions,
+              resources,
+              terms,
+              setPopup,
+
+              //Resource Section
+              handleAddResource,
+              handleDeleteResource,
+              handleUpdateResource,
+            }}
           />
         </section>
       </main>
