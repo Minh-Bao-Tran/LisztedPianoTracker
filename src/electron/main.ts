@@ -52,6 +52,7 @@ app.on("ready", () => {
   ipcMainHandle("updatePiece", (req) => {
     return pieceController.updatePiece(req);
   });
+
   //----Goal----
   ipcMainHandle("getAllPieceGoals", (req) => {
     return goalController.getAllPieceGoals(req.pieceId);
@@ -59,12 +60,17 @@ app.on("ready", () => {
   ipcMainHandle("addGoal", (req)=>{
     return goalController.addGoal(req)
   });
+  ipcMainHandle("updateGoal", (req) => {
+    return goalController.updateGoal(req);
+  });
+  ipcMainHandle("deleteGoal", (req) => {
+    return goalController.deleteGoal(req.id);
+  });
 
   //----Resource----
   ipcMainHandle("getAllPieceResources", (req) => {
     return resourceController.getAllPieceResources(req.pieceId);
   });
-
   ipcMainHandle("addResource", (req) => {
     return resourceController.addResource(req);
   });

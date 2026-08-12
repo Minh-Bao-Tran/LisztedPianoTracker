@@ -41,8 +41,8 @@ export default function ViewPiecePage() {
       .then((data) => {
         // console.log(data);
         if (!data) {
-          alert("No Piece found");
-          throw new Error("No piece found");
+          alert("Error in Loading Goals");
+          throw new Error("Error in Loading Goals");
         }
         setGoals(data);
       });
@@ -55,8 +55,8 @@ export default function ViewPiecePage() {
       .then((data) => {
         // console.log(data);
         if (!data) {
-          alert("No Resources found");
-          throw new Error("No Resources found");
+          alert("Error in Loading Resources");
+          throw new Error("Error in Loading Resources");
         }
         setResources(data);
       });
@@ -68,8 +68,8 @@ export default function ViewPiecePage() {
       })
       .then((data) => {
         if (!data) {
-          alert("No Sessions found");
-          throw new Error("No Sessions found");
+          alert("Error in Loading Subsessions");
+          throw new Error("Error in Loading Subsessions");
         }
         setSubsessions(data);
       });
@@ -81,8 +81,8 @@ export default function ViewPiecePage() {
       })
       .then((data) => {
         if (!data) {
-          alert("No Terms found");
-          throw new Error("No Terms found");
+          alert("Error in Loading Terms");
+          throw new Error("Error in Loading Terms");
         }
         setTerms(data);
       });
@@ -95,14 +95,15 @@ export default function ViewPiecePage() {
       .then((data) => {
         // console.log(data);
         if (!data) {
-          alert("No Analytics found");
-          throw new Error("No Analytics found");
+          alert("Error in Loading Analytics");
+          throw new Error("Error in Loading Analytics");
         }
         setAnalytics(data);
       });
   }
 
-  //Submit Functions
+  //----Submit Functions----
+  //Resource
   async function handleAddResource(newResource: Omit<ResourceData, "id">) {
     console.log(newResource);
     window.electron
@@ -113,8 +114,8 @@ export default function ViewPiecePage() {
       .then((resourceId) => {
         // console.log(data);
         if (!resourceId) {
-          alert("No Piece found");
-          throw new Error("No piece found");
+          alert("Error in Adding Resource");
+          throw new Error("Error in Adding Resource");
         }
         setPopup(undefined);
         setReloadCount((reloadCount) => reloadCount + 1);
@@ -133,8 +134,8 @@ export default function ViewPiecePage() {
       .then((resourceId) => {
         // console.log(data);
         if (!resourceId) {
-          alert("No Piece found");
-          throw new Error("No piece found");
+          alert("Error in Updating Resource");
+          throw new Error("Error in Updating Resource");
         }
         setPopup(undefined);
         setReloadCount((reloadCount) => reloadCount + 1);
@@ -146,11 +147,67 @@ export default function ViewPiecePage() {
       .deleteResource({
         id: resourceId,
       })
-      .then((resourceId) => {
+      .then((success) => {
         // console.log(data);
-        if (!resourceId) {
+        if (!success) {
+          alert("Error in Deleting Resource");
+          throw new Error("Error in Deleting Resource");
+        }
+        setPopup(undefined);
+        setReloadCount((reloadCount) => reloadCount + 1);
+      });
+  }
+
+  //Goal
+
+  async function handleAddGoal(newGoal: Omit<GoalData, "id">) {
+    console.log(newGoal);
+    window.electron
+      .addGoal({
+        pieceId: pieceId as string,
+        goal: newGoal,
+      })
+      .then((goalId) => {
+        // console.log(data);
+        if (!goalId) {
           alert("No Piece found");
           throw new Error("No piece found");
+        }
+        setPopup(undefined);
+        setReloadCount((reloadCount) => reloadCount + 1);
+      });
+  }
+  async function handleUpdateGoal(
+    goalId: string,
+    newGoal: Omit<GoalData, "id">,
+  ) {
+    console.log(goalId);
+    window.electron
+      .updateGoal({
+        updateCriteria: { id: goalId },
+        updatingFields: newGoal,
+      })
+      .then((goalId) => {
+        // console.log(data);
+        if (!goalId) {
+          alert("Error in Updating Goal");
+          throw new Error("Error in Updating Goal");
+        }
+        setPopup(undefined);
+        setReloadCount((reloadCount) => reloadCount + 1);
+      });
+  }
+  async function handleDeleteGoal(goalId: string) {
+    console.log(goalId);
+    window.electron
+      .deleteGoal({
+        id: goalId,
+      })
+      .then((success) => {
+        // console.log(data);
+        if (!success) {
+          alert("Error in Deleting Goal");
+          throw new Error("Error in Deleting Goald");
         }
         setPopup(undefined);
         setReloadCount((reloadCount) => reloadCount + 1);
@@ -269,6 +326,11 @@ export default function ViewPiecePage() {
               handleAddResource,
               handleDeleteResource,
               handleUpdateResource,
+
+              //Goal Section
+              handleAddGoal,
+              handleUpdateGoal,
+              handleDeleteGoal,
             }}
           />
         </section>

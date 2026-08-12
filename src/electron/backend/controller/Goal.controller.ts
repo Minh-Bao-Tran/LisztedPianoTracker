@@ -40,7 +40,7 @@ export default class GoalController {
     { pieceId, goal }: { pieceId: string; goal: Omit<GoalData, "id"> },
   ): string {
     //Get Piece
-    const returnedPieceObj: IndexedObj<Piece> | null= db
+    const returnedPieceObj: IndexedObj<Piece> | null = db
       .getDb("piece")
       .findOnePrimaryKey(pieceId);
 
@@ -67,20 +67,22 @@ export default class GoalController {
     return newGoalId;
   }
 
-  public updateGoal(
-    _: any,
-    criteria: Partial<Pick<Goal, keyof Goal>>,
-    updatingFields: Partial<Goal>,
-  ): boolean {
+  public updateGoal({
+    updateCriteria,
+    updatingFields,
+  }: {
+    updateCriteria: Partial<Pick<Goal, keyof Goal>>;
+    updatingFields: Partial<Goal>;
+  }): true {
     try {
-      db.getDb("goal").updateOne(criteria, updatingFields);
+      db.getDb("goal").updateOne(updateCriteria, updatingFields);
     } catch (err) {
       throw err;
     }
     return true;
   }
 
-  public deleteGoal(_: any, goalId: Goal["id"]) {
+  public deleteGoal(goalId: string): true {
     try {
       const subsessionTable = db.getDb("subsession");
       const pieceTable = db.getDb("piece");

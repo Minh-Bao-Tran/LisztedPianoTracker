@@ -4,6 +4,8 @@ import MainNav from "./shared/MainNav";
 
 import AddResourcePopUp from "./pages/Pieces/util/AddResourcePopUp";
 import EditResourcePopUp from "./pages/Pieces/util/EditResourcePopUp";
+import AddGoalPopUp from "./pages/Pieces/util/AddGoalPopUp";
+import EditGoalPopUp from "./pages/Pieces/util/EditGoalPopUp";
 
 type PopupState =
   | {
@@ -14,9 +16,21 @@ type PopupState =
     }
   | {
       type: "editResource";
-      input: Partial<ResourceData>;
+      input: Omit<ResourceData, "id">;
       output: Omit<ResourceData, "id">;
       delete?: null; //Do not need to pass in the Id as the resourceElement already passIn
+    }
+  | {
+      type: "addGoal";
+      input: Partial<GoalData>;
+      output: Omit<GoalData, "id">;
+      delete?: null;
+    }
+  | {
+      type: "editGoal";
+      input: Omit<GoalData, "id">;
+      output: Omit<GoalData, "id">;
+      delete?: null;
     };
 
 interface PopupProps {
@@ -30,9 +44,7 @@ export interface PopupData extends PopupProps {
   type: PopupState["type"];
 }
 
-type PopupMappingElement = (
-  props: Omit<PopupProps, "type">,
-) => React.ReactElement;
+type PopupMappingElement = (props: PopupProps) => React.ReactElement;
 
 //Helps to define popup event should receive which
 const popupMapping: Record<PopupState["type"], PopupMappingElement> = {
@@ -46,7 +58,6 @@ const popupMapping: Record<PopupState["type"], PopupMappingElement> = {
       closeForm={closeForm}
     />
   ),
-
   editResource: ({
     currentValues,
     handleFormPredicate,
@@ -58,6 +69,35 @@ const popupMapping: Record<PopupState["type"], PopupMappingElement> = {
       handleFormPredicate={(newResource: Omit<ResourceData, "id">) => {
         handleFormPredicate(newResource);
         console.log(newResource);
+      }}
+      closeForm={closeForm}
+      handleDeletePredicate={() => {
+        handleDeletePredicate();
+      }}
+    />
+  ),
+
+  addGoal: ({ currentValues, handleFormPredicate, closeForm }) => (
+    <AddGoalPopUp
+      currentValues={currentValues}
+      handleFormPredicate={(newGoal: Omit<GoalData, "id">) => {
+        handleFormPredicate(newGoal);
+      }}
+      closeForm={closeForm}
+    />
+  ),
+
+  editGoal: ({
+    currentValues,
+    handleFormPredicate,
+    closeForm,
+    handleDeletePredicate,
+  }) => (
+    <EditGoalPopUp
+      currentValues={currentValues}
+      handleFormPredicate={(newGoal: Omit<GoalData, "id">) => {
+        handleFormPredicate(newGoal);
+        console.log(newGoal);
       }}
       closeForm={closeForm}
       handleDeletePredicate={() => {

@@ -23,11 +23,7 @@ export default function ResourcesSection() {
   function openAddNewResource() {
     setPopup({
       type: "addResource",
-      currentValues: {
-        // resourceType: "Guides",
-        // resourceLink: "https://musescore.com",
-        // notes: "no notes",
-      },
+      currentValues: {},
       closeForm: () => {
         setPopup(undefined);
       },
@@ -41,7 +37,7 @@ export default function ResourcesSection() {
     currentValues,
     resourceId,
   }: {
-    currentValues: Partial<ResourceData>;
+    currentValues: Omit<ResourceData, "id">;
     resourceId: string;
   }) {
     setPopup({

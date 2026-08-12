@@ -20,3 +20,6 @@ G0019,Melodic Expression,Active,Expression,Bring out the melody above the accomp
 G0020,Chromatic Accuracy,Active,Technique,Play the chromatic scale evenly,85
 G0021,Scale Speed,Active,Tempo,Gradually increase chromatic scale speed,65
 G0022,Finger Independence,Active,Technique,Improve independence between fingers,70
+G0000,Gradual Crescendo,Completed,Tempo,fdfdfd,0
+G0023,Consistent Andante,Completed,Tempo,Just a Note,0
+G0024,Short Staccato,Active,Technique,Short&comma shorter&comma shortest,0

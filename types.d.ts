@@ -57,7 +57,7 @@ interface GoalData {
   name: string;
   status: Status;
   goalType?: GoalType;
-  notes: string;
+  notes?: string;
   ratings: number; //percentage (0 - 100)
 
   lastPractice?: Date;
@@ -130,8 +130,21 @@ type EventMapping = {
   };
   //----Goal Routes----
   getAllPieceGoals: { req: { pieceId: string }; res: GoalData[] };
-  addGoal: { req: { pieceId: string; goal: Omit<GoalData, "id"> }; res: string };
-
+  addGoal: {
+    req: { pieceId: string; goal: Omit<GoalData, "id"> };
+    res: string;
+  };
+  updateGoal: {
+    req: {
+      updateCriteria: Partial<Pick<GoalData, keyof GoalData>>;
+      updatingFields: Partial<GoalData>;
+    };
+    res: true;
+  };
+  deleteGoal: {
+    req: { id: string };
+    res: true;
+  };
   //----Resource Routes----
   getAllPieceResources: { req: { pieceId: string }; res: ResourceData[] };
   addResource: {
@@ -188,6 +201,11 @@ interface Window {
       pieceId: string;
       goal: Omit<GoalData, "id">;
     }) => Promise<string>;
+    updateGoal: (req: {
+      updateCriteria: Partial<Pick<GoalData, keyof GoalData>>;
+      updatingFields: Partial<GoalData>;
+    }) => Promise<true>;
+    deleteGoal: (req: { id: string }) => Promise<true>;
 
     //----Resource Routes----
     getAllPieceResources: (req: { pieceId: string }) => Promise<ResourceData[]>;

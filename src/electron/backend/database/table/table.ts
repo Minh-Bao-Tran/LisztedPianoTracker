@@ -91,13 +91,13 @@ export default class Table<
     let i = 0;
     let newId = generateId(prefix, i);
 
-    while (this.usedIdSet.has(newId) && i <= this.usedIdSet.size + 1) {
+    while (this.usedIdSet.has(newId) && i <= this.usedIdSet.size + 2) {
       // fail safe if error has occured
       newId = generateId(prefix, i);
 
       i++;
     }
-    if (i === this.usedIdSet.size + 1) {
+    if (i === this.usedIdSet.size + 2) {
       throw new Error(`Logic Error in generateNewId`);
     }
     return newId;

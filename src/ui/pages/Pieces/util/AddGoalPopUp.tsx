@@ -1,16 +1,13 @@
 import type { SubmitEvent } from "react";
 
-// import { useOutletContext } from "react-router";
-
-// import type { PopupData } from "../../../Layout";
-
-export default function AddResourcePopUp({
+export default function AddGoalPopUp({
   currentValues = {},
   handleFormPredicate,
+  submitButtonText = "+Add Goal",
   closeForm,
 }: {
-  currentValues?: Partial<ResourceData>;
-  handleFormPredicate: (newResource: Omit<ResourceData, "id">) => void;
+  currentValues?: Partial<GoalData>;
+  handleFormPredicate: (newResource: Omit<GoalData, "id">) => void;
   submitButtonText?: string;
   closeForm: () => void;
 }) {
@@ -22,25 +19,28 @@ export default function AddResourcePopUp({
 
     const formData = new FormData(event.currentTarget);
 
-    const resource: Omit<ResourceData, "id"> = {
-      resourceLink: formData.get("resourceLink") as string,
-      resourceType: formData.get("resourceType") as ResourceType,
+    const goal: Omit<GoalData, "id"> = {
+      name: formData.get("name") as string,
+      status: formData.get("status") as Status,
+      goalType: formData.get("goalType") as GoalType,
+      ratings: 0,
       notes: formData.get("notes") as string,
     };
 
-    return handleFormPredicate(resource);
+    return handleFormPredicate(goal);
   }
 
-  const defaultValues: Omit<ResourceData, "id"> = {
+  const defaultValues: Omit<GoalData, "id"> = {
     name: null,
     //@ts-ignore
-    resourceType: "",
+    status: "",
+    goalType: "Others",
     notes: "",
     //@ts-ignore
-    resourceLink: "",
+    ratings: 0,
   };
 
-  const values: Omit<ResourceData, "id"> = {
+  const values: Omit<GoalData, "id"> = {
     ...defaultValues,
     ...currentValues,
   };
@@ -52,35 +52,56 @@ export default function AddResourcePopUp({
       }}
     >
       <div>
-        <label htmlFor="resourceLink" className="p">
-          Resource Link
+        <label htmlFor="name" className="p">
+          Name
         </label>
         <input
           required
           type="text"
-          name="resourceLink"
+          name="name"
           className="input-deco"
-          defaultValue={values.resourceLink}
+          defaultValue={values.name}
         />
       </div>
+
       <div>
-        <label htmlFor="resourceType" className="p">
-          Resource Type
+        <label htmlFor="status" className="p">
+          Status
         </label>
         <select
-          name="resourceType"
-          id="resourceType"
+          name="status"
+          id="piece-status"
           className="input-deco"
+          defaultValue={values.status}
           required
-          defaultValue={values.resourceType}
         >
           <option value="" disabled hidden>
-            ---Select Resource's Type---
+            ---Select a status---
           </option>
-          <option value="Sheet Music">Sheet Music</option>
-          <option value="Recording">Recording</option>
-          <option value="Practice">Practice</option>
-          <option value="Guides">Guides</option>
+          <option value="Active">Active</option>
+          <option value="Planned">Planned</option>
+          <option value="Completed">Completed</option>
+        </select>
+      </div>
+
+      <div>
+        <label htmlFor="goalType" className="p">
+          Goal Type
+        </label>
+        <select
+          name="goalType"
+          id="piece-status"
+          className="input-deco"
+          defaultValue={values.status}
+          required
+        >
+          <option value="Others" disabled hidden>
+            ---Select a type---
+          </option>
+          <option value="Dynamic">Dynamic</option>
+          <option value="Expression">Expression</option>
+          <option value="Tempo">Tempo</option>
+          <option value="Technique">Technique</option>
           <option value="Others">Others</option>
         </select>
       </div>
@@ -107,7 +128,7 @@ export default function AddResourcePopUp({
         Reset
       </button>
       <button type="submit" className="btn-blue">
-        +Add Resource
+        {submitButtonText}
       </button>
     </form>
   );

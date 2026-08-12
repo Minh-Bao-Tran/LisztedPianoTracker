@@ -14,7 +14,7 @@ export class Goal implements GoalData {
   public name: string;
   public status: Status;
   public goalType?: GoalType;
-  public notes: string;
+  public notes?: string;
   public ratings: number; //percentage (0 - 100)
 
   public lastPractice?: Date;
