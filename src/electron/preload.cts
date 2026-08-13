@@ -32,6 +32,7 @@ electron.contextBridge.exposeInMainWorld("electron", {
   deleteResource: (req) => electron.ipcRenderer.invoke("deleteResource", req),
 
   //----Session Routes----
+  getAllSessions: (req) => electron.ipcRenderer.invoke("getAllSessions", req),
   getAllPieceSessions: (req) =>
     electron.ipcRenderer.invoke("getAllPieceSessions", req),
   getAllPieceSubsessions: (req) =>

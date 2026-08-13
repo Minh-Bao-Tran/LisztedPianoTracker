@@ -85,6 +85,11 @@ interface SessionData {
   subsessionIds: string[]; //Required
 }
 
+interface ExtendedSessionData extends SessionData {
+  date?: Date;
+  totalTime?: number
+}
+
 interface SubsessionData {
   id: string;
   title: string;
@@ -170,6 +175,13 @@ type EventMapping = {
     res: true;
   };
   //----Session Routes----
+  getAllSessions: {
+    req: {
+      timeFrameStartDate?: Date;
+      timeFrameEndDate?: Date;
+    };
+    res: ExtendedSessionData[];
+  };
   getAllPieceSessions: { req: { pieceId: string }; res: SessionData[] };
   getAllPieceSubsessions: {
     req: { pieceId: string };
@@ -228,6 +240,10 @@ interface Window {
     deleteResource: (req: { id: string }) => Promise<true>;
 
     //----Session Routes----
+    getAllSessions: (req: {
+      timeFrameStartDate?: Date;
+      timeFrameEndDate?: Date;
+    }) => Promise<ExtendedSessionData[]>;
     getAllPieceSessions: (req: { pieceId: string }) => Promise<SessionData[]>;
     getAllPieceSubsessions: (req: {
       pieceId: string;

@@ -4,7 +4,6 @@ import Layout from "./Layout";
 
 import HomePage from "./pages/Home/Home";
 
-
 //---Pieces---
 import AllPiecesPage from "./pages/Pieces/AllPieces/AllPieces";
 import CreatePiecePage from "./pages/Pieces/CreatePiece/CreatePiece";
@@ -23,7 +22,6 @@ import AnalyticsSection from "./pages/Pieces/ViewPiece/AnalyticsSection";
 import AllSessionsPage from "./pages/Session/AllSessions/AllSessions";
 import ViewSessionPage from "./pages/Session/ViewSession/ViewSession";
 
-
 import GlossaryPage from "./pages/Glossary/Glossary";
 
 export default function App() {
@@ -31,7 +29,7 @@ export default function App() {
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route index element={<HomePage />} />
-        
+
         {/* ----Pieces---- */}
         <Route path="pieces" element={<AllPiecesPage />}></Route>
         <Route path="piece/create" element={<CreatePiecePage />}></Route>
@@ -47,6 +45,7 @@ export default function App() {
 
         {/* ----Sessions---- */}
         <Route path="sessions" element={<AllSessionsPage />} />
+        <Route path="sessions/:id/view" element={<ViewSessionPage />} />
         <Route path="glossary" element={<GlossaryPage />} />
       </Route>
     </Routes>

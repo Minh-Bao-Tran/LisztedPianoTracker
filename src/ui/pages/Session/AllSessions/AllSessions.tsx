@@ -1,8 +1,54 @@
-import { NavLink } from "react-router";
+import { useState, useEffect } from "react";
+
+import { NavLink, useLocation } from "react-router";
+
+import type { Column } from "../../../shared/MainTable";
+
+import Table from "../../../shared/MainTable";
 
 import styles from "./AllSession.module.css";
 
 export default function AllSessionsPage() {
+  const location = useLocation();
+
+  const [allSessions, setAllSessions] = useState<ExtendedSessionData[]>([]);
+
+  //Load all pieces
+  useEffect(() => {
+    async function loadSessions() {
+      const data = await window.electron.getAllSessions({});
+      setAllSessions(data);
+    }
+    loadSessions();
+  }, [location.pathname]);
+
+  const sessionColumns: Column<ExtendedSessionData>[] = [
+    {
+      header: "Title",
+      render: (session) => <p>{session.title}</p>,
+    },
+    {
+      header: "Date",
+      render: (session) => (
+        <p>
+          {session.date.toLocaleDateString("en-AU", {
+            day: "2-digit",
+            month: "2-digit",
+            year: "2-digit",
+          })}
+        </p>
+      ),
+    },
+    {
+      header: "Status",
+      render: (session) => <p>{session.status}</p>,
+    },
+    {
+      header: "Duration",
+      render: (subsession) => <p>{`${subsession.totalTime} min.`}</p>,
+    },
+  ];
+
   return (
     <>
       <header className={styles.header}>
@@ -34,6 +80,11 @@ export default function AllSessionsPage() {
         </ul>
         <hr />
       </header>
+      <main>
+        <section style={{ paddingTop: "2rem" }}>
+          {allSessions && <Table data={allSessions} columns={sessionColumns} />}
+        </section>
+      </main>
     </>
   );
 }

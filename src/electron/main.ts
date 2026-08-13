@@ -57,8 +57,8 @@ app.on("ready", () => {
   ipcMainHandle("getAllPieceGoals", (req) => {
     return goalController.getAllPieceGoals(req.pieceId);
   });
-  ipcMainHandle("addGoal", (req)=>{
-    return goalController.addGoal(req)
+  ipcMainHandle("addGoal", (req) => {
+    return goalController.addGoal(req);
   });
   ipcMainHandle("updateGoal", (req) => {
     return goalController.updateGoal(req);
@@ -82,6 +82,9 @@ app.on("ready", () => {
   });
 
   //----Session----
+  ipcMainHandle("getAllSessions", (req) => {
+    return sessionController.getAllSessions(req);
+  });
   ipcMainHandle("getAllPieceSessions", (req) => {
     return sessionController.getAllPieceSessions(req.pieceId);
   });

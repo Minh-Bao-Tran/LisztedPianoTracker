@@ -5,18 +5,19 @@ import { Piece } from "../class/Piece.model.js";
 import { Goal } from "../class/Goal.model.js";
 
 import { db } from "../database/database.js";
+import { session } from "electron";
 
 export default class SessionController {
   constructor() {}
 
   //-----Session-----
-  public getAllSession(
-    _: any | null,
-    {
-      timeFrameStartDate = new Date(0),
-      timeFrameEndDate = new Date(),
-    }: { timeFrameStartDate?: Date; timeFrameEndDate?: Date },
-  ): Session[] {
+  public getAllSessions({
+    timeFrameStartDate = new Date(0),
+    timeFrameEndDate = new Date(),
+  }: {
+    timeFrameStartDate?: Date;
+    timeFrameEndDate?: Date;
+  }): ExtendedSessionData[] {
     db.getDb("session").join("subsessionIds");
 
     let allSessions: Session[];
@@ -28,29 +29,52 @@ export default class SessionController {
     } catch (err) {
       throw err;
     }
-    allSessions = allSessions.filter((obj) => {
-      //Loop through all subsession
 
-      for (const { date } of obj.subsessions ?? []) {
-        //-----Validation-----
-        if (!date) {
-          console.log(1);
-          return false;
-        }
-        if (!date.getTime()) {
-          console.log(2);
-          return false;
-        }
-        if (
-          date.getTime() < timeFrameStartDate.getTime() ||
-          date.getTime() > timeFrameEndDate.getTime()
-        ) {
-          return false;
+    allSessions = allSessions
+      .filter((obj) => {
+        //Loop through all subsession
+
+        for (const { date } of obj.subsessions ?? []) {
+          //-----Validation-----
+          // if (!date) {
+          //   console.log(1);
+          //   return false;
+          // }
+          // if (!date.getTime()) {
+          //   console.log(2);
+          //   return false;
+          // }
+          if (
+            date &&
+            (date.getTime() < timeFrameStartDate.getTime() ||
+              date.getTime() > timeFrameEndDate.getTime())
+          ) {
+            return false;
+          }
+
+          return true;
         }
 
-        return true;
-      }
-    });
+        return false;
+      })
+      .map((obj) => {
+        if (!obj.subsessions || !obj.subsessions.length) {
+          return { ...obj };
+        }
+
+        let latestDate = obj.subsessions[0].date;
+        let totalTime = 0;
+
+        for (const { date, time } of obj.subsessions) {
+          if (latestDate.getTime() < date.getTime()) {
+            latestDate = date;
+          }
+          totalTime += time;
+        }
+
+        return { ...obj, date: latestDate, totalTime };
+      });
+
     return allSessions;
   }
 
