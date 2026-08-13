@@ -10,7 +10,6 @@ export default function Ratings({ ratings }: { ratings: number }) {
     starList.push(filledStarIcon);
   }
 
-  console.log(starList.length, filledStarNumber);
   if (ratings % 20 >= 10) {
     starList.push(halfFilledStarIcon);
   }
@@ -19,7 +18,6 @@ export default function Ratings({ ratings }: { ratings: number }) {
     starList.push(emptyStarIcon);
   }
 
-  console.log(starList);
   const starElements = starList.map((starSrc, index) => (
     <img
       key={index}

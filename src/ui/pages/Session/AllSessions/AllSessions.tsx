@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-import { NavLink, useLocation } from "react-router";
+import { NavLink, useLocation, useNavigate } from "react-router";
 
 import type { Column } from "../../../shared/MainTable";
 
@@ -9,6 +9,7 @@ import Table from "../../../shared/MainTable";
 import styles from "./AllSession.module.css";
 
 export default function AllSessionsPage() {
+  const navigate = useNavigate();
   const location = useLocation();
 
   const [allSessions, setAllSessions] = useState<ExtendedSessionData[]>([]);
@@ -81,12 +82,11 @@ export default function AllSessionsPage() {
         <hr />
       </header>
       <main>
-        
         <section style={{ paddingTop: "2rem" }}>
           {allSessions && (
             <Table
               data={allSessions.map((session) => {
-                return { ...session, redirect: `/session/${session.id}/view` };
+                return { ...session, onClick: ()=> navigate(`/session/${session.id}/view`) };
               })}
               columns={sessionColumns}
             />

@@ -1,4 +1,4 @@
-import { useOutletContext } from "react-router";
+import { useNavigate, useOutletContext } from "react-router";
 
 import type { Column } from "../../../shared/MainTable";
 
@@ -7,6 +7,7 @@ import Table from "../../../shared/MainTable";
 import Ratings from "../../../shared/Ratings";
 
 export default function SessionsSection() {
+  const navigate = useNavigate();
   const props: { subsessions: ExtendedSubsessionData[] } = useOutletContext<{
     subsessions: ExtendedSubsessionData[];
   }>();
@@ -17,7 +18,7 @@ export default function SessionsSection() {
     subsessions = props.subsessions.map((subsession) => {
       return {
         ...subsession,
-        redirect: `/session/${subsession.sessionId}/view`,
+        onClick: () => navigate(`/session/${subsession.sessionId}/view`),
       };
     });
   }

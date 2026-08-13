@@ -30,9 +30,12 @@ export default function Table<T>({ data, columns }: TableProps<T>) {
             className={styles.tableRow}
             key={index}
             onDoubleClick={
-              item.hasOwnProperty("redirect")
+              item.hasOwnProperty("onClick")
                 ? //@ts-ignore
-                  () => navigate(item.redirect)
+                  () => {
+                    //@ts-ignore
+                    item.onClick();
+                  }
                 : null
             }
           >

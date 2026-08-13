@@ -1,5 +1,11 @@
 import { useEffect, useState } from "react";
-import { useParams, NavLink, Outlet, useOutletContext } from "react-router";
+import {
+  useParams,
+  NavLink,
+  Outlet,
+  useOutletContext,
+  useNavigate,
+} from "react-router";
 
 import type { Column } from "../../../shared/MainTable";
 
@@ -14,6 +20,7 @@ import SubNav from "../../../shared/SubNav";
 import styles from "./ViewSession.module.css";
 
 export default function ViewSessionPage() {
+  const navigate = useNavigate();
   const sessionId = useParams().id;
   const { setPopup } = useOutletContext<{
     setPopup: (value: React.SetStateAction<PopupData | undefined>) => void;
@@ -36,21 +43,21 @@ export default function ViewSessionPage() {
   }
 
   async function loadSubsession(subsessionId: string) {
-    window.electron
-      .getOneSubsession({
-        id: subsessionId as string,
-      })
-      .then((data) => {
-        console.log(data);
-        if (!data) {
-          alert("No session found");
-          throw new Error("No session found");
-        }
-        // setSession(data);
-      });
-  }
-  // async function loadOneSubsession(){
+    const result = await window.electron.getOneSubsession({
+      id: subsessionId as string,
+    });
+    if (!result) {
+      alert("No session found");
+      throw new Error("No session found");
+    }
 
+    return result;
+  }
+
+  async function openSubsessionPopUp(subsessionId: string) {
+    const subsessionData = await loadSubsession(subsessionId);
+    console.log(subsessionData);
+  }
   // }
   //---State Management---
   const [reloadCount, setReloadCount] = useState<number>(0);
@@ -104,6 +111,19 @@ export default function ViewSessionPage() {
       render: (subsession) => <Ratings ratings={subsession.ratings} />,
     },
   ];
+
+  let subsessions = [];
+  if (session) {
+    subsessions = session.subsessions.map((subsession) => {
+      return {
+        ...subsession,
+        //@ts-ignore
+        onClick: () => {
+          openSubsessionPopUp(subsession.id);
+        },
+      };
+    });
+  }
 
   return (
     <>
@@ -159,23 +179,23 @@ export default function ViewSessionPage() {
       <main className={styles.main}>
         <section>
           <h3>Current Subsession</h3>
-          <div className="card-box">
-            {currentSubsession && (
-              <>
-                <p>{currentSubsession.title}</p>
-                <p>
-                  Time: {currentSubsession.time}/{currentSubsession.maxTime}{" "}
-                  min.
-                </p>
-              </>
-            )}
-          </div>
+          {currentSubsession && (
+            <div
+              className="card-box"
+              onClick={() => {
+                openSubsessionPopUp(currentSubsession.id);
+              }}
+            >
+              <p>{currentSubsession.title}</p>
+              <p>
+                Time: {currentSubsession.time}/{currentSubsession.maxTime} min.
+              </p>
+            </div>
+          )}
         </section>
         <section>
           <h3>All Subsessions</h3>
-          {session && (
-            <Table data={session.subsessions} columns={subsessionColumns} />
-          )}
+          {session && <Table data={subsessions} columns={subsessionColumns} />}
         </section>
         <section>
           <h3>Notes</h3>
