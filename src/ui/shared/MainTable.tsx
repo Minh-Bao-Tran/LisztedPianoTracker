@@ -21,13 +21,15 @@ export default function Table<T>({ data, columns }: TableProps<T>) {
         ))}
       </div>
 
-      {data.map((item, index) => (
-        <div className={styles.tableRow} key={index}>
-          {columns.map((column) => (
-            <div key={column.header}>{column.render(item)}</div>
-          ))}
-        </div>
-      ))}
+      <div className={styles.tableRows}>
+        {data.map((item, index) => (
+          <div className={styles.tableRow} key={index}>
+            {columns.map((column) => (
+              <div key={column.header}>{column.render(item)}</div>
+            ))}
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

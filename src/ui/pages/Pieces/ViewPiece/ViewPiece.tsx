@@ -14,10 +14,6 @@ export default function ViewPiecePage() {
     setPopup: (value: React.SetStateAction<PopupData | undefined>) => void;
   }>();
 
-  // function closeForm() {
-  //   setPopup(undefined);
-  // }
-
   //Fetching Function
   async function loadPieces() {
     window.electron
@@ -159,7 +155,6 @@ export default function ViewPiecePage() {
   }
 
   //Goal
-
   async function handleAddGoal(newGoal: Omit<GoalData, "id">) {
     console.log(newGoal);
     window.electron
@@ -301,7 +296,7 @@ export default function ViewPiecePage() {
             { url: `/piece/${pieceId}/view/goals`, title: "Goals" },
             {
               url: `/piece/${pieceId}/view/sessions`,
-              title: "Practiced Sessions",
+              title: "Practiced Subsessions",
             },
             { url: `/piece/${pieceId}/view/resources`, title: "Resources" },
             { url: `/piece/${pieceId}/view/terms`, title: "Music Terms" },

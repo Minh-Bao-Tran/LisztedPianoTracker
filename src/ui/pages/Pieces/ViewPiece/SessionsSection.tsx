@@ -45,8 +45,8 @@ export default function SessionsSection() {
   ];
 
   return (
-    <section>
+    <>
       {subsessions && <Table data={subsessions} columns={subsessionColumns} />}
-    </section>
+    </>
   );
 }
