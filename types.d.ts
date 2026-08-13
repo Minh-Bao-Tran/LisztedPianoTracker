@@ -28,6 +28,8 @@ type ResourceType =
   | "Practice"
   | "Guides"
   | "Others";
+
+type SessionStatus = "Completed" | "InProgress" | "Active" | "Planned";
 // Data types(From model)
 
 type SessionStructure = "Blocked" | "Interleaved" | "Unstructured";
@@ -74,6 +76,11 @@ interface SessionData {
   id: string;
   title: string;
   structure: SessionStructure;
+  status: SessionStatus;
+
+  currentIndex: number; //Starts at 1 //Determine using currentIndex mod subsessionsIds length. the reminder is the index of the Id that should be started
+  numberOfLoops: number; // For interleaved. For Blocked, only 1 repeat is needed.
+
   notes?: string;
   subsessionIds: string[]; //Required
 }

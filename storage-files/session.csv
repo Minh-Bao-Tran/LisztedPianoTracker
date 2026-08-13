@@ -1,20 +1,20 @@
-S0001,Dynamic and Arpeggio Practice,Blocked,Focused on dynamic control and left hand technique.,B0001:B0002
-S0002,Scale and Melody Practice,Interleaved,Alternated between technical and melodic work.,B0003:B0004
-S0003,Piece Sections,Blocked,Focused on the opening and closing sections.,B0005:B0006
-S0004,Articulation Practice,Blocked,Focused on contrasting staccato and legato.,B0007:B0008
-S0005,Tempo Development,Interleaved,Worked on difficult transitions and tempo control.,B0009:B0010
-S0006,Hand Technique,Blocked,Focused on right and left hand technique.,B0011:B0012
-S0007,Harmonic Practice,Interleaved,Worked on chord progressions and the bass line.,B0013:B0014
-S0008,Melody and Rhythm,Interleaved,Focused on the main theme and repeated notes.,B0015:B0016
-S0009,Octave and Dynamics,Interleaved,Worked on octave technique and dynamic contrast.,B0017:B0018
-S0010,Sight Reading and Rhythm,Blocked,Focused on reading accuracy and rhythmic consistency.,B0019:B0020
-S0011,Memorisation Practice,Blocked,Worked on memorising sections of the piece.,B0021
-S0012,Expression and Pedalling,Interleaved,Focused on musical expression and pedal control.,B0022:B0023
-S0013,Fast Passage Practice,Blocked,Focused on gradually increasing speed.,B0024
-S0014,Slow Practice,Unstructured,Focused on tone quality and control.,B0025
-S0015,Scale and Chord Balance,Interleaved,Worked on scale patterns and accompaniment balance.,B0026:B0027
-S0016,Final Section Practice,Blocked,Focused on improving the ending.,B0028
-S0017,Full Performance,Unstructured,Played the entire piece as a performance run through.,B0029
-S0018,Weak Section Review,Blocked,Focused on correcting weaknesses found during the run through.,B0030
-S0019,Technical Review,Interleaved,Reviewed technical areas from previous practice.,
-S0020,General Practice,Unstructured,Reviewed overall progress and musical consistency.,
+S0001,Dynamic and Arpeggio Practice,Blocked,Completed,2,1,Focused on dynamic control and left hand technique.,B0001/:B0002
+S0002,Scale and Melody Practice,Interleaved,InProgress,3,2,Alternated between technical and melodic work.,B0003/:B0004
+S0003,Piece Sections,Blocked,Planned,1,1,Focused on the opening and closing sections.,B0005/:B0006
+S0004,Articulation Practice,Blocked,InProgress,1,1,Focused on contrasting staccato and legato.,B0007/:B0008
+S0005,Tempo Development,Interleaved,InProgress,2,3,Worked on difficult transitions and tempo control.,B0009/:B0010
+S0006,Hand Technique,Blocked,Planned,1,1,Focused on right and left hand technique.,B0011/:B0012
+S0007,Harmonic Practice,Interleaved,InProgress,4,3,Worked on chord progressions and the bass line.,B0013/:B0014
+S0008,Melody and Rhythm,Interleaved,Planned,1,1,Focused on the main theme and repeated notes.,B0015/:B0016
+S0009,Octave and Dynamics,Interleaved,InProgress,2,2,Worked on octave technique and dynamic contrast.,B0017/:B0018
+S0010,Sight Reading and Rhythm,Blocked,InProgress,1,1,Focused on reading accuracy and rhythmic consistency.,B0019/:B0020
+S0011,Memorisation Practice,Blocked,Planned,1,1,Worked on memorising sections of the piece.,B0021
+S0012,Expression and Pedalling,Interleaved,InProgress,3,2,Focused on musical expression and pedal control.,B0022/:B0023
+S0013,Fast Passage Practice,Blocked,InProgress,1,1,Focused on gradually increasing speed.,B0024
+S0014,Slow Practice,Unstructured,Planned,1,1,Focused on tone quality and control.,B0025
+S0015,Scale and Chord Balance,Interleaved,InProgress,5,3,Worked on scale patterns and accompaniment balance.,B0026/:B0027
+S0016,Final Section Practice,Blocked,InProgress,1,1,Focused on improving the ending.,B0028
+S0017,Full Performance,Unstructured,Planned,1,1,Played the entire piece as a performance run through.,B0029
+S0018,Weak Section Review,Blocked,InProgress,1,1,Focused on correcting weaknesses found during the run through.,B0030
+S0019,Technical Review,Interleaved,InProgress,2,3,Reviewed technical areas from previous practice.,B0029/:B0025
+S0020,General Practice,Unstructured,InProgress,1,1,Reviewed overall progress and musical consistency.,B0021

@@ -54,13 +54,13 @@ export const stringArrayConverter: Converter<string[] | []> = {
     if (stringedKey === "") {
       return [];
     }
-    return stringedKey.trim().split(":");
+    return stringedKey.trim().split("/:");
   },
   toDB(keys: string[] | [] = []): string {
     if (keys.length === 0) {
       return "";
     }
-    return keys.join(":");
+    return keys.join("/:");
   },
 };
 

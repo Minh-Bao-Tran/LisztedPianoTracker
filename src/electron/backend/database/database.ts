@@ -35,7 +35,16 @@ const subsessionTableForeignKeys: ForeignKey<Subsession, Goal>[] = [
 ];
 
 const subsessionTable = new Table<Subsession, [Goal]>(
-  ["id", "title", "ratings", "time", "maxTime", "date", "goalIds", "reflections"],
+  [
+    "id",
+    "title",
+    "ratings",
+    "time",
+    "maxTime",
+    "date",
+    "goalIds",
+    "reflections",
+  ],
   "/subsession.csv",
   Subsession,
   "id",
@@ -53,7 +62,16 @@ const sessionTableForeignKeys: ForeignKey<Session, Subsession>[] = [
 ];
 
 const sessionTable = new Table<Session, [Subsession]>(
-  ["id", "title", "structure", "notes", "subsessionIds"],
+  [
+    "id",
+    "title",
+    "structure",
+    "status",
+    "currentIndex",
+    "numberOfLoops",
+    "notes",
+    "subsessionIds",
+  ],
   "/session.csv",
   Session,
   "id",

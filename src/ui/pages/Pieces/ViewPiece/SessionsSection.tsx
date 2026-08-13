@@ -1,4 +1,11 @@
 import { useOutletContext } from "react-router";
+
+import type { Column } from "../../../shared/MainTable";
+
+import Table from "../../../shared/MainTable";
+
+import Ratings from "../../../shared/Ratings";
+
 export default function SessionsSection() {
   const props: { subsessions: ExtendedSubsessionData[] } = useOutletContext<{
     subsessions: ExtendedSubsessionData[];
@@ -10,17 +17,36 @@ export default function SessionsSection() {
     subsessions = props.subsessions;
   }
 
-  const subsessionElements = subsessions.map((subsession, index) => {
-    return (
-      <li key={index} className="card-box">
-        <p>{subsession.title}</p>
-        <p>{subsession.reflections ?? "N/A"}</p>
-        <p>{subsession.time} minutes</p>
-        <p>{subsession.ratings}%</p>
-        {/* Transform this into a star rating later */}
-      </li>
-    );
-  });
+  const subsessionColumns: Column<ExtendedSubsessionData>[] = [
+    {
+      header: "Title",
+      render: (subsession) => <p>{subsession.title}</p>,
+    },
+    {
+      header: "Date",
+      render: (subsession) => (
+        <p>
+          {subsession.date.toLocaleDateString("en-AU", {
+            day: "2-digit",
+            month: "2-digit",
+            year: "2-digit",
+          })}
+        </p>
+      ),
+    },
+    {
+      header: "Duration",
+      render: (subsession) => <p>{`${subsession.time} min. ${subsession.ratings}`}</p>,
+    },
+    {
+      header: "Rating",
+      render: (subsession) => <Ratings ratings={subsession.ratings} />,
+    },
+  ];
 
-  return <>{subsessions && subsessionElements}</>;
+  return (
+    <section>
+      {subsessions && <Table data={subsessions} columns={subsessionColumns} />}
+    </section>
+  );
 }

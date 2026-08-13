@@ -1,0 +1,27 @@
+.header {
+  margin-top: 3vh;
+  display: flex;
+  flex-direction: column;
+  gap: 3vh;
+}
+
+.header>div{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.header h2 {
+  margin-left: 10px;
+  font-weight: 700;
+}
+
+.header ul {
+  margin-left: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  gap: clamp(30px, 4.5vh, 40px);
+  list-style: none;
+  font-size: clamp(20px, 2.75vh, 25px);
+}
