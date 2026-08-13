@@ -88,6 +88,7 @@ interface SessionData {
 interface ExtendedSessionData extends SessionData {
   date?: Date;
   totalTime?: number;
+  subsessions?: SubsessionData[]
 }
 
 interface SubsessionData {

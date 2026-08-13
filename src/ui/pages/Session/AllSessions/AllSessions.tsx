@@ -81,6 +81,7 @@ export default function AllSessionsPage() {
         <hr />
       </header>
       <main>
+        
         <section style={{ paddingTop: "2rem" }}>
           {allSessions && (
             <Table

@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react";
 import { useParams, NavLink, Outlet, useOutletContext } from "react-router";
 
+import type { Column } from "../../../shared/MainTable";
+
+import Table from "../../../shared/MainTable";
+import Ratings from "../../../shared/Ratings";
+
 import type { PopupData } from "../../../Layout";
 
 import EditIcon from "../../../assets/icon/Edit_icon.svg";
@@ -21,7 +26,7 @@ export default function ViewSessionPage() {
         id: sessionId as string,
       })
       .then((data) => {
-        // console.log(data);
+        console.log(data);
         if (!data) {
           alert("No session found");
           throw new Error("No session found");
@@ -29,6 +34,9 @@ export default function ViewSessionPage() {
         setSession(data);
       });
   }
+  // async function loadOneSubsession(){
+
+  // }
   //---State Management---
   const [reloadCount, setReloadCount] = useState<number>(0);
 
@@ -36,11 +44,51 @@ export default function ViewSessionPage() {
     undefined,
   );
 
+  let currentSubsession: SubsessionData;
+  if (session) {
+    if (
+      session.currentIndex <
+      session.numberOfLoops * session.subsessions.length
+    ) {
+      currentSubsession =
+        session.subsessions[session.currentIndex % session.numberOfLoops - 1];
+    } else {
+      currentSubsession = undefined;
+    }
+  }
+
   //Fetch the session
   useEffect(() => {
     console.log(sessionId);
     loadSession();
   }, [sessionId, reloadCount]);
+
+  const subsessionColumns: Column<ExtendedSubsessionData>[] = [
+    {
+      header: "Title",
+      render: (subsession) => <p>{subsession.title}</p>,
+    },
+    {
+      header: "Date",
+      render: (subsession) => (
+        <p>
+          {subsession.date.toLocaleDateString("en-AU", {
+            day: "2-digit",
+            month: "2-digit",
+            year: "2-digit",
+          })}
+        </p>
+      ),
+    },
+    {
+      header: "Duration",
+      render: (subsession) => <p>{`${subsession.time} min.`}</p>,
+    },
+    {
+      header: "Rating",
+      render: (subsession) => <Ratings ratings={subsession.ratings} />,
+    },
+  ];
 
   return (
     <>
@@ -90,24 +138,30 @@ export default function ViewSessionPage() {
             </NavLink>
           </div>
         </div>
-        {/* <SubNav
-          subNavData={[
-            { url: `/session/${sessionId}/view`, title: "Overview", end: true },
-            { url: `/session/${sessionId}/view/goals`, title: "Goals" },
-            {
-              url: `/session/${sessionId}/view/sessions`,
-              title: "Practiced Sessions",
-            },
-            { url: `/session/${sessionId}/view/resources`, title: "Resources" },
-            { url: `/session/${sessionId}/view/terms`, title: "Music Terms" },
-            { url: `/session/${sessionId}/view/analytics`, title: "Analytics" },
-          ]}
-        /> */}
         <hr />
       </header>
 
       <main className={styles.main}>
-        <section></section>
+        <section>
+          <h3>Current Subsession</h3>
+          <div className="card-box">
+            {currentSubsession && (
+              <>
+                <p>{currentSubsession.title}</p>
+                <p>
+                  Time: {currentSubsession.time}/{currentSubsession.maxTime}{" "}
+                  min.
+                </p>
+              </>
+            )}
+          </div>
+        </section>
+        <section>
+          <h3>All Subsessions</h3>
+          {session && (
+            <Table data={session.subsessions} columns={subsessionColumns} />
+          )}
+        </section>
       </main>
     </>
   );
