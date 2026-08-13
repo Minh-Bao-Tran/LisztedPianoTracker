@@ -65,6 +65,10 @@ interface GoalData {
   lastPractice?: Date;
 }
 
+interface ExtendedGoalData {
+  pieceId?: string;
+}
+
 interface ResourceData {
   id: string;
   resourceType: ResourceType;
@@ -88,7 +92,7 @@ interface SessionData {
 interface ExtendedSessionData extends SessionData {
   date?: Date;
   totalTime?: number;
-  subsessions?: SubsessionData[]
+  subsessions?: SubsessionData[];
 }
 
 interface SubsessionData {
@@ -104,6 +108,7 @@ interface SubsessionData {
 
 interface ExtendedSubsessionData extends SubsessionData {
   sessionId?: string;
+  goals?: ExtendedGoalData[] | GoalData[];
 }
 
 interface TermData {
@@ -189,7 +194,7 @@ type EventMapping = {
     res: ExtendedSubsessionData[];
   };
   getOneSession: { req: { id: string }; res: ExtendedSessionData };
-
+  getOneSubsession: { req: { id: string }; res: ExtendedSubsessionData };
   //----Term Routes----
   getAllPieceTerms: { req: { pieceId: string }; res: TermData[] };
 
@@ -251,6 +256,7 @@ interface Window {
       pieceId: string;
     }) => Promise<ExtendedSubsessionData[]>;
     getOneSession: (req: { id: string }) => Promise<ExtendedSessionData>;
+    getOneSubsession: (req: { id: string }) => Promise<ExtendedSubsessionData>;
 
     //----Term Routes----
     getAllPieceTerms: (req: { pieceId: string }) => Promise<TermData[]>;

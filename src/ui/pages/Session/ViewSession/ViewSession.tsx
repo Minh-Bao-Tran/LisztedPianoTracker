@@ -34,6 +34,21 @@ export default function ViewSessionPage() {
         setSession(data);
       });
   }
+
+  async function loadSubsession(subsessionId: string) {
+    window.electron
+      .getOneSubsession({
+        id: subsessionId as string,
+      })
+      .then((data) => {
+        console.log(data);
+        if (!data) {
+          alert("No session found");
+          throw new Error("No session found");
+        }
+        // setSession(data);
+      });
+  }
   // async function loadOneSubsession(){
 
   // }
@@ -51,7 +66,7 @@ export default function ViewSessionPage() {
       session.numberOfLoops * session.subsessions.length
     ) {
       currentSubsession =
-        session.subsessions[session.currentIndex % session.numberOfLoops - 1];
+        session.subsessions[(session.currentIndex % session.numberOfLoops) - 1];
     } else {
       currentSubsession = undefined;
     }
@@ -162,14 +177,13 @@ export default function ViewSessionPage() {
             <Table data={session.subsessions} columns={subsessionColumns} />
           )}
         </section>
+        <section>
+          <h3>Notes</h3>
+          <div className="card-box">
+            <p>{session && session.notes}</p>
+          </div>
+        </section>
       </main>
-    </>
-  );
-
-  return (
-    <>
-      <h1>{sessionId}</h1>
-      <input type="date" name="" id="" />
     </>
   );
 }

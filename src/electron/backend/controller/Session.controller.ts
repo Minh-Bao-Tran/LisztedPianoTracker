@@ -224,6 +224,44 @@ export default class SessionController {
 
   //------Subsession------
 
+  public getOneSubsession(id: string): ExtendedSubsessionData {
+    db.getDb("subsession").join("goalIds");
+
+    let subsession: IndexedObj<Subsession> | null;
+    try {
+      subsession = db.getDb("subsession").findOnePrimaryKey(id);
+    } catch (err) {
+      throw err;
+    }
+    if (!subsession) {
+      throw new Error("No Session found");
+    }
+
+    if (!subsession.obj.goals || !subsession.obj.goals.length) {
+      return { ...subsession.obj, goals: undefined };
+    }
+
+    let goal = subsession.obj.goals[0];
+
+    const goalPiece = db
+      .getDb("piece")
+      .findManyPredicate((obj, index, returnArrayNumber) => {
+        if (obj.goalIds && obj.goalIds.includes(goal.id)) {
+          returnArrayNumber.push(index);
+          return true;
+        }
+        return false;
+      });
+
+    if (!goalPiece.length) {
+      throw new Error("Goal exists without piece");
+    }
+
+    const goalPieceId = goalPiece[0].id;
+
+    return { ...subsession.obj, goals: [{ ...goal, pieceId: goalPieceId }] };
+  }
+
   public updateSubsessionTime(
     _: any,
     {
