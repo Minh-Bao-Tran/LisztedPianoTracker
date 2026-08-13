@@ -6,6 +6,7 @@ import AddResourcePopUp from "./pages/Pieces/util/AddResourcePopUp";
 import EditResourcePopUp from "./pages/Pieces/util/EditResourcePopUp";
 import AddGoalPopUp from "./pages/Pieces/util/AddGoalPopUp";
 import EditGoalPopUp from "./pages/Pieces/util/EditGoalPopUp";
+import ViewSessionPopUp from "./pages/Session/util/ViewSubsessionPopUp";
 
 type PopupState =
   | {
@@ -31,11 +32,17 @@ type PopupState =
       input: Omit<GoalData, "id">;
       output: Omit<GoalData, "id">;
       delete?: null;
+    }
+  | {
+      type: "viewSubsession";
+      input: ExtendedSubsessionData;
+      delete?: null;
+      output: null;
     };
 
 interface PopupProps {
   currentValues?: PopupState["input"];
-  handleFormPredicate: (data: PopupState["output"]) => void;
+  handleFormPredicate?: (data: PopupState["output"]) => void;
   handleDeletePredicate?: (data?: PopupState["delete"]) => void;
   closeForm: () => void;
 }
@@ -104,6 +111,10 @@ const popupMapping: Record<PopupState["type"], PopupMappingElement> = {
         handleDeletePredicate();
       }}
     />
+  ),
+  viewSubsession: ({ currentValues, closeForm }) => (
+    //@ts-ignore
+    <ViewSessionPopUp currentValues={currentValues} closeForm={closeForm} />
   ),
 };
 

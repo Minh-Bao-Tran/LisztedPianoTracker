@@ -1,11 +1,5 @@
 import { useEffect, useState } from "react";
-import {
-  useParams,
-  NavLink,
-  Outlet,
-  useOutletContext,
-  useNavigate,
-} from "react-router";
+import { useParams, NavLink, useOutletContext } from "react-router";
 
 import type { Column } from "../../../shared/MainTable";
 
@@ -15,12 +9,10 @@ import Ratings from "../../../shared/Ratings";
 import type { PopupData } from "../../../Layout";
 
 import EditIcon from "../../../assets/icon/Edit_icon.svg";
-import SubNav from "../../../shared/SubNav";
 
 import styles from "./ViewSession.module.css";
 
 export default function ViewSessionPage() {
-  const navigate = useNavigate();
   const sessionId = useParams().id;
   const { setPopup } = useOutletContext<{
     setPopup: (value: React.SetStateAction<PopupData | undefined>) => void;
@@ -56,12 +48,19 @@ export default function ViewSessionPage() {
 
   async function openSubsessionPopUp(subsessionId: string) {
     const subsessionData = await loadSubsession(subsessionId);
-    console.log(subsessionData);
+    if (!subsessionData) {
+      return alert("Can not fetch subsession");
+    }
+    setPopup({
+      type: "viewSubsession",
+      currentValues: subsessionData,
+      closeForm: () => {
+        setPopup(undefined);
+      },
+    });
   }
   // }
   //---State Management---
-  const [reloadCount, setReloadCount] = useState<number>(0);
-
   const [session, setSession] = useState<ExtendedSessionData | undefined>(
     undefined,
   );
@@ -83,7 +82,7 @@ export default function ViewSessionPage() {
   useEffect(() => {
     console.log(sessionId);
     loadSession();
-  }, [sessionId, reloadCount]);
+  }, [sessionId]);
 
   const subsessionColumns: Column<ExtendedSubsessionData>[] = [
     {

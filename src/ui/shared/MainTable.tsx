@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router";
 import styles from "./MainTable.module.css";
 
 export interface Column<T> {
@@ -12,8 +11,6 @@ export interface TableProps<T> {
 }
 
 export default function Table<T>({ data, columns }: TableProps<T>) {
-  const navigate = useNavigate();
-
   return (
     <div className={styles.table}>
       <div className={styles.tableHeader}>

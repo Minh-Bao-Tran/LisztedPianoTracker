@@ -65,7 +65,7 @@ interface GoalData {
   lastPractice?: Date;
 }
 
-interface ExtendedGoalData {
+interface ExtendedGoalData extends GoalData{
   pieceId?: string;
 }
 
