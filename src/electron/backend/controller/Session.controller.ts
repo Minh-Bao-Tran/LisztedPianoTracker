@@ -78,12 +78,31 @@ export default class SessionController {
     return allSessions;
   }
 
-  public getOneSession(_: any, id: string): IndexedObj<Session> | null {
+  public getOneSession(id: string): ExtendedSessionData {
+    db.getDb("session").join("subsessionIds");
+
+    let session: IndexedObj<Session> | null;
     try {
-      return db.getDb("session").findOnePrimaryKey(id);
+      session = db.getDb("session").findOnePrimaryKey(id);
     } catch (err) {
       throw err;
     }
+    if (!session) {
+      throw new Error("No Session found");
+    }
+
+    if (!session.obj.subsessions || !session.obj.subsessions.length) {
+      return { ...session.obj };
+    }
+
+    let latestDate = session.obj.subsessions[0].date;
+    for (const { date } of session.obj.subsessions ?? []) {
+      if (latestDate.getTime() < date.getTime()) {
+        latestDate = date;
+      }
+    }
+
+    return { ...session.obj, date: latestDate };
   }
 
   public getAllPieceSessions(pieceId: string): SessionData[] {

@@ -67,7 +67,7 @@ export default function ResourcesSection() {
       <li
         key={index}
         className="card-box"
-        onClick={() => {
+        onDoubleClick={() => {
           openUpdateResource({
             currentValues: { ...resource },
             resourceId: resource.id,

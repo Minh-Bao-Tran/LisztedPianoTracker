@@ -37,6 +37,8 @@ electron.contextBridge.exposeInMainWorld("electron", {
     electron.ipcRenderer.invoke("getAllPieceSessions", req),
   getAllPieceSubsessions: (req) =>
     electron.ipcRenderer.invoke("getAllPieceSubsessions", req),
+  getOneSession: (req) =>
+    electron.ipcRenderer.invoke("getOneSession", req),
 
   //----Term Routes----
   getAllPieceTerms: (req) =>

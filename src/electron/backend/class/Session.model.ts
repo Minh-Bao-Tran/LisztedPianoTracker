@@ -58,6 +58,10 @@ export class Session implements SessionData {
     this.subsessionIds = subsessionIds;
   }
 
+  // public findCurrentSubsession(){
+  //   return this.currentIndex % this.subsessionIds.length 
+  // }
+
   public static validateAndCreate(obj: Omit<Session, "id">): Session {
     if (!obj.title || !obj.structure || !obj.subsessionIds) {
       console.log(obj);
@@ -79,7 +83,6 @@ export class Session implements SessionData {
   }
 
   //Converters
-
   public static sessionStatusConverter: Converter<SessionStatus> = {
     fromDB(value: string): SessionStatus {
       if ((SESSIONSTATUSES as readonly string[]).includes(value)) {

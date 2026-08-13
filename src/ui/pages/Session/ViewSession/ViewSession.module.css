@@ -1,0 +1,54 @@
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 3vh;
+}
+.topButtonDiv{
+  display: flex;
+  justify-content: space-between;
+}
+
+.main {
+  padding-top: 2rem;
+  flex: 1;
+  max-width: 100%;
+  /* max-height: 90%; */
+  min-height: 0;
+  overflow-y: auto;
+}
+
+.main::-webkit-scrollbar {
+  display: none; /* Chrome, Edge, Electron, Safari */
+}
+
+
+
+.sessionCard {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.sessionTitle > div {
+  display: flex;
+  flex-direction: row;
+  gap: 1vw;
+  white-space: nowrap;
+}
+
+.sessionTitle > div > h2 {
+  max-width: 50vw;
+  overflow: hidden;
+}
+
+.sessionTitle > h3 {
+  margin-left: 10px;
+}
+
+.additionalInfo {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 3vw;
+}

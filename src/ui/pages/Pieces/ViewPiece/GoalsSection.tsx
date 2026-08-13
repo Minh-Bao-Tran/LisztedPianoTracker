@@ -74,7 +74,7 @@ export default function GoalsSection() {
           <div
             key={index}
             className="card-box"
-            onClick={() => {
+            onDoubleClick={() => {
               openUpdateResource({
                 currentValues: { ...goal },
                 goalId: goal.id,
