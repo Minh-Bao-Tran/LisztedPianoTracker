@@ -82,7 +82,14 @@ export default function AllSessionsPage() {
       </header>
       <main>
         <section style={{ paddingTop: "2rem" }}>
-          {allSessions && <Table data={allSessions} columns={sessionColumns} />}
+          {allSessions && (
+            <Table
+              data={allSessions.map((session) => {
+                return { ...session, redirect: `/session/${session.id}/view` };
+              })}
+              columns={sessionColumns}
+            />
+          )}
         </section>
       </main>
     </>

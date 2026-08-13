@@ -11,10 +11,15 @@ export default function SessionsSection() {
     subsessions: ExtendedSubsessionData[];
   }>();
 
-  let subsessions: ExtendedSubsessionData[] = [];
+  let subsessions = [];
   if (props.subsessions) {
     console.log(props.subsessions);
-    subsessions = props.subsessions;
+    subsessions = props.subsessions.map((subsession) => {
+      return {
+        ...subsession,
+        redirect: `/session/${subsession.sessionId}/view`,
+      };
+    });
   }
 
   const subsessionColumns: Column<ExtendedSubsessionData>[] = [

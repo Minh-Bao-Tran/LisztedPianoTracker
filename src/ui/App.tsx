@@ -45,7 +45,7 @@ export default function App() {
 
         {/* ----Sessions---- */}
         <Route path="sessions" element={<AllSessionsPage />} />
-        <Route path="sessions/:id/view" element={<ViewSessionPage />} />
+        <Route path="session/:id/view" element={<ViewSessionPage />} />
         <Route path="glossary" element={<GlossaryPage />} />
       </Route>
     </Routes>
