@@ -55,7 +55,7 @@ export default function AllSessionsPage() {
       <header className={styles.header}>
         <div>
           <h2>All Sessions</h2>
-          <NavLink to="/" className="btn-blue">
+          <NavLink to="/session/create" className="btn-blue">
             +Create New Session
           </NavLink>
         </div>

@@ -52,6 +52,7 @@ interface ExtendedPieceData extends PieceData {
   lastPracticeDate?: Date | string;
   lastPracticeGoalName?: string;
   lastGoalProgress?: number; //out of 100
+  goals?: GoalData[];
 }
 
 interface GoalData {
@@ -65,7 +66,7 @@ interface GoalData {
   lastPractice?: Date;
 }
 
-interface ExtendedGoalData extends GoalData{
+interface ExtendedGoalData extends GoalData {
   pieceId?: string;
 }
 
@@ -74,6 +75,21 @@ interface ResourceData {
   resourceType: ResourceType;
   notes?: string;
   resourceLink: string;
+}
+
+//For createNewSession
+interface CreateSubsessionData {
+  title: string;
+  timePerLoop: number;
+  goalIds: string[];
+}
+
+interface CreateSessionData {
+  title: string;
+  structure: SessionStructure;
+  notes: string;
+  numberOfLoops: number;
+  subsessions: CreateSubsessionData[];
 }
 
 interface SessionData {
@@ -195,6 +211,7 @@ type EventMapping = {
   };
   getOneSession: { req: { id: string }; res: ExtendedSessionData };
   getOneSubsession: { req: { id: string }; res: ExtendedSubsessionData };
+  addNewSession: { req: { sessionData: CreateSessionData }; res: string };
   //----Term Routes----
   getAllPieceTerms: { req: { pieceId: string }; res: TermData[] };
 
@@ -257,7 +274,7 @@ interface Window {
     }) => Promise<ExtendedSubsessionData[]>;
     getOneSession: (req: { id: string }) => Promise<ExtendedSessionData>;
     getOneSubsession: (req: { id: string }) => Promise<ExtendedSubsessionData>;
-
+    addNewSession: (req: { sessionData: CreateSessionData }) => Promise<string>;
     //----Term Routes----
     getAllPieceTerms: (req: { pieceId: string }) => Promise<TermData[]>;
 

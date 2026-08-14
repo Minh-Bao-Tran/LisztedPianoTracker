@@ -97,7 +97,9 @@ app.on("ready", () => {
   ipcMainHandle("getOneSubsession", (req) => {
     return sessionController.getOneSubsession(req.id);
   });
-  ;
+  ipcMainHandle("addNewSession", (req) => {
+    return sessionController.addNewSession(req.sessionData);
+  });
 
   //----Term----
   ipcMainHandle("getAllPieceTerms", (req) => {

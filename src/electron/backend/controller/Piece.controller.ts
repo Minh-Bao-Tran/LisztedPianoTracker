@@ -35,8 +35,8 @@ export default class PieceController {
         return { ...piece, ...extendedData };
       });
 
-    pieceDejoin();
-    goalDejoin();
+    // pieceDejoin();
+    // goalDejoin();
 
     return result;
   }

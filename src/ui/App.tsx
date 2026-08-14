@@ -21,6 +21,7 @@ import AnalyticsSection from "./pages/Pieces/ViewPiece/AnalyticsSection";
 //Sessions
 import AllSessionsPage from "./pages/Session/AllSessions/AllSessions";
 import ViewSessionPage from "./pages/Session/ViewSession/ViewSession";
+import CreateSessionPage from "./pages/Session/CreateSession/CreateSession";
 
 import GlossaryPage from "./pages/Glossary/Glossary";
 
@@ -45,6 +46,7 @@ export default function App() {
 
         {/* ----Sessions---- */}
         <Route path="sessions" element={<AllSessionsPage />} />
+        <Route path="session/create" element={<CreateSessionPage />} />
         <Route path="session/:id/view" element={<ViewSessionPage />} />
         <Route path="glossary" element={<GlossaryPage />} />
       </Route>

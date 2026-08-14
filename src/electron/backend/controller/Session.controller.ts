@@ -166,17 +166,35 @@ export default class SessionController {
     return allSessions;
   }
 
-  public addNewSession(
-    _: any,
-    {
-      session,
-      subsessions,
-    }: { session: Omit<Session, "id">; subsessions: Omit<Subsession, "id">[] },
-  ) {
-    return;
+  public addNewSession(sessionData: CreateSessionData) {
+    let returnedSubsessionIds: string[] = [];
+
+    for (const subsession of sessionData.subsessions) {
+      const newSubsession: Omit<Subsession, "id"> = {
+        ...subsession,
+        maxTime: sessionData.numberOfLoops * subsession.timePerLoop,
+        ratings: 0,
+        time: 0,
+        date: new Date(),
+      };
+      const id = db.getDb("subsession").insertOne(newSubsession);
+      returnedSubsessionIds.push(id);
+    }
+
+    console.log(returnedSubsessionIds);
+
+    //@ts-ignore
+    let sessionId = db.getDb("session").insertOne({
+      ...sessionData,
+      status: "Planned",
+      currentIndex: 0,
+      subsessionIds: returnedSubsessionIds,
+    });
+
+    return sessionId;
   }
 
-  public practiceOldSession(_: any, sessionId: string) {
+  public practiceOldSession(sessionId: string) {
     //Create a new session with identical fields, also clone subsessions
     let indexedPastSession: IndexedObj<Session>;
     try {
