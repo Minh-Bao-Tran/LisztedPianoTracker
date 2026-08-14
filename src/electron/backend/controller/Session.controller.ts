@@ -63,16 +63,16 @@ export default class SessionController {
         }
 
         let latestDate = obj.subsessions[0].date;
-        let totalTime = 0;
+        let totalTimeAllSubsessions = 0;
 
-        for (const { date, time } of obj.subsessions) {
+        for (const { date, totalTime } of obj.subsessions) {
           if (latestDate.getTime() < date.getTime()) {
             latestDate = date;
           }
-          totalTime += time;
+          totalTimeAllSubsessions += totalTime ?? 0;
         }
 
-        return { ...obj, date: latestDate, totalTime };
+        return { ...obj, date: latestDate, totalTime: totalTimeAllSubsessions };
       });
 
     return allSessions;
@@ -174,7 +174,7 @@ export default class SessionController {
         ...subsession,
         maxTime: sessionData.numberOfLoops * subsession.timePerLoop,
         ratings: 0,
-        time: 0,
+        time: [0],
         date: new Date(),
       };
       const id = db.getDb("subsession").insertOne(newSubsession);
@@ -217,7 +217,7 @@ export default class SessionController {
         const newSubsession = {
           ...subsession,
           id: null,
-          time: 0,
+          time: [0],
           date: new Date(new Date().toDateString()), //Deleting hours, minutes data
         };
         const newId = db.getDb("subsession").insertOne(newSubsession);

@@ -80,12 +80,13 @@ export default class AnalyticsController {
     timeFrameEndDate?: Date;
   }) {
     const allSubsessions = this.getAllSubsessions(id);
-    let totalTime: number = 0; //In minutes
+    let totalPieceTime: number = 0; //In minutes
 
     const newSubsessions = [...allSubsessions];
 
+    // console.log(newSubsessions);
     for (let i = allSubsessions.length - 1; i >= 0; i--) {
-      const { date, time } = allSubsessions[i];
+      const { date, totalTime } = allSubsessions[i];
 
       //-----Validation-----
       if (!date.getTime()) {
@@ -105,12 +106,12 @@ export default class AnalyticsController {
       }
 
       // -----Increments-----
-      totalTime += time;
+      totalPieceTime += totalTime ?? 0;
     }
 
     // console.log(newSubsessions);
 
-    return { totalTime, allSubsessions: newSubsessions }; //in minutes
+    return { totalTime: totalPieceTime, allSubsessions: newSubsessions }; //in minutes
   }
 
   public getAnalytics({

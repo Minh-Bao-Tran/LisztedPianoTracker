@@ -22,6 +22,7 @@ import AnalyticsSection from "./pages/Pieces/ViewPiece/AnalyticsSection";
 import AllSessionsPage from "./pages/Session/AllSessions/AllSessions";
 import ViewSessionPage from "./pages/Session/ViewSession/ViewSession";
 import CreateSessionPage from "./pages/Session/CreateSession/CreateSession";
+import PracticeSessionPage from "./pages/Session/Practice/PracticeSession";
 
 import GlossaryPage from "./pages/Glossary/Glossary";
 
@@ -50,6 +51,8 @@ export default function App() {
         <Route path="session/:id/view" element={<ViewSessionPage />} />
         <Route path="glossary" element={<GlossaryPage />} />
       </Route>
+
+      <Route path="session/:id/practice" element={<PracticeSessionPage />} />
     </Routes>
   );
 }

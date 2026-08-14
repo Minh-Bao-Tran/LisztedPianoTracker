@@ -167,9 +167,14 @@ export default function ViewSessionPage() {
               <small>Last Practiced</small>
             </div>
 
-            <NavLink to="/sessions" className="btn-blue">
-              Practice
-            </NavLink>
+            {session && session.status !== "Completed" && (
+              <NavLink
+                to={`/session/${sessionId}/practice`}
+                className="btn-blue"
+              >
+                Practice
+              </NavLink>
+            )}
           </div>
         </div>
         <hr />

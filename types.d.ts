@@ -115,7 +115,8 @@ interface SubsessionData {
   id: string;
   title: string;
   ratings: number; //percentage (0 - 100)
-  time: number; //in minutes
+  time: number[]; //in minutes
+  totalTime?: number;
   maxTime: number; //in minutes
   date?: Date;
   reflections?: string;

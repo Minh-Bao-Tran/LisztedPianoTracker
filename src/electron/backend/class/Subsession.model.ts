@@ -1,5 +1,6 @@
 import {
   dateConverter,
+  numberArrayConverter,
   numberConverter,
   stringArrayConverter,
   stringConverter,
@@ -11,12 +12,14 @@ import { Session } from "./Session.model.js";
 export class Subsession implements SubsessionData {
   public id: string;
   public title: string;
-  public time: number; //in minutes
+  public time: number[]; //in minutes
   public maxTime: number; //in minutes
   public date: Date;
   public ratings: number; //out of 100%
   public reflections?: string;
   public goalIds?: string[]; //Foreign Key
+
+  public totalTime?: number = 0;
 
   //Initialise to prepare for joining
   public goals?: Goal[] = [];
@@ -29,7 +32,7 @@ export class Subsession implements SubsessionData {
     id = "",
     title,
     ratings = 0,
-    time = 0,
+    time = [0],
     maxTime = 0,
     date = new Date(),
     reflections = "",
@@ -37,7 +40,7 @@ export class Subsession implements SubsessionData {
   }: {
     id?: string;
     title: string;
-    time?: number;
+    time?: number[];
     ratings?: number;
     maxTime?: number;
     date?: Date;
@@ -53,6 +56,11 @@ export class Subsession implements SubsessionData {
     this.date = date;
     this.reflections = reflections;
     this.goalIds = goalIds;
+
+    this.totalTime = 0;
+    for (const time of this.time) {
+      this.totalTime += time;
+    }
   }
 
   public static validateAndCreate(obj: Omit<Subsession, "id">): Subsession {
@@ -70,7 +78,13 @@ export class Subsession implements SubsessionData {
       throw new Error("Ratings out of range");
     }
 
-    if (obj.time > obj.maxTime) {
+    obj.totalTime = 0;
+
+    for (const time of obj.time) {
+      obj.totalTime += time;
+    }
+
+    if (obj.totalTime > obj.maxTime) {
       throw new Error("Logic Error: maxTime is less than time");
     }
 
@@ -98,7 +112,7 @@ export class Subsession implements SubsessionData {
     converters: {
       id: stringConverter,
       title: stringConverter,
-      time: numberConverter,
+      time: numberArrayConverter,
       ratings: numberConverter,
       maxTime: numberConverter,
       date: dateConverter,
