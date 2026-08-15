@@ -6,7 +6,7 @@ G0005,Improve Articulation,Completed,Technique,Make articulation more consistent
 G0006,Scale Accuracy,Active,Technique,Play scales evenly without hesitation,80
 G0007,Passagework Speed,Active,Tempo,Increase speed while maintaining accuracy,23
 G0008,Learn Opening Theme,Planned,Technique,Learn the notes and rhythm of the opening,20
-G0009,Even Accompaniment,Active,Technique,Maintain consistent accompaniment patterns,75
+G0009,Even Accompaniment,Active,Dynamic,Maintain consistent accompaniment patterns,50
 G0010,Harmonic Flow,Active,Expression,Connect the harmony smoothly between chords,80
 G0011,Soft Dynamics,Active,Dynamic,Maintain a controlled piano dynamic,70
 G0012,Expressive Phrasing,Active,Expression,Create clearer rises and falls in phrases,65
@@ -19,7 +19,7 @@ G0018,Ornament Accuracy,Active,Technique,Play ornaments cleanly and consistently
 G0019,Melodic Expression,Active,Expression,Bring out the melody above the accompaniment,75
 G0020,Chromatic Accuracy,Active,Technique,Play the chromatic scale evenly,85
 G0021,Scale Speed,Active,Tempo,Gradually increase chromatic scale speed,65
-G0022,Finger Independence,Active,Technique,Improve independence between fingers,70
+G0022,Finger Independence,Active,Technique,Improve independence between fingers,0
 G0000,Gradual Crescendo,Completed,Tempo,fdfdfd,8
 G0023,Consistent Andante,Completed,Tempo,Just a Note,90
 G0024,Control Dynamics,Active,Expression,notes,0
