@@ -82,12 +82,14 @@ export default class SessionController {
     db.getDb("session").join("subsessionIds");
 
     let session: IndexedObj<Session> | null;
+
     try {
       session = db.getDb("session").findOnePrimaryKey(id);
     } catch (err) {
       throw err;
     }
     if (!session) {
+      console.log("here");
       throw new Error("No Session found");
     }
 
@@ -187,7 +189,7 @@ export default class SessionController {
     let sessionId = db.getDb("session").insertOne({
       ...sessionData,
       status: "Planned",
-      currentIndex: 0,
+      currentIndex: 1,
       subsessionIds: returnedSubsessionIds,
     });
 
@@ -217,7 +219,7 @@ export default class SessionController {
         const newSubsession = {
           ...subsession,
           id: null,
-          time: [0],
+          time: [1],
           date: new Date(new Date().toDateString()), //Deleting hours, minutes data
         };
         const newId = db.getDb("subsession").insertOne(newSubsession);
@@ -234,6 +236,129 @@ export default class SessionController {
     const newSessionId = db.getDb("session").insertOne(newSession);
 
     return newSessionId;
+  }
+
+  public startSession(sessionId: string): true {
+    try {
+      db.getDb("session").updateOne({ id: sessionId }, { status: "Active" });
+    } catch (err) {
+      throw err;
+    }
+    return true;
+  }
+
+  public nextSession({
+    sessionId,
+    latestReflections,
+    latestRatings,
+    date = new Date(),
+  }: {
+    sessionId: string;
+    latestReflections: string;
+    latestRatings: number;
+    date: Date;
+  }): "Finished" | "Next" {
+    db.getDb("session").join("subsessionIds");
+
+    let fetchedSession: IndexedObj<Session> | null;
+    try {
+      fetchedSession = db.getDb("session").findOnePrimaryKey(sessionId);
+    } catch (err) {
+      throw err;
+    }
+    if (!fetchedSession) {
+      throw new Error("No Session found");
+    }
+
+    const session = fetchedSession.obj;
+    const currentSubsessionId =
+      session.subsessionIds[
+        (session.currentIndex - 1) % session.subsessionIds.length
+      ];
+
+    //Update subsession that has just finished
+    db.getDb("subsession").updateOne(
+      {
+        id: currentSubsessionId,
+      },
+      { ratings: latestRatings, reflections: latestReflections, date: date },
+    );
+    const lastSubsession = db
+      .getDb("subsession")
+      .findOnePrimaryKey(currentSubsessionId);
+    console.log(lastSubsession);
+    db.getDb("goal").updateOne(
+      { id: (lastSubsession?.obj.goalIds ?? [])[0] },
+      { ratings: latestRatings },
+    );
+
+    // create Time for the next subsession;
+    const nextIndex = session.currentIndex + 1;
+
+    if (nextIndex > session.numberOfLoops * session.subsessionIds.length) {
+      db.getDb("session").updateOne(
+        { id: session.id },
+        { status: "Completed" },
+      );
+      return "Finished";
+    }
+
+    try {
+      if (session.currentIndex >= session.subsessionIds.length) {
+        db.getDb("subsession").updateArrayMany("time", 0, "Push", {
+          id: session.subsessionIds[
+            session.currentIndex % session.subsessionIds.length
+          ],
+        });
+      }
+    } catch (err) {
+      throw err;
+    }
+
+    try {
+      db.getDb("session").updateOne(
+        { id: session.id },
+        { currentIndex: nextIndex },
+      );
+    } catch (err) {
+      throw err;
+    }
+    return "Next";
+  }
+
+  public pauseSession({
+    sessionId,
+  }: {
+    sessionId: string;
+    notes?: string;
+  }): true {
+    try {
+      db.getDb("session").updateOne(
+        { id: sessionId },
+        { status: "InProgress" },
+      );
+    } catch (err) {
+      throw err;
+    }
+    return true;
+  }
+
+  public endSession({
+    sessionId,
+    notes = "",
+  }: {
+    sessionId: string;
+    notes?: string;
+  }): true {
+    try {
+      db.getDb("session").updateOne(
+        { id: sessionId },
+        { status: "Completed", notes: notes },
+      );
+    } catch (err) {
+      throw err;
+    }
+    return true;
   }
 
   public updateSession() {}
@@ -280,21 +405,26 @@ export default class SessionController {
     return { ...subsession.obj, goals: [{ ...goal, pieceId: goalPieceId }] };
   }
 
-  public updateSubsessionTime(
-    _: any,
-    {
-      subsessionId,
-      incrementTime = 1,
-    }: { subsessionId: string; incrementTime?: number },
-  ) {
+  public updateSubsessionTime({
+    subsessionId,
+    incrementTime = 1,
+  }: {
+    subsessionId: string;
+    incrementTime?: number;
+  }) {
     try {
+      const subsession = db.getDb("subsession").findOnePrimaryKey(subsessionId);
+      if (!subsession) {
+        throw new Error("Object Not Found");
+      }
+
+      const currentTime = subsession.obj.time;
+      currentTime[currentTime.length - 1] += incrementTime;
       db.getDb("subsession").updateOne(
         { id: subsessionId },
         {
           // @ts-ignore
-          time: (db
-            .getDb("subsession")
-            .findOnePrimaryKey(subsessionId).obj.time += incrementTime),
+          time: currentTime,
         },
       );
     } catch (err) {

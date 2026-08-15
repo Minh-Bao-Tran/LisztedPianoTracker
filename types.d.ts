@@ -98,7 +98,7 @@ interface SessionData {
   structure: SessionStructure;
   status: SessionStatus;
 
-  currentIndex: number; //Starts at 0 //Determine using currentIndex mod subsessionsIds length. the reminder is the index of the Id that should be started
+  currentIndex: number; //Starts at 1 //Determine using currentIndex mod subsessionsIds length. the reminder is the index of the Id that should be started
   numberOfLoops: number; // For interleaved. For Blocked, only 1 repeat is needed.
 
   notes?: string;
@@ -213,6 +213,19 @@ type EventMapping = {
   getOneSession: { req: { id: string }; res: ExtendedSessionData };
   getOneSubsession: { req: { id: string }; res: ExtendedSubsessionData };
   addNewSession: { req: { sessionData: CreateSessionData }; res: string };
+  updateSubsessionTime: {
+    req: { subsessionId: string; incrementTime?: number };
+    res: boolean;
+  };
+  nextSession: {
+    req: {
+      sessionId: string;
+      latestReflections: string;
+      latestRatings: number;
+      date: Date;
+    };
+    res: "Finished" | "Next";
+  };
   //----Term Routes----
   getAllPieceTerms: { req: { pieceId: string }; res: TermData[] };
 
@@ -276,6 +289,18 @@ interface Window {
     getOneSession: (req: { id: string }) => Promise<ExtendedSessionData>;
     getOneSubsession: (req: { id: string }) => Promise<ExtendedSubsessionData>;
     addNewSession: (req: { sessionData: CreateSessionData }) => Promise<string>;
+
+    updateSubsessionTime: (req: {
+      subsessionId: string;
+      incrementTime?: number;
+    }) => Promise<boolean>;
+    nextSession: (req: {
+      sessionId: string;
+      latestReflections: string;
+      latestRatings: number;
+      date: Date;
+    }) => Promise<"Finished" | "Next">;
+
     //----Term Routes----
     getAllPieceTerms: (req: { pieceId: string }) => Promise<TermData[]>;
 

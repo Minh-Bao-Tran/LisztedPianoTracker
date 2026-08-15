@@ -17,7 +17,8 @@ export class Session implements SessionData {
   public structure: SessionStructure;
 
   public status: SessionStatus;
-  public currentIndex: number;
+  public currentIndex: number; // starts at 1
+  //Invariance: if status = completed: numberOfLoops * subsessionIds.length = currentIndex
   public numberOfLoops: number;
 
   public notes?: string;
@@ -59,7 +60,7 @@ export class Session implements SessionData {
   }
 
   // public findCurrentSubsession(){
-  //   return this.currentIndex % this.subsessionIds.length 
+  //   return this.currentIndex % this.subsessionIds.length
   // }
 
   public static validateAndCreate(obj: Omit<Session, "id">): Session {

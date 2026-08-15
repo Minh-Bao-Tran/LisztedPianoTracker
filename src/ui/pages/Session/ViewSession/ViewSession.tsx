@@ -68,11 +68,13 @@ export default function ViewSessionPage() {
   let currentSubsession: SubsessionData;
   if (session) {
     if (
-      session.currentIndex <
+      session.currentIndex <=
       session.numberOfLoops * session.subsessions.length
     ) {
       currentSubsession =
-        session.subsessions[(session.currentIndex % session.numberOfLoops) - 1];
+        session.subsessions[
+          (session.currentIndex - 1) % session.subsessionIds.length
+        ];
     } else {
       currentSubsession = undefined;
     }
@@ -103,7 +105,7 @@ export default function ViewSessionPage() {
     },
     {
       header: "Duration",
-      render: (subsession) => <p>{`${subsession.time} min.`}</p>,
+      render: (subsession) => <p>{`${subsession.totalTime} min.`}</p>,
     },
     {
       header: "Rating",
@@ -192,7 +194,7 @@ export default function ViewSessionPage() {
             >
               <p>{currentSubsession.title}</p>
               <p>
-                Time: {currentSubsession.time}/{currentSubsession.maxTime} min.
+                Time: {currentSubsession.totalTime}/{currentSubsession.maxTime} min.
               </p>
             </div>
           )}

@@ -414,7 +414,6 @@ export default class Table<
     });
 
     this.values[indexedObj.index] = newObj;
-
     this.storeData();
     return newObj;
   }
@@ -488,7 +487,6 @@ export default class Table<
     if (pushOrPop === "Push") {
       if (array.includes(modifyingValue)) {
         console.log(obj);
-        throw new Error("Id already linked in object");
       }
 
       //Success

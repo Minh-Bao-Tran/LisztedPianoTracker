@@ -42,7 +42,7 @@ export default function SessionsSection() {
     },
     {
       header: "Duration",
-      render: (subsession) => <p>{`${subsession.time} min.`}</p>,
+      render: (subsession) => <p>{`${subsession.totalTime} min.`}</p>,
     },
     {
       header: "Rating",

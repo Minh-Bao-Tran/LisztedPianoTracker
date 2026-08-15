@@ -100,6 +100,12 @@ app.on("ready", () => {
   ipcMainHandle("addNewSession", (req) => {
     return sessionController.addNewSession(req.sessionData);
   });
+  ipcMainHandle("updateSubsessionTime", (req) => {
+    return sessionController.updateSubsessionTime(req);
+  });
+  ipcMainHandle("nextSession", (req) => {
+    return sessionController.nextSession(req);
+  });
 
   //----Term----
   ipcMainHandle("getAllPieceTerms", (req) => {
