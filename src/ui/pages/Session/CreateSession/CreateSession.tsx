@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
+import { useNavigate, NavLink } from "react-router";
 
 import SubsessionForm from "./CreateSubsessionForm";
 
-import style from "./CreateSession.module.css";
-import { useNavigate } from "react-router";
+import styles from "./CreateSession.module.css";
 
 interface SessionFormProps {
   initialValues?: CreateSessionData;
@@ -116,10 +116,15 @@ export default function CreateSessionPage({
 
   return (
     <>
-      <header>
-        <h1>Create Session</h1>
+      <header className={styles.header}>
+        <NavLink to="/sessions" className="small">
+          &lt; Back
+        </NavLink>
+
+        <h2>Create New Session</h2>
+        <hr />
       </header>
-      <main className={style.main}>
+      <main className={styles.main}>
         <form onSubmit={handleSubmit} className="session-form">
           {/* Session title */}
           <div className="form-field">

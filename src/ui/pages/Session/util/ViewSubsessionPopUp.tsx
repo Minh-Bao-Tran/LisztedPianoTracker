@@ -20,7 +20,7 @@ export default function ViewSubsessionPopUp({
       <div>
         <h3>Time</h3>
         <p>
-          {currentValues.time} / {currentValues.maxTime} min.
+          {currentValues.totalTime} / {currentValues.maxTime} min.
         </p>
       </div>
 

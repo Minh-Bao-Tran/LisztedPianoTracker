@@ -1,13 +1,18 @@
 import { useEffect, useState } from "react";
 
-import { useParams, useLocation } from "react-router";
+import { useParams, useLocation, useNavigate } from "react-router";
 
 import ExtendedPieceCard from "../../Pieces/util/ExtendedPieceCard";
 
 import UpdateSubsessionPopUp from "../util/UpdateSubsessionPopUp";
 
+import SkipIcon from "../../../assets/icon/Skip_Icon.svg";
+import PauseIcon from "../../../assets/icon/Pause_Icon.svg";
+import PlayIcon from "../../../assets/icon/Play_Icon.svg";
+
 export default function PracticeSessionPage() {
   const location = useLocation();
+  const navigate = useNavigate();
   const sessionId = useParams().id;
 
   //Fetching
@@ -66,7 +71,7 @@ export default function PracticeSessionPage() {
       if (prev >= 59) {
         return 0;
       }
-      return prev + 10;
+      return prev + 1;
     });
   }
 
@@ -83,11 +88,36 @@ export default function PracticeSessionPage() {
       .then((result) => {
         if (result === "Next") {
           loadSession();
-          setNextPopUp(false);
+          setNextPopUp({ state: false });
+          setStopStatus(false);
+        } else if (result === "Finished") {
+          navigate(`/session/${sessionId}/finish`);
         } else {
-          alert("Finished");
+          throw new Error("An error has occurred while Updating Session");
         }
       });
+  }
+
+  async function exitSession() {
+    window.electron
+      .pauseSession({
+        sessionId: sessionId as string,
+      })
+      .then((result) => {
+        if (result) {
+          navigate(`/session/${sessionId}/view`);
+        }
+      });
+  }
+
+  function exit() {
+    const confirmed = window.confirm(
+      "Are you sure to exit? Your progress will be stored automatically.",
+    );
+
+    if (confirmed) {
+      exitSession();
+    }
   }
 
   //State Management
@@ -101,7 +131,11 @@ export default function PracticeSessionPage() {
 
   const [currentTime, setCurrentTime] = useState<number>(0); //from 0 - 60s. at 60s, increment time to the database and reset
 
-  const [nextPopUp, setNextPopUp] = useState<boolean>(false);
+  const [nextPopUp, setNextPopUp] = useState<{
+    state: boolean;
+    closeable?: boolean;
+  }>({ state: false });
+  const [stopStatus, setStopStatus] = useState<boolean>(false); // = stops if true
   //Fetching with conditions
   useEffect(() => {
     loadSession();
@@ -129,15 +163,15 @@ export default function PracticeSessionPage() {
   useEffect(() => {
     if (currentSubsession) {
       const timer = setInterval(() => {
-        if (!nextPopUp) {
+        if (!stopStatus) {
           incrementTime();
         }
-      }, 200);
+      }, 10);
       return () => {
         clearInterval(timer);
       };
     }
-  }, [currentSubsession ? true : false, nextPopUp]);
+  }, [currentSubsession ? true : false, stopStatus]);
 
   useEffect(() => {
     if (currentSubsession) {
@@ -161,7 +195,8 @@ export default function PracticeSessionPage() {
         currentSubsession.time[currentSubsession.time.length - 1] >=
         currentSubsession.maxTime / session.numberOfLoops
       ) {
-        setNextPopUp(true);
+        setNextPopUp({ state: true, closeable: false });
+        setStopStatus(true);
       }
     }
   }, [
@@ -169,55 +204,74 @@ export default function PracticeSessionPage() {
       ? currentSubsession.time[currentSubsession.time.length - 1]
       : 0,
   ]);
+  console.log(currentTime);
+
+  //----Component----
   return (
-    <main>
-      {nextPopUp && (
-        <div
-          className="popup-overlay"
-          onClick={() => {
-            if (
-              !(
-                currentSubsession.time[currentSubsession.time.length - 1] >=
-                currentSubsession.maxTime / session.subsessions.length
-              )
-            ) {
-              setNextPopUp(false);
+    <>
+      <header>
+        <button type="button" className="small" onClick={exit}>
+          &lt; Exit
+        </button>
+        <h2>{session && session.title}</h2>
+        <hr />
+      </header>
+      <main>
+        {currentSubsession && nextPopUp.state && (
+          <UpdateSubsessionPopUp
+            currentValues={currentSubsession}
+            handleFormPredicate={(subsession) => {
+              nextSession(subsession);
+            }}
+            onClose={
+              nextPopUp.closeable === true
+                ? () => {
+                    setStopStatus(false);
+                    setNextPopUp({ state: false });
+                  }
+                : undefined
             }
-          }}
-        >
-          <div className="popup" onClick={(e) => e.stopPropagation()}>
-            {
-              <UpdateSubsessionPopUp
-                currentValues={currentSubsession}
-                handleFormPredicate={(subsession) => {
-                  nextSession(subsession);
-                }}
-              />
-            }
-          </div>
-        </div>
-      )}
-      <h1>{sessionId}</h1>
-      <h2>Piece</h2>
-      {piece && <ExtendedPieceCard piece={piece} />}
-      <h2>Goal</h2>
-      {currentSubsession &&
-        currentSubsession.goals.map((goal: GoalData, index: number) => {
-          return (
-            <div key={index} className="card-box">
-              <h3>{goal.name}</h3>
-              <p>{goal.ratings === 0 ? "Not Started" : goal.ratings}</p>
-            </div>
-          );
-        })}
-      <div>
-        {currentSubsession && (
-          <p>
-            {currentSubsession.time[currentSubsession.time.length - 1]} min.{" "}
-            {currentTime ?? 0} sec.
-          </p>
+          />
         )}
-      </div>
-    </main>
+        <h1>{sessionId}</h1>
+        <h2>Piece</h2>
+        {piece && <ExtendedPieceCard piece={piece} />}
+        <h2>Goal</h2>
+        {currentSubsession &&
+          currentSubsession.goals.map((goal: GoalData, index: number) => {
+            return (
+              <div key={index} className="card-box">
+                <h3>{goal.name}</h3>
+                <p>{goal.ratings === 0 ? "Not Started" : goal.ratings}</p>
+              </div>
+            );
+          })}
+        <div>
+          {currentSubsession && (
+            <p>
+              {currentSubsession.time[currentSubsession.time.length - 1]} min.{" "}
+              {currentTime ?? 0} sec.
+            </p>
+          )}
+        </div>
+        <div>
+          <img
+            src={SkipIcon}
+            alt=""
+            onClick={() => {
+              setStopStatus(true);
+              setNextPopUp({ state: true, closeable: true });
+            }}
+          />
+          <img
+            src={stopStatus ? PauseIcon : PlayIcon}
+            alt=""
+            onClick={() => {
+              setStopStatus((prev) => !prev);
+            }}
+          />{" "}
+        </div>
+      </main>
+    </>
   );
 }

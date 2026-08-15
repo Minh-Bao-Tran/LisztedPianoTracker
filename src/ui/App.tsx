@@ -23,6 +23,7 @@ import AllSessionsPage from "./pages/Session/AllSessions/AllSessions";
 import ViewSessionPage from "./pages/Session/ViewSession/ViewSession";
 import CreateSessionPage from "./pages/Session/CreateSession/CreateSession";
 import PracticeSessionPage from "./pages/Session/Practice/PracticeSession";
+import FinishPracticePage from "./pages/Session/Practice/FinishPractice";
 
 import GlossaryPage from "./pages/Glossary/Glossary";
 
@@ -53,6 +54,7 @@ export default function App() {
       </Route>
 
       <Route path="session/:id/practice" element={<PracticeSessionPage />} />
+      <Route path="session/:id/finish/" element={<FinishPracticePage />}/>
     </Routes>
   );
 }

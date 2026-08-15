@@ -326,12 +326,7 @@ export default class SessionController {
     return "Next";
   }
 
-  public pauseSession({
-    sessionId,
-  }: {
-    sessionId: string;
-    notes?: string;
-  }): true {
+  public pauseSession({ sessionId }: { sessionId: string }): true {
     try {
       db.getDb("session").updateOne(
         { id: sessionId },
@@ -343,7 +338,7 @@ export default class SessionController {
     return true;
   }
 
-  public endSession({
+  public finishSession({
     sessionId,
     notes = "",
   }: {

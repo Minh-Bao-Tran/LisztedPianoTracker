@@ -44,8 +44,9 @@ electron.contextBridge.exposeInMainWorld("electron", {
 
   updateSubsessionTime: (req) =>
     electron.ipcRenderer.invoke("updateSubsessionTime", req),
-  nextSession: (req) =>
-    electron.ipcRenderer.invoke("nextSession", req),
+  nextSession: (req) => electron.ipcRenderer.invoke("nextSession", req),
+  pauseSession: (req) => electron.ipcRenderer.invoke("pauseSession", req),
+  finishSession: (req) => electron.ipcRenderer.invoke("finishSession", req),
 
   //----Term Routes----
   getAllPieceTerms: (req) =>

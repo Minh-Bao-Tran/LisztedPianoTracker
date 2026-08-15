@@ -68,7 +68,7 @@ export default function ViewSessionPage() {
   let currentSubsession: SubsessionData;
   if (session) {
     if (
-      session.currentIndex <=
+      session.currentIndex <
       session.numberOfLoops * session.subsessions.length
     ) {
       currentSubsession =
@@ -184,19 +184,22 @@ export default function ViewSessionPage() {
 
       <main className={styles.main}>
         <section>
-          <h3>Current Subsession</h3>
           {currentSubsession && (
-            <div
-              className="card-box"
-              onClick={() => {
-                openSubsessionPopUp(currentSubsession.id);
-              }}
-            >
-              <p>{currentSubsession.title}</p>
-              <p>
-                Time: {currentSubsession.totalTime}/{currentSubsession.maxTime} min.
-              </p>
-            </div>
+            <>
+              <h3>Current Subsession</h3>
+              <div
+                className="card-box"
+                onClick={() => {
+                  openSubsessionPopUp(currentSubsession.id);
+                }}
+              >
+                <p>{currentSubsession.title}</p>
+                <p>
+                  Time: {currentSubsession.totalTime}/
+                  {currentSubsession.maxTime} min.
+                </p>
+              </div>
+            </>
           )}
         </section>
         <section>

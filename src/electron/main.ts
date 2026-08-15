@@ -100,11 +100,18 @@ app.on("ready", () => {
   ipcMainHandle("addNewSession", (req) => {
     return sessionController.addNewSession(req.sessionData);
   });
+  
   ipcMainHandle("updateSubsessionTime", (req) => {
     return sessionController.updateSubsessionTime(req);
   });
   ipcMainHandle("nextSession", (req) => {
     return sessionController.nextSession(req);
+  });
+  ipcMainHandle("pauseSession", (req) => {
+    return sessionController.pauseSession(req);
+  });
+  ipcMainHandle("finishSession", (req) => {
+    return sessionController.finishSession(req);
   });
 
   //----Term----

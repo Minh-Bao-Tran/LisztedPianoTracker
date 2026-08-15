@@ -226,6 +226,14 @@ type EventMapping = {
     };
     res: "Finished" | "Next";
   };
+  pauseSession: {
+    req: {
+      sessionId: string;
+    };
+    res: true;
+  };
+  finishSession: { req: { sessionId: string; notes?: string }; res: true };
+
   //----Term Routes----
   getAllPieceTerms: { req: { pieceId: string }; res: TermData[] };
 
@@ -300,6 +308,11 @@ interface Window {
       latestRatings: number;
       date: Date;
     }) => Promise<"Finished" | "Next">;
+    pauseSession: (req: { sessionId: string }) => Promise<true>;
+    finishSession: (req: {
+      sessionId: string;
+      notes?: string;
+    }) => Promise<true>;
 
     //----Term Routes----
     getAllPieceTerms: (req: { pieceId: string }) => Promise<TermData[]>;
