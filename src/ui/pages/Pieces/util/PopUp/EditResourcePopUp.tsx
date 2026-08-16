@@ -1,8 +1,8 @@
 import type { SubmitEvent } from "react";
 
-// import { useOutletContext } from "react-router";
+import DeleteIcon from "../../../../assets/icon/Delete_Icon.svg";
 
-// import type { PopupData } from "../../../Layout";
+import styles from "./EditResourcePopUp.module.css";
 
 export default function EditResourcePopUp({
   currentValues = {},
@@ -49,11 +49,12 @@ export default function EditResourcePopUp({
 
   return (
     <form
+      className={styles.popUp}
       onSubmit={async (event: SubmitEvent<HTMLFormElement>) => {
         handleFormSubmit(event, handleFormPredicate);
       }}
     >
-      <div>
+      <div className={styles.formField}>
         <label htmlFor="resourceLink" className="p">
           Resource Link
         </label>
@@ -65,7 +66,7 @@ export default function EditResourcePopUp({
           defaultValue={values.resourceLink}
         />
       </div>
-      <div>
+      <div className={styles.formField}>
         <label htmlFor="resourceType" className="p">
           Resource Type
         </label>
@@ -86,9 +87,9 @@ export default function EditResourcePopUp({
         </select>
       </div>
 
-      <div>
+      <div className={styles.formField}>
         <label htmlFor="notes" className="p">
-          notes
+          Notes
         </label>
         <textarea
           name="notes"
@@ -97,28 +98,36 @@ export default function EditResourcePopUp({
           defaultValue={values.notes}
         ></textarea>
       </div>
-      <button
-        type="button"
-        className="btn-blue btn-blue-alt"
-        onClick={() => {
-          handleDeletePredicate();
-        }}
-      >
-        Delete
-      </button>
-      <button
-        type="button"
-        className="btn-blue btn-blue-alt"
-        onClick={closeForm}
-      >
-        Cancel
-      </button>
-      <button type="reset" className="btn-blue btn-blue-alt">
-        Reset
-      </button>
-      <button type="submit" className="btn-blue">
-        Update
-      </button>
+      <div className={styles.actionSection}>
+        <div>
+          <button
+            type="button"
+            className="btn-blue btn-blue-alt"
+            onClick={closeForm}
+          >
+            Cancel
+          </button>
+          <img
+            onClick={() => {
+              const confirm = window.confirm(
+                "Are you sure to delete this Resource?",
+              );
+              if (!confirm) return;
+              
+              handleDeletePredicate();
+            }}
+            src={DeleteIcon}
+          ></img>
+        </div>
+        <div>
+          <button type="reset" className="btn-blue btn-blue-alt">
+            Reset
+          </button>
+          <button type="submit" className="btn-blue">
+            Update
+          </button>
+        </div>
+      </div>
     </form>
   );
 }

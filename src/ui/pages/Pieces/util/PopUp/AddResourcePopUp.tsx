@@ -1,8 +1,6 @@
 import type { SubmitEvent } from "react";
 
-// import { useOutletContext } from "react-router";
-
-// import type { PopupData } from "../../../Layout";
+import styles from "./AddResourcePopUp.module.css";
 
 export default function AddResourcePopUp({
   currentValues = {},
@@ -14,6 +12,7 @@ export default function AddResourcePopUp({
   submitButtonText?: string;
   closeForm: () => void;
 }) {
+  
   async function handleFormSubmit(
     event: SubmitEvent<HTMLFormElement>,
     handleFormPredicate: any,
@@ -47,11 +46,12 @@ export default function AddResourcePopUp({
 
   return (
     <form
+      className={styles.popUp}
       onSubmit={async (event: SubmitEvent<HTMLFormElement>) => {
         handleFormSubmit(event, handleFormPredicate);
       }}
     >
-      <div>
+      <div className={styles.formField}>
         <label htmlFor="resourceLink" className="p">
           Resource Link
         </label>
@@ -63,7 +63,7 @@ export default function AddResourcePopUp({
           defaultValue={values.resourceLink}
         />
       </div>
-      <div>
+      <div className={styles.formField}>
         <label htmlFor="resourceType" className="p">
           Resource Type
         </label>
@@ -84,7 +84,7 @@ export default function AddResourcePopUp({
         </select>
       </div>
 
-      <div>
+      <div className={styles.formField}>
         <label htmlFor="notes" className="p">
           notes
         </label>
@@ -95,19 +95,24 @@ export default function AddResourcePopUp({
           defaultValue={values.notes}
         ></textarea>
       </div>
-      <button
-        type="button"
-        className="btn-blue btn-blue-alt"
-        onClick={closeForm}
-      >
-        Cancel
-      </button>
-      <button type="reset" className="btn-blue btn-blue-alt">
-        Reset
-      </button>
-      <button type="submit" className="btn-blue">
-        +Add Resource
-      </button>
+
+      <div className={styles.actionSection}>
+        <button
+          type="button"
+          className="btn-blue btn-blue-alt"
+          onClick={closeForm}
+        >
+          Cancel
+        </button>
+        <div>
+          <button type="reset" className="btn-blue btn-blue-alt">
+            Reset
+          </button>
+          <button type="submit" className="btn-blue">
+            +Add Resource
+          </button>
+        </div>
+      </div>
     </form>
   );
 }

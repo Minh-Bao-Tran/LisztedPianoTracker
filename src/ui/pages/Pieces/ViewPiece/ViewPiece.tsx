@@ -101,7 +101,6 @@ export default function ViewPiecePage() {
   //----Submit Functions----
   //Resource
   async function handleAddResource(newResource: Omit<ResourceData, "id">) {
-    console.log(newResource);
     window.electron
       .addResource({
         pieceId: pieceId as string,
@@ -115,13 +114,13 @@ export default function ViewPiecePage() {
         }
         setPopup(undefined);
         setReloadCount((reloadCount) => reloadCount + 1);
+        alert("Resource Added Successfully");
       });
   }
   async function handleUpdateResource(
     resourceId: string,
     newResource: Omit<ResourceData, "id">,
   ) {
-    console.log(resourceId);
     window.electron
       .updateResource({
         updateCriteria: { id: resourceId },
@@ -135,10 +134,10 @@ export default function ViewPiecePage() {
         }
         setPopup(undefined);
         setReloadCount((reloadCount) => reloadCount + 1);
+        alert("Resource Updated Successfully");
       });
   }
   async function handleDeleteResource(resourceId: string) {
-    console.log(resourceId);
     window.electron
       .deleteResource({
         id: resourceId,
