@@ -1,6 +1,10 @@
 import { useOutletContext } from "react-router";
 
+import ResourceCard from "../util/Card/ResourceCard";
+
 import type { PopupData } from "../../../Layout";
+
+import styles from "./ResourcesSection.module.css";
 
 export default function ResourcesSection() {
   const {
@@ -64,30 +68,33 @@ export default function ResourcesSection() {
 
   const resourceElements = allResources.map((resource, index) => {
     return (
-      <li
-        key={index}
-        className="card-box"
-        onDoubleClick={() => {
-          openUpdateResource({
-            currentValues: { ...resource },
-            resourceId: resource.id,
-          });
-        }}
-      >
-        <p>{resource.resourceType}</p>
-        <p>{resource.resourceLink} minutes</p>
-        <p>{resource.notes ?? "N/A"}</p>
-        {/* Transform this into a star rating later */}
-      </li>
+      <>
+        <ResourceCard
+          index={index}
+          resource={resource}
+          onClick={() => {
+            openUpdateResource({
+              currentValues: { ...resource },
+              resourceId: resource.id,
+            });
+          }}
+        />
+        <hr />
+      </>
     );
   });
 
   return (
-    <>
-      <button className="btn-blue" onClick={openAddNewResource}>
-        +Add New Resource
-      </button>
-      <section>{resources && resourceElements}</section>
-    </>
+    <div >
+      <section className={styles.resourcesSection}>
+        <div className={styles.buttonDiv}>
+          <h3>Resources</h3>
+          <button className="btn-blue" onClick={openAddNewResource}>
+            +Add New Resource
+          </button>
+        </div>
+        <ul>{resources && resourceElements}</ul>
+      </section>
+    </div>
   );
 }
