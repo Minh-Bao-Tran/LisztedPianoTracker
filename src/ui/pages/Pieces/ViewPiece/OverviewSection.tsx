@@ -2,7 +2,8 @@ import { useOutletContext } from "react-router";
 
 import AnalyticsCard from "../util/Card/AnalyticsCard";
 
-import styles from "./OverviewSection.module.css"
+import styles from "./OverviewSection.module.css";
+import GoalCard from "../util/Card/GoalCard";
 
 export default function OverviewSection() {
   let totalPracticeTime = 0;
@@ -33,7 +34,7 @@ export default function OverviewSection() {
     streak = props.analytics.streak;
 
     latestDate = props.analytics.latestSubsession
-      ? props.analytics.latestSubsession.endDate?.toLocaleString("en-AU", {
+      ? props.analytics.latestSubsession.date?.toLocaleString("en-AU", {
           day: "2-digit",
           month: "2-digit",
           year: "2-digit",
@@ -68,27 +69,34 @@ export default function OverviewSection() {
     <AnalyticsCard data={streak.toString()} label="Days" />,
   ];
   return (
-    <>
+    <div style={{ display: "flex", gap: "2rem", flexDirection: "column" }}>
       <ul className={styles.analyticsList}> {analyticsCards}</ul>
 
-      <div className="goal-summary">
-        <div className="card-box">
-          <small>Current Goal</small>
-          <h1>{currentGoal}</h1>
-          <p>Progress: {currentGoalRatings}</p>
+      <section className={styles.practiceAnalytics}>
+        <div className={styles.goalSummary}>
+          <div className="card-box">
+            <small>Latest Goal</small>
+            <GoalCard
+              index={0}
+              goal={
+                { name: currentGoal, ratings: currentGoalRatings } as GoalData
+              }
+            />
+          </div>
         </div>
-      </div>
-      <div>
         <div className="card-box">
-          <h3>Reflections: </h3>
-          <p>{latestReflection}</p>
+          <small>Latest Subsession Reflection</small>
+          <h1>{latestReflection}</h1>
           <p>{latestDate}</p>
         </div>
+      </section>
+
+      <div className={styles.notesSection}>
         <div className="card-box">
           <h3>Notes</h3>
           <p>{notes}</p>
         </div>
       </div>
-    </>
+    </div>
   );
 }

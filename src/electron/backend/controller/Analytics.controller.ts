@@ -18,7 +18,7 @@ export default class AnalyticsController {
 
     const piece = returnedObj.obj;
     return (piece.goals as Goal[]).filter((goal: Goal) => {
-      if (goal.ratings === 100) {
+      if (goal.status === "Completed") {
         return true;
       }
       return false;
