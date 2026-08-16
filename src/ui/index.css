@@ -159,7 +159,7 @@ hr {
 
 .btn-blue {
   font-weight: 400;
-  font-size: 30px;
+  font-size: clamp(20px, 2.75vh, 25px);
   color: #bbbbbb;
   background-color: var(--color-b2);
   padding: 15px 20px;

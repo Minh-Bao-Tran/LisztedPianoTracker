@@ -166,7 +166,7 @@ export default function PracticeSessionPage() {
         if (!stopStatus) {
           incrementTime();
         }
-      }, 10);
+      }, 1000000);
       return () => {
         clearInterval(timer);
       };

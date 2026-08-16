@@ -8,7 +8,7 @@ import styles from "./GoalCard.module.css";
 export default function GoalCard({
   index,
   goal,
-  onClick,
+  onClick = null,
 }: {
   index: number;
   goal: GoalData;
@@ -24,7 +24,9 @@ export default function GoalCard({
           <CompletionBar value={goal.ratings} maxValue={100} width="100%" />
         </div>
       </div>
-      {onclick && <img src={EditIcon} alt="" onClick={onClick} />}
+      {typeof onClick === "function" ? (
+        <img src={EditIcon} alt="" onClick={onClick} />
+      ) : null}
     </div>
   );
 }

@@ -4,4 +4,6 @@ S0002,Bach Practice,Interleaved,Completed,8,4,dfd,B0003/:B0004
 S0003,Daily Practice,Interleaved,Completed,6,3,fdfdfd,B0005/:B0006
 S0004,fdfs,Unstructured,Completed,1,1,sdfdf,B0007
 S0005,Kreutzer,Blocked,Completed,1,1,fdsfd,B0008
-S0006,sdfsf,Interleaved,Planned,1,2,sdfdsf,B0009/:B0010
+S0006,sdfsf,Interleaved,Completed,4,2,sdfdsf,B0009/:B0010
+S0007,klsjlf,Unstructured,InProgress,1,1,dfd,B0011
+S0008,sdfdf,Blocked,Completed,1,1,sdfd,B0012

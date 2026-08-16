@@ -81,6 +81,7 @@ export default function OverviewSection() {
               goal={
                 { name: currentGoal, ratings: currentGoalRatings } as GoalData
               }
+              onClick={undefined}
             />
           </div>
         </div>

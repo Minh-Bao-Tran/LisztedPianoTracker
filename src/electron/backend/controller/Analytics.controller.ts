@@ -159,7 +159,7 @@ export default class AnalyticsController {
     let currentDate = timeFrameEndDate;
     for (const subsession of sortedTotalSubsessions) {
       if (!subsession.date) {
-        return;
+        break;
       }
       const removedStartDate = subsession.date.toDateString();
       const removedCurrentDate = currentDate.toDateString();

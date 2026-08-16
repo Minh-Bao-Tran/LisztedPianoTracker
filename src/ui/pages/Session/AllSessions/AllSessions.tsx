@@ -59,7 +59,7 @@ export default function AllSessionsPage() {
             +Create New Session
           </NavLink>
         </div>
-        <ul>
+        {/* <ul>
           <li>
             <label htmlFor="search" className="h3">
               Search
@@ -78,7 +78,7 @@ export default function AllSessionsPage() {
             </label>
             <input type="text" name="TimeFrame" className="input-deco" />
           </li>
-        </ul>
+        </ul> */}
         <hr />
       </header>
       <main>

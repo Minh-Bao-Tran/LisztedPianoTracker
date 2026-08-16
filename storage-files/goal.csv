@@ -17,7 +17,7 @@ G0016,Rhythm Accuracy,Planned,Tempo,Maintain the characteristic ragtime rhythm,2
 G0017,Tone Control,Active,Dynamic,Produce a controlled sound at quiet dynamics,80
 G0018,Ornament Accuracy,Active,Technique,Play ornaments cleanly and consistently,70
 G0019,Melodic Expression,Active,Expression,Bring out the melody above the accompaniment,75
-G0020,Chromatic Accuracy,Active,Technique,Play the chromatic scale evenly,85
+G0020,Chromatic Accuracy,Active,Technique,Play the chromatic scale evenly,1
 G0021,Scale Speed,Active,Tempo,Gradually increase chromatic scale speed,65
 G0022,Finger Independence,Active,Technique,Improve independence between fingers,0
 G0000,Gradual Crescendo,Completed,Tempo,fdfdfd,8

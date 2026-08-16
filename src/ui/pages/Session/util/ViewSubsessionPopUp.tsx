@@ -1,5 +1,3 @@
-import type { SubmitEvent } from "react";
-
 import { useNavigate } from "react-router";
 export default function ViewSubsessionPopUp({
   currentValues,
@@ -39,14 +37,16 @@ export default function ViewSubsessionPopUp({
         <p>{currentValues.reflections}</p>
       </div>
 
-      <div className="card-box">
-        <h3>{currentValues.goals[0].name}</h3>
-        <p>
-          {currentValues.goals[0].ratings === 0
-            ? "Not Started"
-            : currentValues.goals[0].ratings}
-        </p>
-      </div>
+      {currentValues.goals && currentValues.goals[0] && (
+        <div className="card-box">
+          <h3>{currentValues.goals[0].name}</h3>
+          <p>
+            {currentValues.goals[0].ratings === 0
+              ? "Not Started"
+              : currentValues.goals[0].ratings}
+          </p>
+        </div>
+      )}
 
       <button
         type="button"
@@ -55,16 +55,19 @@ export default function ViewSubsessionPopUp({
       >
         Cancel
       </button>
-      <button
-        type="button"
-        className="btn-blue btn-blue-alt"
-        onClick={() => {
-          //@ts-ignore
-          navigate(`/piece/${currentValues.goals[0].pieceId}/view`);
-        }}
-      >
-        View Piece
-      </button>
+
+      {currentValues.goals && currentValues.goals[0] && (
+        <button
+          type="button"
+          className="btn-blue btn-blue-alt"
+          onClick={() => {
+            //@ts-ignore
+            navigate(`/piece/${currentValues.goals[0].pieceId}/view`);
+          }}
+        >
+          View Piece
+        </button>
+      )}
     </div>
   );
 }

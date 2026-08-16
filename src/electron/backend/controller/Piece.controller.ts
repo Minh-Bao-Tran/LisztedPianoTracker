@@ -135,11 +135,10 @@ export default class PieceController {
   }
 
   public deletePiece(
-    _: any,
-    criteria: Partial<Pick<Piece, keyof Piece>>,
+    pieceId: string,
   ): boolean {
     try {
-      db.getDb("piece").deleteOne(criteria, []);
+      db.getDb("piece").deleteOne({id: pieceId}, []);
     } catch (err) {
       throw err;
     }

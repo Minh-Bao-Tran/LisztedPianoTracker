@@ -11,6 +11,7 @@ import type { PopupData } from "../../../Layout";
 import EditIcon from "../../../assets/icon/Edit_icon.svg";
 
 import styles from "./ViewSession.module.css";
+import CompletionBar from "../../../shared/CompletionBar";
 
 export default function ViewSessionPage() {
   const sessionId = useParams().id;
@@ -67,10 +68,7 @@ export default function ViewSessionPage() {
 
   let currentSubsession: SubsessionData;
   if (session) {
-    if (
-      session.currentIndex <
-      session.numberOfLoops * session.subsessions.length
-    ) {
+    if (session.status === "InProgress" || session.status === "Active") {
       currentSubsession =
         session.subsessions[
           (session.currentIndex - 1) % session.subsessionIds.length
@@ -122,7 +120,7 @@ export default function ViewSessionPage() {
         ...subsession,
         //@ts-ignore
         onClick: () => {
-          openSubsessionPopUp(subsession.id);
+            openSubsessionPopUp(subsession.id);
         },
       };
     });
@@ -185,9 +183,27 @@ export default function ViewSessionPage() {
       </header>
 
       <main className={styles.main}>
-        <section>
-          {currentSubsession && (
-            <>
+        {currentSubsession && (
+          <>
+            <section
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: "0.5rem",
+              }}
+            >
+              <h3>Progress</h3>
+              <CompletionBar
+                value={session.currentIndex}
+                maxValue={session.numberOfLoops * session.subsessionIds.length}
+                width="100%"
+              />
+              <p>
+                Subsession {session.currentIndex}/
+                {session.numberOfLoops * session.subsessionIds.length}
+              </p>
+            </section>
+            <section>
               <h3>Current Subsession</h3>
               <div
                 className="card-box"
@@ -197,13 +213,15 @@ export default function ViewSessionPage() {
               >
                 <p>{currentSubsession.title}</p>
                 <p>
-                  Time: {currentSubsession.totalTime}/
-                  {currentSubsession.maxTime} min.
+                  Time:{" "}
+                  {currentSubsession.time[currentSubsession.time.length - 1]}/
+                  {currentSubsession.maxTime / session.numberOfLoops} min.
                 </p>
               </div>
-            </>
-          )}
-        </section>
+            </section>
+          </>
+        )}
+
         <section>
           <h3>All Subsessions</h3>
           {session && <Table data={subsessions} columns={subsessionColumns} />}
