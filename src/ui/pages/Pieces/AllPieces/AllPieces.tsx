@@ -189,8 +189,8 @@ export default function AllPiecesPage() {
                 {sortCriteriaList}
               </select>
             </div>
-            <div>
-              <label className="p">
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
+              <label className="h3">
                 <input
                   type="checkbox"
                   checked={filterStatuses.includes("Active")}
@@ -201,7 +201,7 @@ export default function AllPiecesPage() {
                 Active
               </label>
 
-              <label className="p">
+              <label className="h3">
                 <input
                   type="checkbox"
                   checked={filterStatuses.includes("Completed")}
@@ -212,7 +212,7 @@ export default function AllPiecesPage() {
                 Completed
               </label>
 
-              <label className="p">
+              <label className="h3">
                 <input
                   type="checkbox"
                   checked={filterStatuses.includes("Planned")}
@@ -226,7 +226,11 @@ export default function AllPiecesPage() {
           </div>
         </section>
         <section className={styles.pieceList}>
-          <ul>{allPiecesCardList}</ul>
+          {allPiecesCardList.length > 0 ? (
+            <ul>{allPiecesCardList}</ul>
+          ) : (
+            <p>No Pieces found</p>
+          )}
         </section>
       </main>
     </>

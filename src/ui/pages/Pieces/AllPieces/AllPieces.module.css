@@ -5,7 +5,7 @@
   gap: 3vh;
 }
 
-.header>div{
+.header > div {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -23,6 +23,7 @@
   gap: 40px;
   justify-content: space-between;
   padding-top: 7vh;
+  max-height: 85%;
 }
 
 .searchBox {
@@ -32,7 +33,7 @@
   max-width: 50%;
 }
 
-.searchBox>div {
+.searchBox > div {
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -42,7 +43,7 @@
 .pieceList {
   flex: 1;
   max-width: 50%;
-  /* max-height: 70%; */
+  max-height: 99%;
   min-height: 0;
   overflow-y: auto;
 }

@@ -191,6 +191,12 @@ hr {
   padding: 5px 15px;
 }
 
+input[type="checkbox"] {
+  width: 1.5rem;
+  height: 1.5rem;
+  accent-color: var(--color-b2);
+}
+
 select.input-deco {
   appearance: none;
   background-image: url("./assets/icon/Down_Arrow.svg");
