@@ -15,16 +15,16 @@ export default function GoalCard({
   onClick: () => void;
 }) {
   return (
-    <div key={index} onClick={onClick} className={styles.goalCard}>
-      <img src={GoalIcon} alt="" className={styles.goalIcon}/>
+    <div key={index} className={styles.goalCard}>
+      <img src={GoalIcon} alt="" className={styles.goalIcon} />
       <div>
         <h3>{goal.name}</h3>
-        <div>
+        <div className={styles.ratings} >
           <p>{goal.ratings === 0 ? "Not Started" : goal.ratings}</p>
           <CompletionBar value={goal.ratings} maxValue={100} width="100%" />
         </div>
       </div>
-      <img src={EditIcon} alt="" />
+      <img src={EditIcon} alt="" onClick={onClick} />
     </div>
   );
 }

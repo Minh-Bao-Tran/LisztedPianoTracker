@@ -1,7 +1,7 @@
 G0001,Better Dynamic Control,Active,Dynamic,Better Dynamics,100
 G0002,Consistent Forte,Active,Dynamic,Maintain an even forte throughout the movement,85
-G0003,Improve Phrasing,Active,Expression,Shape longer musical phrases more clearly,70
-G0004,Improve Tone Quality,Active,Expression,Develop a warmer and more controlled tone,75
+G0003,Improve Phrasing,Active,Dynamic,Shape longer musical phrases more clearly,70
+G0004,Improve Tone Quality,Active,Dynamic,Develop a warmer and more controlled tone,75
 G0005,Improve Articulation,Completed,Technique,Make articulation more consistent between passages,0
 G0006,Scale Accuracy,Active,Technique,Play scales evenly without hesitation,80
 G0007,Passagework Speed,Active,Tempo,Increase speed while maintaining accuracy,23
@@ -23,3 +23,4 @@ G0022,Finger Independence,Active,Technique,Improve independence between fingers,
 G0000,Gradual Crescendo,Completed,Tempo,fdfdfd,8
 G0023,Consistent Andante,Completed,Tempo,Just a Note,40
 G0024,Control Dynamics,Active,Expression,notes,0
+G0026,Crescendo,Planned,Expression,notes,0

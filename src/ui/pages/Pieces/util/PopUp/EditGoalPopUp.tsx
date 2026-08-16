@@ -1,5 +1,9 @@
 import type { SubmitEvent } from "react";
 
+import DeleteIcon from "../../../../assets/icon/Delete_Icon.svg";
+
+import styles from "./EditGoalPopUp.module.css";
+
 export default function EditGoalPopUp({
   currentValues = {},
   handleFormPredicate,
@@ -48,11 +52,14 @@ export default function EditGoalPopUp({
 
   return (
     <form
+      className={styles.popUp}
       onSubmit={async (event: SubmitEvent<HTMLFormElement>) => {
         handleFormSubmit(event, handleFormPredicate);
       }}
     >
-      <div>
+      <h2>Update Goal</h2>
+      <hr />
+      <div className={styles.formField}>
         <label htmlFor="name" className="p">
           Name
         </label>
@@ -65,7 +72,7 @@ export default function EditGoalPopUp({
         />
       </div>
 
-      <div>
+      <div className={styles.formField}>
         <label htmlFor="ratings" className="p">
           Progress
         </label>
@@ -81,7 +88,7 @@ export default function EditGoalPopUp({
         %
       </div>
 
-      <div>
+      <div className={styles.formField}>
         <label htmlFor="status" className="p">
           Status
         </label>
@@ -101,7 +108,7 @@ export default function EditGoalPopUp({
         </select>
       </div>
 
-      <div>
+      <div className={styles.formField}>
         <label htmlFor="goalType" className="p">
           Goal Type
         </label>
@@ -123,7 +130,7 @@ export default function EditGoalPopUp({
         </select>
       </div>
 
-      <div>
+      <div className={styles.formField}>
         <label htmlFor="notes" className="p">
           notes
         </label>
@@ -134,29 +141,32 @@ export default function EditGoalPopUp({
           defaultValue={values.notes}
         ></textarea>
       </div>
-      <button
-        type="button"
-        className="btn-blue btn-blue-alt"
-        onClick={() => {
-          handleDeletePredicate();
-        }}
-      >
-        Delete
-      </button>
 
-      <button
-        type="button"
-        className="btn-blue btn-blue-alt"
-        onClick={closeForm}
-      >
-        Cancel
-      </button>
-      <button type="reset" className="btn-blue btn-blue-alt">
-        Reset
-      </button>
-      <button type="submit" className="btn-blue">
-        Update
-      </button>
+      <div className={styles.actionSection}>
+        <div>
+          <button
+            type="button"
+            className="btn-blue btn-blue-alt"
+            onClick={closeForm}
+          >
+            Cancel
+          </button>
+          <img
+            onClick={() => {
+              handleDeletePredicate();
+            }}
+            src={DeleteIcon}
+          ></img>
+        </div>
+        <div>
+          <button type="reset" className="btn-blue btn-blue-alt">
+            Reset
+          </button>
+          <button type="submit" className="btn-blue">
+            Update
+          </button>
+        </div>
+      </div>
     </form>
   );
 }

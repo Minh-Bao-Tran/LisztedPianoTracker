@@ -1,5 +1,7 @@
 import type { SubmitEvent } from "react";
 
+import styles from "./AddGoalPopUp.module.css";
+
 export default function AddGoalPopUp({
   currentValues = {},
   handleFormPredicate,
@@ -47,11 +49,14 @@ export default function AddGoalPopUp({
 
   return (
     <form
+      className={styles.popUp}
       onSubmit={async (event: SubmitEvent<HTMLFormElement>) => {
         handleFormSubmit(event, handleFormPredicate);
       }}
     >
-      <div>
+      <h2>Add Goal</h2>
+      <hr />
+      <div className={styles.formField}>
         <label htmlFor="name" className="p">
           Name
         </label>
@@ -64,7 +69,7 @@ export default function AddGoalPopUp({
         />
       </div>
 
-      <div>
+      <div className={styles.formField}>
         <label htmlFor="status" className="p">
           Status
         </label>
@@ -84,7 +89,7 @@ export default function AddGoalPopUp({
         </select>
       </div>
 
-      <div>
+      <div className={styles.formField}>
         <label htmlFor="goalType" className="p">
           Goal Type
         </label>
@@ -106,7 +111,7 @@ export default function AddGoalPopUp({
         </select>
       </div>
 
-      <div>
+      <div className={styles.formField}>
         <label htmlFor="notes" className="p">
           notes
         </label>
@@ -117,19 +122,24 @@ export default function AddGoalPopUp({
           defaultValue={values.notes}
         ></textarea>
       </div>
-      <button
-        type="button"
-        className="btn-blue btn-blue-alt"
-        onClick={closeForm}
-      >
-        Cancel
-      </button>
-      <button type="reset" className="btn-blue btn-blue-alt">
-        Reset
-      </button>
-      <button type="submit" className="btn-blue">
-        {submitButtonText}
-      </button>
+
+      <div className={styles.actionSection}>
+        <button
+          type="button"
+          className="btn-blue btn-blue-alt"
+          onClick={closeForm}
+        >
+          Cancel
+        </button>
+        <div>
+          <button type="reset" className="btn-blue btn-blue-alt">
+            Reset
+          </button>
+          <button type="submit" className="btn-blue">
+            {submitButtonText}
+          </button>
+        </div>
+      </div>
     </form>
   );
 }

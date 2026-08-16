@@ -29,7 +29,7 @@ export default function GoalsSection() {
     });
   }
 
-  function openUpdateResource({
+  function openUpdateGoal({
     currentValues,
     goalId,
   }: {
@@ -79,7 +79,7 @@ export default function GoalsSection() {
               index={index}
               goal={goal}
               onClick={() => {
-                openUpdateResource({
+                openUpdateGoal({
                   currentValues: { ...goal },
                   goalId: goal.id,
                 });

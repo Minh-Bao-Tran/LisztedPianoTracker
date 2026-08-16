@@ -1,0 +1,33 @@
+.popUp {
+  width: 40vw;
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.popUp h2{
+    padding-bottom: 1rem;
+    text-align: center;
+}
+
+.formField {
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+}
+
+.formField select {
+  width: 100%;
+}
+
+.actionSection {
+    padding-top: 1rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.actionSection > div {
+  display: flex;
+  gap: 1rem;
+}

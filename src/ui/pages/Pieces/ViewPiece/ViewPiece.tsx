@@ -168,6 +168,7 @@ export default function ViewPiecePage() {
           alert("No Piece found");
           throw new Error("No piece found");
         }
+        alert("Goal Added Successfully");
         setPopup(undefined);
         setReloadCount((reloadCount) => reloadCount + 1);
       });
@@ -188,12 +189,16 @@ export default function ViewPiecePage() {
           alert("Error in Updating Goal");
           throw new Error("Error in Updating Goal");
         }
+
+        alert("Goal Updated Successfully");
         setPopup(undefined);
         setReloadCount((reloadCount) => reloadCount + 1);
       });
   }
   async function handleDeleteGoal(goalId: string) {
-    console.log(goalId);
+    const confirm = window.confirm("Are you sure to delete this goal?");
+    if (!confirm) return;
+
     window.electron
       .deleteGoal({
         id: goalId,
@@ -204,6 +209,8 @@ export default function ViewPiecePage() {
           alert("Error in Deleting Goal");
           throw new Error("Error in Deleting Goald");
         }
+
+        alert("Goal deleted Successfully");
         setPopup(undefined);
         setReloadCount((reloadCount) => reloadCount + 1);
       });
