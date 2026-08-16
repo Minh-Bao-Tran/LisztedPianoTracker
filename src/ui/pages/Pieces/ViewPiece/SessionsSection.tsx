@@ -18,7 +18,11 @@ export default function SessionsSection() {
     subsessions = props.subsessions.map((subsession) => {
       return {
         ...subsession,
-        onClick: () => navigate(`/session/${subsession.sessionId}/view`),
+        onClick: () => {
+          const confirm = window.confirm("Navigate to this session?");
+          if (!confirm) return;
+          navigate(`/session/${subsession.sessionId}/view`);
+        },
       };
     });
   }
@@ -52,7 +56,11 @@ export default function SessionsSection() {
 
   return (
     <>
-      {subsessions.length > 0 ?  <Table data={subsessions} columns={subsessionColumns} /> : <p>No Session to be shown</p>}
+      {subsessions.length > 0 ? (
+        <Table data={subsessions} columns={subsessionColumns} />
+      ) : (
+        <p>No Session to be shown</p>
+      )}
     </>
   );
 }

@@ -26,7 +26,7 @@ export default function Table<T>({ data, columns }: TableProps<T>) {
           <div
             className={styles.tableRow}
             key={index}
-            onDoubleClick={
+            onClick={
               item.hasOwnProperty("onClick")
                 ? //@ts-ignore
                   () => {
