@@ -33,6 +33,7 @@ export default function CreateSessionPage({
     subsessions: initialValues.subsessions.map((subsession) => ({
       ...subsession,
       goalIds: [...subsession.goalIds],
+      time: 0
     })),
   });
 
@@ -189,7 +190,27 @@ export default function CreateSessionPage({
               />
             </div>
           )}
+          {/* Time for Unstructured */}
+          {form.structure === "Unstructured" && (
+            <div className="form-field">
+              <label htmlFor="unstructuredTime" className="p">
+                Time
+              </label>
 
+              <input
+                id="unstructuredTime"
+                name="time"
+                type="number"
+                min={1}
+                max={180}
+                step={1}
+                value={form.time}
+                onChange={(e) => updateField("time", Number(e.target.value))}
+                required
+                className="input-deco"
+              />
+            </div>
+          )}
           {/* Notes */}
           <div className="form-field">
             <label htmlFor="session-notes" className="p">

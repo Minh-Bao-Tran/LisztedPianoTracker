@@ -90,6 +90,7 @@ interface CreateSessionData {
   notes: string;
   numberOfLoops: number;
   subsessions: CreateSubsessionData[];
+  time?: number;// to handle Unstructured Session, as they have no subsessions
 }
 
 interface SessionData {

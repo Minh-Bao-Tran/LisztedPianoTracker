@@ -171,16 +171,29 @@ export default class SessionController {
   public addNewSession(sessionData: CreateSessionData) {
     let returnedSubsessionIds: string[] = [];
 
-    for (const subsession of sessionData.subsessions) {
+    if (sessionData.structure === "Unstructured") {
+      //Unstructured means that there are no specific subsession
       const newSubsession: Omit<Subsession, "id"> = {
-        ...subsession,
-        maxTime: sessionData.numberOfLoops * subsession.timePerLoop,
+        title: sessionData.title,
+        maxTime: sessionData.time ?? 0,
         ratings: 0,
         time: [0],
         date: new Date(),
       };
       const id = db.getDb("subsession").insertOne(newSubsession);
       returnedSubsessionIds.push(id);
+    } else {
+      for (const subsession of sessionData.subsessions) {
+        const newSubsession: Omit<Subsession, "id"> = {
+          ...subsession,
+          maxTime: sessionData.numberOfLoops * subsession.timePerLoop,
+          ratings: 0,
+          time: [0],
+          date: new Date(),
+        };
+        const id = db.getDb("subsession").insertOne(newSubsession);
+        returnedSubsessionIds.push(id);
+      }
     }
 
     console.log(returnedSubsessionIds);
@@ -287,10 +300,13 @@ export default class SessionController {
       .getDb("subsession")
       .findOnePrimaryKey(currentSubsessionId);
     console.log(lastSubsession);
-    db.getDb("goal").updateOne(
-      { id: (lastSubsession?.obj.goalIds ?? [])[0] },
-      { ratings: latestRatings },
-    );
+
+    if ((lastSubsession?.obj.goalIds ?? []).length) {
+      db.getDb("goal").updateOne(
+        { id: (lastSubsession?.obj.goalIds ?? [])[0] },
+        { ratings: latestRatings },
+      );
+    }
 
     // create Time for the next subsession;
     const nextIndex = session.currentIndex + 1;

@@ -238,6 +238,7 @@ export default function PracticeSessionPage() {
         {piece && <ExtendedPieceCard piece={piece} />}
         <h2>Goal</h2>
         {currentSubsession &&
+          currentSubsession.goals &&
           currentSubsession.goals.map((goal: GoalData, index: number) => {
             return (
               <div key={index} className="card-box">

@@ -405,6 +405,7 @@ export default class Table<
 
     let indexedObj: IndexedObj<Model> | null = this.findOne(criteria);
     if (!indexedObj) {
+      console.log(criteria);
       throw new Error(`Object with id: ${criteria} does not exist on Table`);
     }
     //Object exist
