@@ -21,7 +21,7 @@ const PIECETYPES = [
   "Others",
 ] as const;
 
-const FREQ_FRAME = ["week", "fortnight", "month"] as const;
+const FREQ_FRAME = ["Week", "Fortnight", "Month"] as const;
 
 export class Piece implements TableModel, PieceData {
   public id: string;
@@ -50,7 +50,7 @@ export class Piece implements TableModel, PieceData {
     status,
     pieceType = "Others", //Default to Others
     freqNumber = 0,
-    freqFrame = "week",
+    freqFrame = "Week",
     notes = "",
     termIds = [],
     goalIds = [],
@@ -74,7 +74,7 @@ export class Piece implements TableModel, PieceData {
     this.composer = composer;
     this.status = status;
     this.pieceType = pieceType;
-    this.freqNumber = freqNumber; // frequency, the number part in 5 per month
+    this.freqNumber = freqNumber; // frequency, the number part in 5 per Month
     this.freqFrame = freqFrame;
     this.notes = notes;
     this.termIds = termIds;

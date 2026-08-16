@@ -18,7 +18,7 @@ type PieceType =
   | "Improvisation"
   | "Others";
 
-type FreqFrame = "week" | "fortnight" | "month";
+type FreqFrame = "Week" | "Fortnight" | "Month";
 
 type GoalType = "Dynamic" | "Tempo" | "Technique" | "Expression" | "Others";
 

@@ -48,7 +48,7 @@ export default function EditPiecePage() {
   return (
     <>
       <header className={styles.header}>
-        <NavLink to="/pieces" className="small">
+        <NavLink to={`/piece/${pieceId}/view`} className="small">
           &lt; Back
         </NavLink>
 

@@ -130,7 +130,7 @@ export default function PieceForm({
             <option value="Technical">Technical</option>
             <option value="Scale/Arpeggio">Scale/Arpeggio</option>
             <option value="Sight Reading">Sight Reading</option>
-            <option value="Improvisation">Technical</option>
+            <option value="Improvisation">Improvisation</option>
             <option value="Others">Others</option>
           </select>
         </div>
@@ -143,6 +143,8 @@ export default function PieceForm({
             type="number"
             name="freqNumber"
             className="input-deco"
+            min={0}
+            max={15}
             defaultValue={values.freqNumber}
           />
         </div>
@@ -161,9 +163,9 @@ export default function PieceForm({
             <option value="" disabled hidden>
               ---Select Time Frame---
             </option>
-            <option value="week">Week</option>
-            <option value="fortnight">Fortnight</option>
-            <option value="month">Month</option>
+            <option value="Week">Week</option>
+            <option value="Fortnight">Fortnight</option>
+            <option value="Month">Month</option>
           </select>
           {/* No current goal. This is added later */}
         </div>

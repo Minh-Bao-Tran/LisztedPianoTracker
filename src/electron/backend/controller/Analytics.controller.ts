@@ -72,7 +72,7 @@ export default class AnalyticsController {
     id,
     timeFrameEndDate = new Date(Date.now()),
     timeFrameStartDate = new Date(
-      timeFrameEndDate.getTime() - 7 * 24 * 60 * 60 * 1000, //Default to 1 week timeFrame
+      timeFrameEndDate.getTime() - 7 * 24 * 60 * 60 * 1000, //Default to 1 Week timeFrame
     ),
   }: {
     id: string;
@@ -118,7 +118,7 @@ export default class AnalyticsController {
     id,
     timeFrameEndDate = new Date(Date.now()),
     // timeFrameStartDate = new Date(
-    //   timeFrameEndDate.getTime() - 7 * 24 * 60 * 60 * 1000, //Default to 1 week timeFrame
+    //   timeFrameEndDate.getTime() - 7 * 24 * 60 * 60 * 1000, //Default to 1 Week timeFrame
     // ),
     timeFrameStartDate = new Date(0),
   }: {

@@ -52,7 +52,7 @@ export default function SessionsSection() {
 
   return (
     <>
-      {subsessions && <Table data={subsessions} columns={subsessionColumns} />}
+      {subsessions.length > 0 ?  <Table data={subsessions} columns={subsessionColumns} /> : <p>No Session to be shown</p>}
     </>
   );
 }

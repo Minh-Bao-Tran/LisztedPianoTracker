@@ -46,9 +46,9 @@ const sortFunctions: Record<
   },
   mostFrequent: (pieceList) => {
     const timeFrameConversion: Record<FreqFrame, number> = {
-      week: 7,
-      fortnight: 14,
-      month: 30,
+      Week: 7,
+      Fortnight: 14,
+      Month: 30,
     };
     return [...pieceList].sort((a, b) => {
       return (
@@ -59,9 +59,9 @@ const sortFunctions: Record<
   },
   leastFrequent: (pieceList) => {
     const timeFrameConversion: Record<FreqFrame, number> = {
-      week: 7,
-      fortnight: 14,
-      month: 30,
+      Week: 7,
+      Fortnight: 14,
+      Month: 30,
     };
     return [...pieceList].sort((a, b) => {
       return (
@@ -185,7 +185,7 @@ export default function AllPiecesPage() {
                 value={sortCriteria}
                 onChange={(e) => setSortCriteria(e.target.value)}
               >
-                <option value="">---Sort---</option>
+                <option value="">No sort</option>
                 {sortCriteriaList}
               </select>
             </div>

@@ -10,6 +10,7 @@ export default function CreatePiecePage() {
   async function handleFormSubmit(piece: Omit<PieceData, "id">) {
     const res = await window.electron.addPiece(piece);
     if (res.valid) {
+      alert("Create Piece Successfully");
       return navigate(`/piece/${res.value}/view`);
     }
     alert("An Error has occured");
@@ -26,7 +27,7 @@ export default function CreatePiecePage() {
         <hr />
       </header>
       <main>
-        <PieceForm handleFormPredicate={handleFormSubmit}/>
+        <PieceForm handleFormPredicate={handleFormSubmit} />
       </main>
     </>
   );
