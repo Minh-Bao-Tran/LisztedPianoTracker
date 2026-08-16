@@ -25,7 +25,6 @@ type GoalType = "Dynamic" | "Tempo" | "Technique" | "Expression" | "Others";
 type ResourceType =
   | "Sheet Music"
   | "Recording"
-  | "Practice"
   | "Guides"
   | "Others";
 

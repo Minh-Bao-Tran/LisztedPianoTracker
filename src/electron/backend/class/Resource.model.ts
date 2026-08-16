@@ -3,7 +3,6 @@ import { stringConverter, stringArrayConverter } from "../database/table/convert
 const RESOURCETYPE = [
   "Sheet Music",
   "Recording",
-  "Practice",
   "Guides",
   "Others",
 ] as const;

@@ -81,7 +81,6 @@ export default function EditResourcePopUp({
           </option>
           <option value="Sheet Music">Sheet Music</option>
           <option value="Recording">Recording</option>
-          <option value="Practice">Practice</option>
           <option value="Guides">Guides</option>
           <option value="Others">Others</option>
         </select>

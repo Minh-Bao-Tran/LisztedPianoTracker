@@ -1,4 +1,4 @@
-R0002,Practice,https://example.com/kreutzer-recording,Reference performance for interpretation. added notes
+R0002,Guides,https://example.com/kreutzer-recording,Reference performance for interpretation. added notes
 R0003,Sheet Music,https://example.com/clair-de-lune-score,Primary score.
 R0004,Recording,https://example.com/clair-de-lune-recording,Reference recording for phrasing.
 R0005,Sheet Music,https://example.com/invention-no-8-score,Practice score.
@@ -10,7 +10,7 @@ R0010,Sheet Music,https://example.com/prelude-c-major-score,Practice score.
 R0011,Sheet Music,https://example.com/arabesque-score,Main score.
 R0012,Recording,https://example.com/arabesque-recording,Reference performance.
 R0013,Sheet Music,https://example.com/etude-op10-no5-score,Main practice score.
-R0014,Practice,https://example.com/etude-practice-guide,Technical practice material.
+R0014,Guides,https://example.com/etude-practice-guide,Technical practice material.
 R0015,Sheet Music,https://example.com/entertainer-score,Main score.
 R0016,Recording,https://example.com/gymnopedie-recording,Reference performance.
 R0017,Sheet Music,https://example.com/sonata-k331-score,Main score.
