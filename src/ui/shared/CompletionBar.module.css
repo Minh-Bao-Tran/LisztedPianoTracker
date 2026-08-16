@@ -1,0 +1,11 @@
+.outside {
+  background-color: var(--color-g2);
+  height: 1rem;
+  border-radius: 2rem;
+}
+
+.inside {
+  background-color: var(--color-b2);
+  height: 1rem;
+  border-radius: 2rem;
+}

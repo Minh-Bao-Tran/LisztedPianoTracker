@@ -1,10 +1,10 @@
 import { NavLink } from "react-router";
 
-import appIcon from "../assets/icon/App_icon.svg";
-import homeIcon from "../assets/icon/Home_icon.svg";
-import pieceIcon from "../assets/icon/Piece_icon.svg";
-import sessionIcon from "../assets/icon/Session_icon.svg";
-import glossaryIcon from "../assets/icon/Glossary_icon.svg";
+import appIcon from "../../assets/icon/App_icon.svg";
+import homeIcon from "../../assets/icon/Home_icon.svg";
+import pieceIcon from "../../assets/icon/Piece_icon.svg";
+import sessionIcon from "../../assets/icon/Session_icon.svg";
+import glossaryIcon from "../../assets/icon/Glossary_icon.svg";
 
 import "./MainNav.css";
 

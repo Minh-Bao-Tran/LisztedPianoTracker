@@ -1,7 +1,10 @@
+import type { ReactElement } from "react";
 import { useOutletContext } from "react-router";
 
 import type { PopupData } from "../../../Layout";
-import type { ReactElement } from "react";
+import GoalCard from "../util/Card/GoalCard";
+
+import styles from "./GoalsSection.module.css";
 
 export default function GoalsSection() {
   const { goals, setPopup, handleAddGoal, handleUpdateGoal, handleDeleteGoal } =
@@ -71,41 +74,55 @@ export default function GoalsSection() {
     const currentGoalElements = goalList[field].map(
       (goal: GoalData, index: number) => {
         return (
-          <div
-            key={index}
-            className="card-box"
-            onDoubleClick={() => {
-              openUpdateResource({
-                currentValues: { ...goal },
-                goalId: goal.id,
-              });
-            }}
-          >
-            <h3>{goal.name}</h3>
-            <p>{goal.ratings === 0 ? "Not Started" : goal.ratings}</p>
-          </div>
+          <>
+            <GoalCard
+              index={index}
+              goal={goal}
+              onClick={() => {
+                openUpdateResource({
+                  currentValues: { ...goal },
+                  goalId: goal.id,
+                });
+              }}
+            />
+            <hr />
+          </>
         );
       },
     );
-    goalElements[field].push(currentGoalElements);
+    goalElements[field].push(...currentGoalElements);
   }
+
   return (
-    <>
-      <section>
-        <h3>Current Goals</h3>
-        <button onClick={openAddNewGoal} className="btn-blue">
-          +Add New Goal
-        </button>
-        {goalElements.active.length && goalElements.active}
+    <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
+      <section className={styles.goalSection}>
+        <div className={styles.buttonDiv}>
+          <h3>Current Goals</h3>
+          <button onClick={openAddNewGoal} className="btn-blue">
+            +Add New Goal
+          </button>
+        </div>
+
+        <ul>
+          {goalElements.active.length > 0 ? goalElements.active : <p>N/A</p>}
+        </ul>
       </section>
-      <section>
+      <section className={styles.goalSection}>
         <h3>Completed Goals</h3>
-        {goalElements.completed.length && goalElements.completed}
+        <ul>
+          {goalElements.completed.length > 0 ? (
+            goalElements.completed
+          ) : (
+            <p>N/A</p>
+          )}
+        </ul>
       </section>
-      <section>
+      <section className={styles.goalSection}>
         <h3>Planned Goals</h3>
-        {goalElements.planned.length && goalElements.planned}
+        <ul>
+          {goalElements.planned.length > 0 ? goalElements.planned : <p>N/A</p>}
+        </ul>
       </section>
-    </>
+    </div>
   );
 }

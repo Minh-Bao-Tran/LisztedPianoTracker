@@ -1,0 +1,16 @@
+.goalCard {
+  min-width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-self: center;
+  padding: 0 2rem;
+}
+
+.goalIcon {
+  width: 5rem;
+  height: auto;
+}
+
+.goalCard > div {
+  width: 75%;
+}

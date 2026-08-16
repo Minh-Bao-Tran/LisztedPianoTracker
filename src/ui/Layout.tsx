@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { Outlet, useLocation } from "react-router";
-import MainNav from "./shared/MainNav";
+import MainNav from "./shared/Nav/MainNav";
 
-import AddResourcePopUp from "./pages/Pieces/util/AddResourcePopUp";
-import EditResourcePopUp from "./pages/Pieces/util/EditResourcePopUp";
-import AddGoalPopUp from "./pages/Pieces/util/AddGoalPopUp";
-import EditGoalPopUp from "./pages/Pieces/util/EditGoalPopUp";
+import AddResourcePopUp from "./pages/Pieces/util/PopUp/AddResourcePopUp";
+import EditResourcePopUp from "./pages/Pieces/util/PopUp/EditResourcePopUp";
+import AddGoalPopUp from "./pages/Pieces/util/PopUp/AddGoalPopUp";
+import EditGoalPopUp from "./pages/Pieces/util/PopUp/EditGoalPopUp";
 import ViewSessionPopUp from "./pages/Session/util/ViewSubsessionPopUp";
 
 type PopupState =

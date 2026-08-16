@@ -4,7 +4,7 @@ import { useParams, NavLink, Outlet, useOutletContext } from "react-router";
 import type { PopupData } from "../../../Layout";
 
 import EditIcon from "../../../assets/icon/Edit_icon.svg";
-import SubNav from "../../../shared/SubNav";
+import SubNav from "../../../shared/Nav/SubNav";
 
 import styles from "./ViewPiece.module.css";
 

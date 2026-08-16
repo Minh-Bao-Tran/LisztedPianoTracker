@@ -1,7 +1,7 @@
 import { NavLink, useLocation } from "react-router";
 // import type { SetStateAction } from "react";
 // import SubNav from "../../shared/SubNav";
-import ExtendedPieceCard from "../util/ExtendedPieceCard";
+import ExtendedPieceCard from "../util/Card/ExtendedPieceCard";
 
 import styles from "./AllPieces.module.css";
 import { useEffect, useState } from "react";

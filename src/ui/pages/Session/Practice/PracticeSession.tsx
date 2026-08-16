@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 import { useParams, useLocation, useNavigate } from "react-router";
 
-import ExtendedPieceCard from "../../Pieces/util/ExtendedPieceCard";
+import ExtendedPieceCard from "../../Pieces/util/Card/ExtendedPieceCard";
 
 import UpdateSubsessionPopUp from "../util/UpdateSubsessionPopUp";
 

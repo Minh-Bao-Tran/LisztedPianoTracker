@@ -1,8 +1,8 @@
 import { useNavigate, useOutletContext } from "react-router";
 
-import type { Column } from "../../../shared/MainTable";
+import type { Column } from "../../../shared/Table/MainTable";
 
-import Table from "../../../shared/MainTable";
+import Table from "../../../shared/Table/MainTable";
 
 import Ratings from "../../../shared/Ratings";
 

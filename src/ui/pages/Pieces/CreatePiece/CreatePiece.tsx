@@ -1,6 +1,6 @@
 import { NavLink, useNavigate } from "react-router";
 
-import PieceForm from "../util/PieceForm";
+import PieceForm from "../util/Form/PieceForm";
 
 import styles from "./CreatePiece.module.css";
 

@@ -3,10 +3,10 @@ import type { SubmitEvent } from "react";
 
 import { useNavigate, useParams } from "react-router";
 
-import Table from "../../../shared/MainTable";
+import Table from "../../../shared/Table/MainTable";
 import Ratings from "../../../shared/Ratings";
 
-import type { Column } from "../../../shared/MainTable";
+import type { Column } from "../../../shared/Table/MainTable";
 
 export default function FinishPracticePage() {
   const sessionId = useParams().id;

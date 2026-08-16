@@ -1,0 +1,25 @@
+.buttonDiv {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.goalSection {
+  padding: 0 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.goalSection > h3,
+.buttonDiv > h3 {
+  font-weight: bold;
+}
+
+.goalSection ul {
+  padding: 0 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}

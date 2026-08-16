@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 
 import { NavLink, useParams } from "react-router";
 
-import PieceForm from "../util/PieceForm";
+import PieceForm from "../util/Form/PieceForm";
 
 import styles from "./EditPiece.module.css";
 
