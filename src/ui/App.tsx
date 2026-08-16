@@ -16,7 +16,6 @@ import GoalsSection from "./pages/Pieces/ViewPiece/GoalsSection";
 import SessionsSection from "./pages/Pieces/ViewPiece/SessionsSection";
 import ResourcesSection from "./pages/Pieces/ViewPiece/ResourcesSection";
 import TermsSection from "./pages/Pieces/ViewPiece/TermsSection";
-import AnalyticsSection from "./pages/Pieces/ViewPiece/AnalyticsSection";
 
 //Sessions
 import AllSessionsPage from "./pages/Session/AllSessions/AllSessions";
@@ -42,7 +41,6 @@ export default function App() {
           <Route path="sessions" element={<SessionsSection />} />
           <Route path="resources" element={<ResourcesSection />} />
           <Route path="terms" element={<TermsSection />} />
-          <Route path="analytics" element={<AnalyticsSection />} />
         </Route>
         <Route path="piece/:id/edit" element={<EditPiecePage />}></Route>
 

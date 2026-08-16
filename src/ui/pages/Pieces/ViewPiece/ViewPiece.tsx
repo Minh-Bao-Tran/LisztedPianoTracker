@@ -306,7 +306,6 @@ export default function ViewPiecePage() {
             },
             { url: `/piece/${pieceId}/view/resources`, title: "Resources" },
             { url: `/piece/${pieceId}/view/terms`, title: "Music Terms" },
-            { url: `/piece/${pieceId}/view/analytics`, title: "Analytics" },
           ]}
         />
       </header>

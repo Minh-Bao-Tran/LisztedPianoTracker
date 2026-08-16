@@ -77,10 +77,6 @@ export default function OverviewSection() {
           <h1>{currentGoal}</h1>
           <p>Progress: {currentGoalRatings}</p>
         </div>
-        <div className="card-box">
-          <small>Total Subsessions</small>
-          <h1>{totalSubsessionsNumber} Subsessions</h1>
-        </div>
       </div>
       <div>
         <div className="card-box">
