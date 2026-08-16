@@ -119,7 +119,7 @@ export class Piece implements TableModel, PieceData {
         goal.lastPractice.getTime() >
         (currentLatestGoal.lastPractice as Date).getTime()
       ) {
-        currentLatestGoal == goal;
+        currentLatestGoal = goal;
       }
     }
 

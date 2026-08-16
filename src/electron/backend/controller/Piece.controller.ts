@@ -23,7 +23,7 @@ export default class PieceController {
         if (!latestGoal) {
           //Default data:
           extendedData = {
-            lastPracticeDate: "N/A",
+            lastPracticeDate: "N/A" as const,
             lastPracticeGoalName: "N/A",
           };
         } else {
@@ -63,7 +63,7 @@ export default class PieceController {
       if (!latestGoal) {
         //Default data:
         extendedData = {
-          lastPracticeDate: "N/A",
+          lastPracticeDate: "N/A" as const,
           lastPracticeGoalName: "N/A",
           lastGoalProgress: 0,
         };

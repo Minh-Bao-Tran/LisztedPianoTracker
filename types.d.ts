@@ -49,7 +49,7 @@ interface PieceData {
   resourceIds?: string[]; //Foreign Key
 }
 interface ExtendedPieceData extends PieceData {
-  lastPracticeDate?: Date | string;
+  lastPracticeDate?: Date | "N/A";
   lastPracticeGoalName?: string;
   lastGoalProgress?: number; //out of 100
   goals?: GoalData[];
