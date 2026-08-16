@@ -66,7 +66,7 @@ export default class SessionController {
         let totalTimeAllSubsessions = 0;
 
         for (const { date, totalTime } of obj.subsessions) {
-          if (latestDate.getTime() < date.getTime()) {
+          if (date && latestDate && latestDate.getTime() < date.getTime()) {
             latestDate = date;
           }
           totalTimeAllSubsessions += totalTime ?? 0;
@@ -97,9 +97,9 @@ export default class SessionController {
       return { ...session.obj };
     }
 
-    let latestDate = session.obj.subsessions[0].date;
+    let latestDate = session.obj.subsessions[0].date ?? undefined;
     for (const { date } of session.obj.subsessions ?? []) {
-      if (latestDate.getTime() < date.getTime()) {
+      if (latestDate && date && latestDate.getTime() < date.getTime()) {
         latestDate = date;
       }
     }
@@ -178,7 +178,7 @@ export default class SessionController {
         maxTime: sessionData.time ?? 0,
         ratings: 0,
         time: [0],
-        date: new Date(),
+        date: undefined,
       };
       const id = db.getDb("subsession").insertOne(newSubsession);
       returnedSubsessionIds.push(id);
@@ -189,7 +189,7 @@ export default class SessionController {
           maxTime: sessionData.numberOfLoops * subsession.timePerLoop,
           ratings: 0,
           time: [0],
-          date: new Date(),
+          date: undefined,
         };
         const id = db.getDb("subsession").insertOne(newSubsession);
         returnedSubsessionIds.push(id);

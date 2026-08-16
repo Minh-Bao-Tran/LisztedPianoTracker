@@ -14,7 +14,7 @@ export class Subsession implements SubsessionData {
   public title: string;
   public time: number[]; //in minutes
   public maxTime: number; //in minutes
-  public date: Date;
+  public date?: Date | undefined;
   public ratings: number; //out of 100%
   public reflections?: string;
   public goalIds?: string[]; //Foreign Key
@@ -34,7 +34,7 @@ export class Subsession implements SubsessionData {
     ratings = 0,
     time = [0],
     maxTime = 0,
-    date = new Date(),
+    date = undefined,
     reflections = "",
     goalIds = [], //Default to Others
   }: {
@@ -91,15 +91,15 @@ export class Subsession implements SubsessionData {
     return new Subsession({ ...obj });
   }
 
-  public static nullDateConverter: Converter<Date | null> = {
+  public static undefinedlDateConverter: Converter<Date | undefined> = {
     //Support if the session is not finished
-    fromDB(value: string): Date | null {
+    fromDB(value: string): Date | undefined {
       if (value === "") {
-        return null;
+        return undefined;
       }
       return dateConverter.fromDB(value);
     },
-    toDB(value: Date | null): string {
+    toDB(value: Date | undefined): string {
       if (!value) {
         return "";
       }
@@ -115,7 +115,7 @@ export class Subsession implements SubsessionData {
       time: numberArrayConverter,
       ratings: numberConverter,
       maxTime: numberConverter,
-      date: dateConverter,
+      date: Subsession.undefinedlDateConverter,
       reflections: stringConverter,
       goalIds: stringArrayConverter,
     },

@@ -26,7 +26,7 @@ export default function ViewSubsessionPopUp({
 
       <div>
         <h3>Date</h3>
-        <p>{currentValues.date.toDateString()}</p>
+        <p>{currentValues.date ? currentValues.date.toDateString() : "N/A"}</p>
       </div>
 
       <div>

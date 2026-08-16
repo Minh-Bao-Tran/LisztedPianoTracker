@@ -32,11 +32,11 @@ export default function AllSessionsPage() {
       header: "Date",
       render: (session) => (
         <p>
-          {session.date.toLocaleDateString("en-AU", {
+          {session.date ? session.date.toLocaleDateString("en-AU", {
             day: "2-digit",
             month: "2-digit",
             year: "2-digit",
-          })}
+          }) : "Not started"}
         </p>
       ),
     },

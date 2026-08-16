@@ -95,11 +95,13 @@ export default function ViewSessionPage() {
       header: "Date",
       render: (subsession) => (
         <p>
-          {subsession.date.toLocaleDateString("en-AU", {
-            day: "2-digit",
-            month: "2-digit",
-            year: "2-digit",
-          })}
+          {subsession.date
+            ? subsession.date.toLocaleDateString("en-AU", {
+                day: "2-digit",
+                month: "2-digit",
+                year: "2-digit",
+              })
+            : "N/A"}
         </p>
       ),
     },

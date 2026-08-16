@@ -89,7 +89,7 @@ export default class AnalyticsController {
       const { date, totalTime } = allSubsessions[i];
 
       //-----Validation-----
-      if (!date.getTime()) {
+      if (!date || !date.getTime()) {
         //Not started yet
         console.log(1);
 
@@ -144,7 +144,11 @@ export default class AnalyticsController {
     }
 
     const totalSubsessionsNumber = allSubsessions.length;
-    const sortedTotalSubsessions = [...allSubsessions].sort((a, b) => {
+    const filteredSubsession = allSubsessions.filter(
+      (subsession) => subsession.date,
+    );
+    const sortedTotalSubsessions = [...filteredSubsession].sort((a, b) => {
+      //@ts-ignore
       return b.date.getTime() - a.date.getTime();
     });
 
@@ -154,6 +158,9 @@ export default class AnalyticsController {
     let streak = 0;
     let currentDate = timeFrameEndDate;
     for (const subsession of sortedTotalSubsessions) {
+      if (!subsession.date) {
+        return;
+      }
       const removedStartDate = subsession.date.toDateString();
       const removedCurrentDate = currentDate.toDateString();
       if (
