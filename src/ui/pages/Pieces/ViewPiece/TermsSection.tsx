@@ -1,5 +1,7 @@
 import { useOutletContext } from "react-router";
 
+import styles from "./TermsSection.module.css";
+
 import MusicTermComponent from "../../../shared/MusicTermComponent";
 export default function TermsSection() {
   const props: { terms: TermData[] } = useOutletContext<{
@@ -21,5 +23,13 @@ export default function TermsSection() {
     );
   });
 
-  return <>{terms && termElements}</>;
+  return (
+    <section className={styles.termSection}>
+      <div className={styles.buttonDiv}>
+        <h3>Linked Music Terms</h3>
+        <button className="btn-blue">+Link New Term</button>
+      </div>
+      <ul>{terms && termElements}</ul>
+    </section>
+  );
 }

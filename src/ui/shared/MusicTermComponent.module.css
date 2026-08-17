@@ -1,4 +1,14 @@
-.termComponent{
-    display: flex;
-    justify-content: space-between;
+.termComponent {
+  min-width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-self: center;
+  padding: 0 2rem;
+}
+
+.termComponent > div {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  align-items: center;
 }
