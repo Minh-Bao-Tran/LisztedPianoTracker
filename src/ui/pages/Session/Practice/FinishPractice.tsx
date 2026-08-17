@@ -8,6 +8,8 @@ import Ratings from "../../../shared/Ratings";
 
 import type { Column } from "../../../shared/Table/MainTable";
 
+import styles from "./FinishPractice.module.css";
+
 export default function FinishPracticePage() {
   const sessionId = useParams().id;
   const navigate = useNavigate();
@@ -90,25 +92,33 @@ export default function FinishPracticePage() {
     },
   ];
   return (
-    <>
-      <header>
+    <div className={styles.layout}>
+      <header className={styles.header}>
         <h1>Finish Practice</h1>
       </header>
-      <main>
+      <main className={styles.main}>
         {session && <Table data={subsessions} columns={subsessionColumns} />}
 
-        <h3>Reflections</h3>
         <div>
-          {subsessions &&
+          <h3>Reflections</h3>
+          {subsessions.length > 0 ? (
             subsessions.map((subsession) => {
               return (
-                subsession.reflections && <h1>{subsession.reflections}</h1>
+                subsession.reflections && (
+                  <div className="card-box">
+                    <h1>{subsession.reflections}</h1>
+                    <small>{subsession.title}</small>
+                  </div>
+                )
               );
-            })}
+            })
+          ) : (
+            <p>No Reflections</p>
+          )}
         </div>
         {session && (
-          <form onSubmit={finishSession}>
-            <div>
+          <form onSubmit={finishSession} className={styles.form}>
+            <div className={styles.formField}>
               <label htmlFor="notes" className="p">
                 notes
               </label>
@@ -125,6 +135,6 @@ export default function FinishPracticePage() {
           </form>
         )}
       </main>
-    </>
+    </div>
   );
 }

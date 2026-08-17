@@ -157,6 +157,11 @@ hr {
   background-color: var(--color-g4);
 }
 
+button{
+  border: none;
+  background-color: transparent;
+}
+
 .btn-blue {
   font-weight: 400;
   font-size: clamp(20px, 2.75vh, 25px);

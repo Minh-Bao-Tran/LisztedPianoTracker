@@ -1,5 +1,10 @@
 import { useEffect, useState } from "react";
-import { useParams, NavLink, useOutletContext } from "react-router";
+import {
+  useParams,
+  NavLink,
+  useOutletContext,
+  useNavigate,
+} from "react-router";
 
 import type { Column } from "../../../shared/Table/MainTable";
 
@@ -14,7 +19,9 @@ import styles from "./ViewSession.module.css";
 import CompletionBar from "../../../shared/CompletionBar";
 
 export default function ViewSessionPage() {
+  const navigate = useNavigate();
   const sessionId = useParams().id;
+
   const { setPopup } = useOutletContext<{
     setPopup: (value: React.SetStateAction<PopupData | undefined>) => void;
   }>();
@@ -32,6 +39,18 @@ export default function ViewSessionPage() {
           throw new Error("No session found");
         }
         setSession(data);
+      });
+  }
+
+  async function startSession() {
+    window.electron
+      .startSession({
+        id: sessionId as string,
+      })
+      .then((result) => {
+        if (result) {
+          navigate(`/session/${sessionId}/practice`);
+        }
       });
   }
 
@@ -120,7 +139,7 @@ export default function ViewSessionPage() {
         ...subsession,
         //@ts-ignore
         onClick: () => {
-            openSubsessionPopUp(subsession.id);
+          openSubsessionPopUp(subsession.id);
         },
       };
     });
@@ -170,12 +189,9 @@ export default function ViewSessionPage() {
             </div>
 
             {session && session.status !== "Completed" && (
-              <NavLink
-                to={`/session/${sessionId}/practice`}
-                className="btn-blue"
-              >
+              <button type="button" className="btn-blue" onClick={startSession}>
                 Practice
-              </NavLink>
+              </button>
             )}
           </div>
         </div>

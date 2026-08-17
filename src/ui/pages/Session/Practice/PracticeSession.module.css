@@ -1,0 +1,68 @@
+.layout {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  min-width: 0;
+  max-height: 100%;
+  padding: 1rem 5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  overflow-x: auto;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+}
+
+.header button {
+  width: fit-content;
+}
+
+.header > div {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  text-align: center;
+  align-items: baseline;
+}
+
+.header > div > h1 {
+  padding: 0 1rem 0 3rem;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.completionStatus {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.completionStatus p {
+  text-align: center;
+}
+
+.actionSection {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.pauseButton {
+  width: 6rem;
+  margin-left: 3rem;
+}
+
+.skipButton {
+  width: 3rem;
+}

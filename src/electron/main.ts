@@ -104,6 +104,9 @@ app.on("ready", () => {
   ipcMainHandle("updateSubsessionTime", (req) => {
     return sessionController.updateSubsessionTime(req);
   });
+    ipcMainHandle("startSession", (req) => {
+      return sessionController.startSession(req.id);
+    });
   ipcMainHandle("nextSession", (req) => {
     return sessionController.nextSession(req);
   });

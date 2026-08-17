@@ -2,13 +2,17 @@ import { useEffect, useState } from "react";
 
 import { useParams, useLocation, useNavigate } from "react-router";
 
-import ExtendedPieceCard from "../../Pieces/util/Card/ExtendedPieceCard";
+import MinimisedPieceCard from "./MinimisedPieceCard.tsx";
+import GoalCard from "../../Pieces/util/Card/GoalCard";
+import CompletionBar from "../../../shared/CompletionBar";
 
 import UpdateSubsessionPopUp from "../util/UpdateSubsessionPopUp";
 
 import SkipIcon from "../../../assets/icon/Skip_Icon.svg";
 import PauseIcon from "../../../assets/icon/Pause_Icon.svg";
 import PlayIcon from "../../../assets/icon/Play_Icon.svg";
+
+import styles from "./PracticeSession.module.css";
 
 export default function PracticeSessionPage() {
   const location = useLocation();
@@ -65,7 +69,6 @@ export default function PracticeSessionPage() {
       });
     return true;
   }
-
   async function incrementTime() {
     setCurrentTime((prev) => {
       if (prev >= 59) {
@@ -74,7 +77,6 @@ export default function PracticeSessionPage() {
       return prev + 1;
     });
   }
-
   async function nextSession(data: {
     latestReflections: string;
     latestRatings: number;
@@ -158,7 +160,7 @@ export default function PracticeSessionPage() {
     if (currentSubsession) {
       loadPiece();
     }
-  }, [currentIndex]);
+  }, [currentIndex, currentSubsession && currentSubsession.id]);
 
   useEffect(() => {
     if (currentSubsession) {
@@ -166,7 +168,7 @@ export default function PracticeSessionPage() {
         if (!stopStatus) {
           incrementTime();
         }
-      }, 1000000);
+      }, 100);
       return () => {
         clearInterval(timer);
       };
@@ -209,17 +211,91 @@ export default function PracticeSessionPage() {
   //----Component----
   return (
     <>
-      <header>
-        <button type="button" className="small" onClick={exit}>
-          &lt; Exit
-        </button>
-        <h2>{session && session.title}</h2>
-        <hr />
-      </header>
-      <main>
+      <div className={styles.layout}>
+        <header className={styles.header}>
+          <button type="button" className="small" onClick={exit}>
+            &lt; Exit
+          </button>
+          <div>
+            {session && (
+              <>
+                <h1>{session.title}</h1>
+                <p>
+                  {session.currentIndex}/
+                  {session.numberOfLoops * session.subsessionIds.length}
+                </p>
+              </>
+            )}
+          </div>
+          <hr />
+        </header>
+        <main className={styles.main}>
+          <h2>Piece</h2>
+          {piece && <MinimisedPieceCard piece={piece} toPiecePage={false} />}
+          <h2>Goal</h2>
+          {currentSubsession &&
+            currentSubsession.goals &&
+            currentSubsession.goals.map((goal: GoalData, index: number) => {
+              return (
+                <div className="card-box">
+                  <GoalCard
+                    index={index}
+                    goal={
+                      { name: goal.name, ratings: goal.ratings } as GoalData
+                    }
+                  />
+                </div>
+              );
+            })}
+
+          <div className={styles.completionStatus}>
+            {currentSubsession && (
+              <>
+                <p>
+                  {currentSubsession.time[currentSubsession.time.length - 1]}{" "}
+                  min. {currentTime ?? 0} sec.
+                </p>
+                <CompletionBar
+                  width="100%"
+                  value={
+                    currentSubsession.time[currentSubsession.time.length - 1] *
+                      60 +
+                    currentTime
+                  }
+                  maxValue={
+                    (currentSubsession.maxTime / session.numberOfLoops) * 60
+                  }
+                />
+              </>
+            )}
+          </div>
+
+          <div className={styles.actionSection}>
+            <img
+              src={stopStatus ? PauseIcon : PlayIcon}
+              alt=""
+              onClick={() => {
+                setStopStatus((prev) => !prev);
+              }}
+              className={styles.pauseButton}
+            />
+            <img
+              src={SkipIcon}
+              alt=""
+              onClick={() => {
+                setStopStatus(true);
+                setNextPopUp({ state: true, closeable: true });
+              }}
+              className={styles.skipButton}
+            />
+          </div>
+        </main>
         {currentSubsession && nextPopUp.state && (
           <UpdateSubsessionPopUp
-            currentValues={currentSubsession}
+            currentValues={{
+              ...currentSubsession,
+              ratings: (currentSubsession.goals ?? [{ ratings: 0 }])[0].ratings,
+            }}
             handleFormPredicate={(subsession) => {
               nextSession(subsession);
             }}
@@ -233,46 +309,7 @@ export default function PracticeSessionPage() {
             }
           />
         )}
-        <h1>{sessionId}</h1>
-        <h2>Piece</h2>
-        {piece && <ExtendedPieceCard piece={piece} />}
-        <h2>Goal</h2>
-        {currentSubsession &&
-          currentSubsession.goals &&
-          currentSubsession.goals.map((goal: GoalData, index: number) => {
-            return (
-              <div key={index} className="card-box">
-                <h3>{goal.name}</h3>
-                <p>{goal.ratings === 0 ? "Not Started" : goal.ratings}</p>
-              </div>
-            );
-          })}
-        <div>
-          {currentSubsession && (
-            <p>
-              {currentSubsession.time[currentSubsession.time.length - 1]} min.{" "}
-              {currentTime ?? 0} sec.
-            </p>
-          )}
-        </div>
-        <div>
-          <img
-            src={SkipIcon}
-            alt=""
-            onClick={() => {
-              setStopStatus(true);
-              setNextPopUp({ state: true, closeable: true });
-            }}
-          />
-          <img
-            src={stopStatus ? PauseIcon : PlayIcon}
-            alt=""
-            onClick={() => {
-              setStopStatus((prev) => !prev);
-            }}
-          />{" "}
-        </div>
-      </main>
+      </div>
     </>
   );
 }

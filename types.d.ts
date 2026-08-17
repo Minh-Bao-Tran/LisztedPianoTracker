@@ -22,11 +22,7 @@ type FreqFrame = "Week" | "Fortnight" | "Month";
 
 type GoalType = "Dynamic" | "Tempo" | "Technique" | "Expression" | "Others";
 
-type ResourceType =
-  | "Sheet Music"
-  | "Recording"
-  | "Guides"
-  | "Others";
+type ResourceType = "Sheet Music" | "Recording" | "Guides" | "Others";
 
 type SessionStatus = "Completed" | "InProgress" | "Active" | "Planned";
 // Data types(From model)
@@ -64,7 +60,6 @@ interface GoalData {
 
   lastPractice?: Date;
 }
-
 interface ExtendedGoalData extends GoalData {
   pieceId?: string;
 }
@@ -77,21 +72,14 @@ interface ResourceData {
 }
 
 //For createNewSession
-interface CreateSubsessionData {
-  title: string;
-  timePerLoop: number;
-  goalIds: string[];
-}
-
 interface CreateSessionData {
   title: string;
   structure: SessionStructure;
   notes: string;
   numberOfLoops: number;
   subsessions: CreateSubsessionData[];
-  time?: number;// to handle Unstructured Session, as they have no subsessions
+  time?: number; // to handle Unstructured Session, as they have no subsessions
 }
-
 interface SessionData {
   id: string;
   title: string;
@@ -104,13 +92,17 @@ interface SessionData {
   notes?: string;
   subsessionIds: string[]; //Required
 }
-
 interface ExtendedSessionData extends SessionData {
   date?: Date;
   totalTime?: number;
   subsessions?: ExtendedSubsessionData[];
 }
 
+interface CreateSubsessionData {
+  title: string;
+  timePerLoop: number;
+  goalIds: string[];
+}
 interface SubsessionData {
   id: string;
   title: string;
@@ -122,12 +114,12 @@ interface SubsessionData {
   reflections?: string;
   goalIds?: string[]; //Foreign Key
 }
-
 interface ExtendedSubsessionData extends SubsessionData {
   sessionId?: string;
   goals?: ExtendedGoalData[] | GoalData[];
 }
 
+//---Term---
 interface TermData {
   id: string;
   term: string;
@@ -136,6 +128,7 @@ interface TermData {
   notes?: string;
 }
 
+//---Analytics---
 interface AnalyticsData {
   totalTime: number;
   averageTime: number;
@@ -147,7 +140,6 @@ interface AnalyticsData {
 }
 
 //Define what type each event would return
-
 type EventMapping = {
   statistics: { req: undefined; res: Statistics };
   getStaticData: { req: undefined; res: StaticData };
@@ -163,6 +155,7 @@ type EventMapping = {
     };
     res: true;
   };
+
   //----Goal Routes----
   getAllPieceGoals: { req: { pieceId: string }; res: GoalData[] };
   addGoal: {
@@ -180,6 +173,7 @@ type EventMapping = {
     req: { id: string };
     res: true;
   };
+
   //----Resource Routes----
   getAllPieceResources: { req: { pieceId: string }; res: ResourceData[] };
   addResource: {
@@ -197,6 +191,7 @@ type EventMapping = {
     req: { id: string };
     res: true;
   };
+
   //----Session Routes----
   getAllSessions: {
     req: {
@@ -213,10 +208,12 @@ type EventMapping = {
   getOneSession: { req: { id: string }; res: ExtendedSessionData };
   getOneSubsession: { req: { id: string }; res: ExtendedSubsessionData };
   addNewSession: { req: { sessionData: CreateSessionData }; res: string };
+
   updateSubsessionTime: {
     req: { subsessionId: string; incrementTime?: number };
     res: boolean;
   };
+  startSession: { req: { id: string }; res: true };
   nextSession: {
     req: {
       sessionId: string;
@@ -302,6 +299,7 @@ interface Window {
       subsessionId: string;
       incrementTime?: number;
     }) => Promise<boolean>;
+    startSession: (req: { id: string }) => Promise<true>;
     nextSession: (req: {
       sessionId: string;
       latestReflections: string;

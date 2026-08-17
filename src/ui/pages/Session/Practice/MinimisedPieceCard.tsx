@@ -1,11 +1,11 @@
 import { useNavigate } from "react-router";
-import styles from "./ExtendedPieceCard.module.css";
+import styles from "./MinimisedPieceCard.module.css";
 
-export default function PieceCard({
+export default function MinimisedPieceCard({
   piece,
   toPiecePage = true,
 }: {
-  piece: ExtendedPieceData;
+  piece: PieceData;
   toPiecePage?: boolean;
 }) {
   const navigate = useNavigate();
@@ -27,21 +27,6 @@ export default function PieceCard({
         >
           {piece.status}
         </em>
-      </div>
-
-      <div className={`${styles.pieceParagraph} ${styles.div}`}>
-        {" "}
-        <p>
-          Last Practice:{" "}
-          {typeof piece.lastPracticeDate === "string"
-            ? piece.lastPracticeDate
-            : piece.lastPracticeDate?.toLocaleString("en-AU", {
-                day: "2-digit",
-                month: "2-digit",
-                year: "2-digit",
-              })}
-        </p>
-        <p>Goal: {piece.lastPracticeGoalName}</p>
       </div>
     </div>
   );
