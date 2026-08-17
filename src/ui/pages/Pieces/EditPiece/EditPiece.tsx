@@ -1,18 +1,40 @@
 import { useState, useEffect } from "react";
-
-import { NavLink, useParams } from "react-router";
+import { NavLink, useNavigate, useParams } from "react-router";
 
 import PieceForm from "../util/Form/PieceForm";
+
+import DeleteIcon from "../../../assets/icon/Delete_Icon.svg";
 
 import styles from "./EditPiece.module.css";
 
 export default function EditPiecePage() {
   const pieceId = useParams().id;
+  const navigate = useNavigate();
 
   const [piece, setPiece] = useState<PieceData | undefined>(undefined);
   const [resetCount, setResetCount] = useState<number>(0);
 
-  async function loadPieces() {
+  async function deletePiece() {
+    const confirm = window.confirm(
+      "Deleting Piece? You won't be able to recover",
+    );
+    if (!confirm) return;
+
+    window.electron
+      .deletePiece({
+        id: pieceId as string,
+      })
+      .then((data) => {
+        // console.log(data);
+        if (!data) {
+          alert("Piece Delete failed");
+          throw new Error("Piece Delete failed");
+        }
+        navigate("/pieces");
+      });
+  }
+
+  async function loadPiece() {
     window.electron
       .getOnePiece({
         id: pieceId as string,
@@ -34,7 +56,7 @@ export default function EditPiecePage() {
       updatingFields: { ...newPiece },
     });
     if (res) {
-      await loadPieces();
+      await loadPiece();
       setResetCount((prevCount) => prevCount + 1);
       return alert("Updated successfully");
     }
@@ -42,7 +64,7 @@ export default function EditPiecePage() {
   }
 
   useEffect(() => {
-    loadPieces();
+    loadPiece();
   }, [pieceId]);
 
   return (
@@ -52,7 +74,16 @@ export default function EditPiecePage() {
           &lt; Back
         </NavLink>
 
-        <h2>Edit Piece</h2>
+        <div>
+          <h2>Edit Piece</h2>
+          <img
+            src={DeleteIcon}
+            alt=""
+            onClick={deletePiece}
+            className={styles.deleteBtn}
+          />
+        </div>
+
         <hr />
       </header>
       <main>

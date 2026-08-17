@@ -190,7 +190,10 @@ export default function AllPiecesPage() {
               </select>
             </div>
             <div style={{ display: "flex", justifyContent: "space-between" }}>
-              <label className="h3">
+              <label
+                className="h3"
+                style={{ display: "flex", gap: "0.5rem", alignItems: "center" }}
+              >
                 <input
                   type="checkbox"
                   checked={filterStatuses.includes("Active")}
@@ -201,7 +204,10 @@ export default function AllPiecesPage() {
                 Active
               </label>
 
-              <label className="h3">
+              <label
+                className="h3"
+                style={{ display: "flex", gap: "0.5rem", alignItems: "center" }}
+              >
                 <input
                   type="checkbox"
                   checked={filterStatuses.includes("Completed")}
@@ -212,7 +218,10 @@ export default function AllPiecesPage() {
                 Completed
               </label>
 
-              <label className="h3">
+              <label
+                className="h3"
+                style={{ display: "flex", gap: "0.5rem", alignItems: "center" }}
+              >
                 <input
                   type="checkbox"
                   checked={filterStatuses.includes("Planned")}

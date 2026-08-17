@@ -134,11 +134,23 @@ export default class PieceController {
     }
   }
 
-  public deletePiece(
-    pieceId: string,
-  ): boolean {
+  public deletePiece(pieceId: string): true {
     try {
-      db.getDb("piece").deleteOne({id: pieceId}, []);
+      const piece = this.getOnePiece(pieceId);
+
+      if (!piece) {
+        throw new Error("Piece not found to be deleted");
+      }
+
+      if (piece.goalIds && piece.goalIds.length > 0) {
+        const subsessionTable = db.getDb("subsession");
+
+        for (const goalId of piece.goalIds) {
+          db.getDb("goal").deleteOne({ id: goalId }, [subsessionTable]);
+        }
+      }
+
+      db.getDb("piece").deleteOne({ id: pieceId }, []);
     } catch (err) {
       throw err;
     }

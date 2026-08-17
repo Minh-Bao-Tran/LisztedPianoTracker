@@ -140,7 +140,7 @@ interface AnalyticsData {
 }
 
 //Define what type each event would return
-type EventMapping = {
+interface EventMapping {
   statistics: { req: undefined; res: Statistics };
   getStaticData: { req: undefined; res: StaticData };
 
@@ -155,6 +155,7 @@ type EventMapping = {
     };
     res: true;
   };
+  deletePiece: { req: { id: string }; res: true };
 
   //----Goal Routes----
   getAllPieceGoals: { req: { pieceId: string }; res: GoalData[] };
@@ -239,7 +240,7 @@ type EventMapping = {
     req: { id: string; timeFrameEndDate?: Date; timeFrameStartDate?: Date };
     res: AnalyticsData;
   };
-};
+}
 
 //Adding type to electron and define events
 // import type {Piece} from "./src/electron/backend/class/Piece.model.ts";
@@ -256,6 +257,7 @@ interface Window {
       updateCriteria: Partial<Pick<PieceData, keyof PieceData>>;
       updatingFields: Partial<PieceData>;
     }) => Promise<true>;
+    deletePiece: (req: {id: string})=> Promise<true>
 
     //----Goal Routes----
     getAllPieceGoals: (req: { pieceId: string }) => Promise<GoalData[]>;

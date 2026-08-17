@@ -8,3 +8,13 @@
   margin-left: 10px;
   font-weight: 700;
 }
+
+.header > div {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+}
+
+.deleteBtn {
+  width: 2rem;
+}

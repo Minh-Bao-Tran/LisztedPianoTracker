@@ -52,6 +52,9 @@ app.on("ready", () => {
   ipcMainHandle("updatePiece", (req) => {
     return pieceController.updatePiece(req);
   });
+  ipcMainHandle("deletePiece", (req) => {
+    return pieceController.deletePiece(req.id);
+  });
 
   //----Goal----
   ipcMainHandle("getAllPieceGoals", (req) => {
@@ -100,13 +103,13 @@ app.on("ready", () => {
   ipcMainHandle("addNewSession", (req) => {
     return sessionController.addNewSession(req.sessionData);
   });
-  
+
   ipcMainHandle("updateSubsessionTime", (req) => {
     return sessionController.updateSubsessionTime(req);
   });
-    ipcMainHandle("startSession", (req) => {
-      return sessionController.startSession(req.id);
-    });
+  ipcMainHandle("startSession", (req) => {
+    return sessionController.startSession(req.id);
+  });
   ipcMainHandle("nextSession", (req) => {
     return sessionController.nextSession(req);
   });
