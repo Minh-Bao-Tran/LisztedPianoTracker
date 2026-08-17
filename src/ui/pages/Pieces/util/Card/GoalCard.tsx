@@ -6,11 +6,11 @@ import EditIcon from "../../../../assets/icon/Edit_icon.svg";
 import styles from "./GoalCard.module.css";
 
 export default function GoalCard({
-  index,
+  index = 0,
   goal,
   onClick = null,
 }: {
-  index: number;
+  index?: number;
   goal: GoalData;
   onClick?: () => void;
 }) {

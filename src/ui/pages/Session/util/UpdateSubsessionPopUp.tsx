@@ -1,5 +1,7 @@
 import type { SubmitEvent } from "react";
 
+import styles from "./UpdateSubsessionPopUp.module.css";
+
 export default function UpdateSubsessionPopUp({
   currentValues,
   handleFormPredicate,
@@ -34,14 +36,14 @@ export default function UpdateSubsessionPopUp({
           onSubmit={async (event: SubmitEvent<HTMLFormElement>) => {
             handleFormSubmit(event, handleFormPredicate);
           }}
+          className={styles.popUp}
         >
           <div>
-            <h3>Title</h3>
-            <p>{currentValues.title}</p>
+            <h3>{currentValues.title}</h3>
           </div>
 
-          <div>
-            <label>Ratings</label>
+          <div className={styles.formField}>
+            <label className="p">Ratings</label>
             <input
               type="number"
               name="ratings"
@@ -50,8 +52,8 @@ export default function UpdateSubsessionPopUp({
             ></input>
           </div>
 
-          <div>
-            <label>Reflections</label>
+          <div className={styles.formField}>
+            <label className="p">Reflections</label>
             <input
               type="text"
               defaultValue={currentValues.reflections}
@@ -59,14 +61,17 @@ export default function UpdateSubsessionPopUp({
               className="input-deco"
             ></input>
           </div>
-          {onClose && (
-            <button onClick={onClose} className="btn-blue btn-blue-alt">
-              Cancel
+
+          <div className={styles.actionSection}>
+            {onClose && (
+              <button onClick={onClose} className="btn-blue btn-blue-alt">
+                Cancel
+              </button>
+            )}
+            <button type="submit" className="btn-blue">
+              Save
             </button>
-          )}
-          <button type="submit" className="btn-blue">
-            Save
-          </button>
+          </div>
         </form>
       </div>
     </div>

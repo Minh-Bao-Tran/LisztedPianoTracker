@@ -1,0 +1,18 @@
+.popUp {
+  width: 30vw;
+  height: 40vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.formField {
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+}
+
+.actionSection {
+  display: flex;
+  justify-content: space-between;
+}
