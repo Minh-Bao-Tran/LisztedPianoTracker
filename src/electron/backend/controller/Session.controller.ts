@@ -374,7 +374,28 @@ export default class SessionController {
 
   public updateSession() {}
 
-  public deleteSession() {}
+  public deleteSession(id: string): true {
+    try {
+      const session = this.getOneSession(id);
+
+      if (!session) {
+        throw new Error("Session not found to be deleted");
+      }
+
+      if (session.subsessionIds && session.subsessionIds.length > 0) {
+        const subsessionTable = db.getDb("subsession");
+
+        for (const subsessionId of session.subsessionIds) {
+          subsessionTable.deleteOne({ id: subsessionId }, []);
+        }
+      }
+
+      db.getDb("session").deleteOne({ id: id }, []);
+    } catch (err) {
+      throw err;
+    }
+    return true;
+  }
 
   //------Subsession------
 

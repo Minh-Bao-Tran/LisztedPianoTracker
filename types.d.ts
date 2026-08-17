@@ -209,6 +209,7 @@ interface EventMapping {
   getOneSession: { req: { id: string }; res: ExtendedSessionData };
   getOneSubsession: { req: { id: string }; res: ExtendedSubsessionData };
   addNewSession: { req: { sessionData: CreateSessionData }; res: string };
+  deleteSession: { req: { id: string }; res: true };
 
   updateSubsessionTime: {
     req: { subsessionId: string; incrementTime?: number };
@@ -257,7 +258,7 @@ interface Window {
       updateCriteria: Partial<Pick<PieceData, keyof PieceData>>;
       updatingFields: Partial<PieceData>;
     }) => Promise<true>;
-    deletePiece: (req: {id: string})=> Promise<true>
+    deletePiece: (req: { id: string }) => Promise<true>;
 
     //----Goal Routes----
     getAllPieceGoals: (req: { pieceId: string }) => Promise<GoalData[]>;
@@ -296,6 +297,7 @@ interface Window {
     getOneSession: (req: { id: string }) => Promise<ExtendedSessionData>;
     getOneSubsession: (req: { id: string }) => Promise<ExtendedSubsessionData>;
     addNewSession: (req: { sessionData: CreateSessionData }) => Promise<string>;
+    deleteSession: (req: { id: string }) => Promise<true>;
 
     updateSubsessionTime: (req: {
       subsessionId: string;

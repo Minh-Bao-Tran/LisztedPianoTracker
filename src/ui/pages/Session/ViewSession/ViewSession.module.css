@@ -3,7 +3,7 @@
   flex-direction: column;
   gap: 3vh;
 }
-.topButtonDiv{
+.topButtonDiv {
   display: flex;
   justify-content: space-between;
 }
@@ -23,8 +23,6 @@
 .main::-webkit-scrollbar {
   display: none; /* Chrome, Edge, Electron, Safari */
 }
-
-
 
 .sessionCard {
   display: flex;
@@ -54,4 +52,8 @@
   justify-content: space-between;
   align-items: center;
   gap: 3vw;
+}
+
+.deleteBtn {
+  width: 2rem;
 }

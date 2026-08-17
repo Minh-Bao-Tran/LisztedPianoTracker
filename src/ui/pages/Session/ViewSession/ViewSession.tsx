@@ -13,7 +13,7 @@ import Ratings from "../../../shared/Ratings";
 
 import type { PopupData } from "../../../Layout";
 
-import EditIcon from "../../../assets/icon/Edit_icon.svg";
+import DeleteIcon from "../../../assets/icon/Delete_Icon.svg";
 
 import styles from "./ViewSession.module.css";
 import CompletionBar from "../../../shared/CompletionBar";
@@ -42,6 +42,18 @@ export default function ViewSessionPage() {
       });
   }
 
+  async function loadSubsession(subsessionId: string) {
+    const result = await window.electron.getOneSubsession({
+      id: subsessionId as string,
+    });
+    if (!result) {
+      alert("No session found");
+      throw new Error("No session found");
+    }
+
+    return result;
+  }
+
   async function startSession() {
     window.electron
       .startSession({
@@ -54,16 +66,24 @@ export default function ViewSessionPage() {
       });
   }
 
-  async function loadSubsession(subsessionId: string) {
-    const result = await window.electron.getOneSubsession({
-      id: subsessionId as string,
-    });
-    if (!result) {
-      alert("No session found");
-      throw new Error("No session found");
-    }
+  async function deleteSession() {
+    const confirm = window.confirm(
+      "Deleting Session? All data associated with this session will be lost forever.",
+    );
+    if (!confirm) return;
 
-    return result;
+    window.electron
+      .deleteSession({
+        id: sessionId as string,
+      })
+      .then((data) => {
+        // console.log(data);
+        if (!data) {
+          alert("Session Delete failed");
+          throw new Error("Session Delete failed");
+        }
+        navigate("/sessions");
+      });
   }
 
   async function openSubsessionPopUp(subsessionId: string) {
@@ -152,14 +172,12 @@ export default function ViewSessionPage() {
           <NavLink to="/sessions" className="small">
             &lt; Back
           </NavLink>
-          <NavLink
-            to={`/session/${sessionId}/edit`}
-            className="h3"
-            style={{ display: "flex", alignItems: "bottom", gap: "10px" }}
-          >
-            <img src={EditIcon} alt="" />
-            Edit
-          </NavLink>
+          <img
+            src={DeleteIcon}
+            alt=""
+            className={styles.deleteBtn}
+            onClick={deleteSession}
+          />
         </div>
         <div className={`card-box ${styles.sessionCard}`}>
           <div className={styles.sessionTitle}>

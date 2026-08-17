@@ -103,6 +103,9 @@ app.on("ready", () => {
   ipcMainHandle("addNewSession", (req) => {
     return sessionController.addNewSession(req.sessionData);
   });
+  ipcMainHandle("deleteSession", (req) => {
+    return sessionController.deleteSession(req.id);
+  });
 
   ipcMainHandle("updateSubsessionTime", (req) => {
     return sessionController.updateSubsessionTime(req);

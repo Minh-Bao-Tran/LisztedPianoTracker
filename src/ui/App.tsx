@@ -21,6 +21,8 @@ import TermsSection from "./pages/Pieces/ViewPiece/TermsSection";
 import AllSessionsPage from "./pages/Session/AllSessions/AllSessions";
 import ViewSessionPage from "./pages/Session/ViewSession/ViewSession";
 import CreateSessionPage from "./pages/Session/CreateSession/CreateSession";
+
+//Practice
 import PracticeSessionPage from "./pages/Session/Practice/PracticeSession";
 import FinishPracticePage from "./pages/Session/Practice/FinishPractice";
 
@@ -48,11 +50,13 @@ export default function App() {
         <Route path="sessions" element={<AllSessionsPage />} />
         <Route path="session/create" element={<CreateSessionPage />} />
         <Route path="session/:id/view" element={<ViewSessionPage />} />
+
+        {/* ----Glossary---- */}
         <Route path="glossary" element={<GlossaryPage />} />
       </Route>
 
       <Route path="session/:id/practice" element={<PracticeSessionPage />} />
-      <Route path="session/:id/finish/" element={<FinishPracticePage />}/>
+      <Route path="session/:id/finish/" element={<FinishPracticePage />} />
     </Routes>
   );
 }
