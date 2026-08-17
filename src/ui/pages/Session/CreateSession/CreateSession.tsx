@@ -105,6 +105,10 @@ export default function CreateSessionPage({
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    if (form.structure !== "Unstructured" && form.subsessions.length < 1) {
+      return alert("Please add a subsession to continue");
+    }
+
     console.log(form);
     const res = await window.electron.addNewSession({ sessionData: form });
 

@@ -70,9 +70,14 @@ export default function EditPiecePage() {
   return (
     <>
       <header className={styles.header}>
-        <NavLink to={`/piece/${pieceId}/view`} className="small">
+        <p
+          onClick={() => {
+            navigate(-1);
+          }}
+          className="small"
+        >
           &lt; Back
-        </NavLink>
+        </p>
 
         <div>
           <h2>Edit Piece</h2>
