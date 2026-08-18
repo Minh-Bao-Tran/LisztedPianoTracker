@@ -144,17 +144,29 @@ const popupMapping: Record<PopupState["type"], PopupMappingElement> = {
     />
   ),
 
-  viewMusicTerm: ({ currentValues, closeForm, handleDeletePredicate }) => (
-    <ViewMusicTermPopUp
-      //@ts-ignore
-      currentValues={currentValues}
-      closeForm={closeForm}
-      handleDeletePredicate={(termId) => {
-        if (!handleDeletePredicate) return;
-        handleDeletePredicate(termId);
-      }}
-    />
-  ),
+  viewMusicTerm: ({ currentValues, closeForm, handleDeletePredicate }) => {
+    if (handleDeletePredicate === undefined) {
+      return (
+        <ViewMusicTermPopUp
+          //@ts-ignore
+          currentValues={currentValues}
+          closeForm={closeForm}
+        />
+      );
+    }
+    return (
+      <ViewMusicTermPopUp
+        //@ts-ignore
+        currentValues={currentValues}
+        closeForm={closeForm}
+        handleDeletePredicate={(termId) => {
+          console.log(handleDeletePredicate);
+          if (!handleDeletePredicate) return;
+          handleDeletePredicate(termId);
+        }}
+      />
+    );
+  },
 };
 
 export default function Layout() {

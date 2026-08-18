@@ -16,13 +16,11 @@ export default function ViewMusicTermPopUp({
     if (!confirm) return;
     return handleDeletePredicate(currentValues.id);
   }
-
   return (
     <form className={styles.popUp}>
-      <header
-      >
+      <header>
         <h2>Music Term</h2>
-        {handleDeletePredicate && (
+        {handleDeletePredicate !== undefined && (
           <img src={DeleteIcon} onClick={handleDelete} />
         )}
       </header>
