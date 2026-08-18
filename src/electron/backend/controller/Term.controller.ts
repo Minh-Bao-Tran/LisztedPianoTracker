@@ -3,16 +3,18 @@ import { Piece } from "../class/Piece.model.js";
 
 import { db } from "../database/database.js";
 export default class TermController {
-  
-  public getAllTerm(_: any): IndexedObj<Term>[] {
+  public getAllTerms(): Term[] {
     try {
-      return db.getDb("term").findMany({});
+      return db
+        .getDb("term")
+        .findMany({})
+        .map((indexedTerm) => indexedTerm.obj);
     } catch (err) {
-      throw err
+      throw err;
     }
   }
 
-  public getTermById(_: any, termId: string): IndexedObj<Term> | null {
+  public getTermById(termId: string): IndexedObj<Term> | null {
     try {
       return db.getDb("term").findOnePrimaryKey(termId);
     } catch (err) {
@@ -76,10 +78,9 @@ export default class TermController {
     return true;
   }
 
-  public addExistingTermToPiece(
-    _: any,
+  public linkTermToPiece(
     { pieceId, termId }: { pieceId: string; termId: string },
-  ): boolean {
+  ): true {
     //Get Piece
     let returnedPieceObj: IndexedObj<Piece>;
     //term can be added without piece

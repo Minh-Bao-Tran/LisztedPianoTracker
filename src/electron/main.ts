@@ -124,8 +124,18 @@ app.on("ready", () => {
   });
 
   //----Term----
+  ipcMainHandle("getAllTerms", () => {
+    try {
+      return termController.getAllTerms();
+    } catch (error) {
+      throw error;
+    }
+  });
   ipcMainHandle("getAllPieceTerms", (req) => {
     return termController.getAllPieceTerms(req.pieceId);
+  });
+  ipcMainHandle("linkTermToPiece", (req) => {
+    return termController.linkTermToPiece(req);
   });
 
   //----Analytics----

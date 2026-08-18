@@ -234,7 +234,9 @@ interface EventMapping {
   finishSession: { req: { sessionId: string; notes?: string }; res: true };
 
   //----Term Routes----
+  getAllTerms: { req: undefined; res: TermData[] };
   getAllPieceTerms: { req: { pieceId: string }; res: TermData[] };
+  linkTermToPiece: { req: { pieceId: string; termId: string }; res: true };
 
   //----Analytics Routes----
   getAnalytics: {
@@ -317,7 +319,12 @@ interface Window {
     }) => Promise<true>;
 
     //----Term Routes----
+    getAllTerms: () => Promise<TermData[]>;
     getAllPieceTerms: (req: { pieceId: string }) => Promise<TermData[]>;
+    linkTermToPiece: (req: {
+      pieceId: string;
+      termId: string;
+    }) => Promise<true>;
 
     //----Analytics Routes----
     getAnalytics: (req: {

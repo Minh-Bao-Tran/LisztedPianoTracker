@@ -4,9 +4,12 @@ import MainNav from "./shared/Nav/MainNav";
 
 import AddResourcePopUp from "./pages/Pieces/util/PopUp/AddResourcePopUp";
 import EditResourcePopUp from "./pages/Pieces/util/PopUp/EditResourcePopUp";
+
 import AddGoalPopUp from "./pages/Pieces/util/PopUp/AddGoalPopUp";
 import EditGoalPopUp from "./pages/Pieces/util/PopUp/EditGoalPopUp";
+
 import ViewSessionPopUp from "./pages/Session/util/ViewSubsessionPopUp";
+import LinkTermPopUp from "./pages/Pieces/util/PopUp/LinkMusicTermPopUp";
 
 type PopupState =
   | {
@@ -38,6 +41,12 @@ type PopupState =
       input: ExtendedSubsessionData;
       delete?: null;
       output: null;
+    }
+  | {
+      type: "linkMusicTerm";
+      input: TermData[];
+      delete?: null;
+      output: string;
     };
 
 interface PopupProps {
@@ -57,6 +66,7 @@ type PopupMappingElement = (props: PopupProps) => React.ReactElement;
 const popupMapping: Record<PopupState["type"], PopupMappingElement> = {
   addResource: ({ currentValues, handleFormPredicate, closeForm }) => (
     <AddResourcePopUp
+      //@ts-ignore
       currentValues={currentValues}
       handleFormPredicate={(newResource: Omit<ResourceData, "id">) => {
         handleFormPredicate(newResource);
@@ -72,6 +82,7 @@ const popupMapping: Record<PopupState["type"], PopupMappingElement> = {
     handleDeletePredicate,
   }) => (
     <EditResourcePopUp
+      //@ts-ignore
       currentValues={currentValues}
       handleFormPredicate={(newResource: Omit<ResourceData, "id">) => {
         handleFormPredicate(newResource);
@@ -86,6 +97,7 @@ const popupMapping: Record<PopupState["type"], PopupMappingElement> = {
 
   addGoal: ({ currentValues, handleFormPredicate, closeForm }) => (
     <AddGoalPopUp
+      //@ts-ignore
       currentValues={currentValues}
       handleFormPredicate={(newGoal: Omit<GoalData, "id">) => {
         handleFormPredicate(newGoal);
@@ -101,6 +113,7 @@ const popupMapping: Record<PopupState["type"], PopupMappingElement> = {
     handleDeletePredicate,
   }) => (
     <EditGoalPopUp
+      //@ts-ignore
       currentValues={currentValues}
       handleFormPredicate={(newGoal: Omit<GoalData, "id">) => {
         handleFormPredicate(newGoal);
@@ -112,9 +125,21 @@ const popupMapping: Record<PopupState["type"], PopupMappingElement> = {
       }}
     />
   ),
+
   viewSubsession: ({ currentValues, closeForm }) => (
     //@ts-ignore
     <ViewSessionPopUp currentValues={currentValues} closeForm={closeForm} />
+  ),
+
+  linkMusicTerm: ({ currentValues, closeForm, handleFormPredicate }) => (
+    <LinkTermPopUp
+      //@ts-ignore
+      currentValues={currentValues}
+      closeForm={closeForm}
+      handleFormPredicate={(termId) => {
+        handleFormPredicate(termId);
+      }}
+    />
   ),
 };
 

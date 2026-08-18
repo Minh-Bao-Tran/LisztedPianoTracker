@@ -11,7 +11,7 @@ const MUSICTERMTYPE = [
 
 type TermType = (typeof MUSICTERMTYPE)[number];
 
-export class Term {
+export class Term implements TermData {
   public id: string;
   public term: string;
   public definition: string;

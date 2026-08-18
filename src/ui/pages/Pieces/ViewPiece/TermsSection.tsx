@@ -1,20 +1,38 @@
 import { useOutletContext } from "react-router";
 
-import styles from "./TermsSection.module.css";
+import type { PopupData } from "../../../Layout";
 
 import MusicTermComponent from "../../../shared/MusicTermComponent";
+import styles from "./TermsSection.module.css";
+
 export default function TermsSection() {
-  const props: { terms: TermData[] } = useOutletContext<{
+  const { terms, setPopup, handleLinkTerm } = useOutletContext<{
     terms: TermData[];
+    setPopup: (value: React.SetStateAction<PopupData | undefined>) => void;
+    handleLinkTerm: (termId: string) => void;
   }>();
 
-  let terms: TermData[] = [];
-  if (props.terms) {
-    console.log(props.terms);
-    terms = props.terms;
+  function openlinkMusicTerm() {
+    setPopup({
+      type: "linkMusicTerm",
+      currentValues: terms,
+      closeForm: () => {
+        setPopup(undefined);
+      },
+      handleFormPredicate: (termId: string) => {
+        console.log("here");
+        handleLinkTerm(termId);
+      },
+    });
   }
 
-  const termElements = terms.map((term, index) => {
+  let pieceTerms: TermData[] = [];
+  if (terms) {
+    console.log(terms);
+    pieceTerms = terms;
+  }
+
+  const termElements = pieceTerms.map((term, index) => {
     return (
       <>
         <MusicTermComponent term={term} key={index} />
@@ -27,9 +45,11 @@ export default function TermsSection() {
     <section className={styles.termSection}>
       <div className={styles.buttonDiv}>
         <h3>Linked Music Terms</h3>
-        <button className="btn-blue">+Link New Term</button>
+        <button className="btn-blue" onClick={openlinkMusicTerm}>
+          +Link New Term
+        </button>
       </div>
-      <ul>{terms && termElements}</ul>
+      <ul>{pieceTerms && termElements}</ul>
     </section>
   );
 }

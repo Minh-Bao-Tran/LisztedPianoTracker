@@ -215,6 +215,25 @@ export default function ViewPiecePage() {
       });
   }
 
+  //Term
+  async function handleLinkTerm(termId: string) {
+    window.electron
+      .linkTermToPiece({
+        pieceId: pieceId as string,
+        termId: termId,
+      })
+      .then((result) => {
+        // console.log(data);
+        if (!result) {
+          alert("Link unsuccessful");
+          throw new Error("Link unsuccessful");
+        }
+        alert("Link Term to Piece Successfully");
+        setPopup(undefined);
+        setReloadCount((reloadCount) => reloadCount + 1);
+      });
+  }
+
   //---State Management---
   const [reloadCount, setReloadCount] = useState<number>(0);
 
@@ -231,7 +250,6 @@ export default function ViewPiecePage() {
 
   //Fetch the Piece
   useEffect(() => {
-    console.log(pieceId);
     loadPieces();
     loadGoals();
     loadResources();
@@ -331,6 +349,9 @@ export default function ViewPiecePage() {
               handleAddGoal,
               handleUpdateGoal,
               handleDeleteGoal,
+
+              //Term Section
+              handleLinkTerm,
             }}
           />
         </section>
