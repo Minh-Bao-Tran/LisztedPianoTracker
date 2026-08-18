@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate, NavLink } from "react-router";
+import { useNavigate } from "react-router";
 
 import SubsessionForm from "./CreateSubsessionForm";
 
@@ -116,15 +116,17 @@ export default function CreateSessionPage({
       throw new Error("An error has occurred while Adding New Session");
     }
     console.log(res);
-    navigate(`/session/${res}/view`);
+    navigate("/sessions");
+
+    setTimeout(() => navigate(`/session/${res}/view`), 10);
   }
 
   return (
     <>
       <header className={styles.header}>
-        <NavLink to="/sessions" className="small">
+        <button onClick={() => navigate(-1)} className="small">
           &lt; Back
-        </NavLink>
+        </button>
 
         <h2>Create New Session</h2>
         <hr />

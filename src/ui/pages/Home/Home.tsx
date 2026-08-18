@@ -120,7 +120,14 @@ export default function HomePage() {
 
       <section className={styles.pieceSection}>
         <h2 className={styles.h2}>Latest Piece</h2>
-        <ol style={{ display: "flex", gap: "20px" }}>
+        <ol
+          style={{
+            display: "flex",
+            gap: "20px",
+            height: "11rem",
+            maxHeight: "11rem",
+          }}
+        >
           {latestPiece && (
             <HomeCard
               mainTitle={latestPiece.name}
@@ -148,7 +155,14 @@ export default function HomePage() {
 
       <section className={styles.pieceSection}>
         <h2 className={styles.h2}>Continue Practice</h2>
-        <ol style={{ display: "flex", gap: "20px" }}>
+        <ol
+          style={{
+            display: "flex",
+            gap: "20px",
+            height: "11rem",
+            maxHeight: "11rem",
+          }}
+        >
           {latestInProgressSession && (
             <HomeCard
               mainTitle={latestInProgressSession.title}

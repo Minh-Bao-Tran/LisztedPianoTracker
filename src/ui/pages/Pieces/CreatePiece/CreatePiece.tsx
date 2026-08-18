@@ -1,4 +1,4 @@
-import { NavLink, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 
 import PieceForm from "../util/Form/PieceForm";
 
@@ -11,7 +11,10 @@ export default function CreatePiecePage() {
     const res = await window.electron.addPiece(piece);
     if (res.valid) {
       alert("Create Piece Successfully");
-      return navigate(`/piece/${res.value}/view`);
+      navigate("/pieces");
+
+      setTimeout(() => navigate(`/piece/${res.value}/view`), 10);
+      return;
     }
     alert("An Error has occured");
   }
@@ -19,9 +22,9 @@ export default function CreatePiecePage() {
   return (
     <>
       <header className={styles.header}>
-        <NavLink to="/pieces" className="small">
+        <button onClick={() => navigate(-1)} className="small">
           &lt; Back
-        </NavLink>
+        </button>
 
         <h2>Create New Piece</h2>
         <hr />

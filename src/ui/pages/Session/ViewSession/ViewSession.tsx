@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import {
   useParams,
-  NavLink,
   useOutletContext,
   useNavigate,
 } from "react-router";
@@ -169,9 +168,9 @@ export default function ViewSessionPage() {
     <>
       <header className={styles.header}>
         <div className={styles.topButtonDiv}>
-          <NavLink to="/sessions" className="small">
+          <button onClick={()=>navigate(-1)} className="small">
             &lt; Back
-          </NavLink>
+          </button>
           <img
             src={DeleteIcon}
             alt=""
