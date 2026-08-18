@@ -4,7 +4,7 @@ import {
   numberArrayConverter,
   numberConverter,
 } from "../database/table/converters.js";
-import { STATUSES } from "./Piece.model.js";
+import { STATUSES } from "../../shared/globalVars.js";
 import { Subsession } from "./Subsession.model.js";
 
 const GOALTYPE = ["Dynamic", "Tempo", "Technique", "Expression", "Others"];

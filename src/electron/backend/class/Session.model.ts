@@ -4,7 +4,7 @@ import {
   stringArrayConverter,
   stringConverter,
 } from "../database/table/converters.js";
-import { STATUSES } from "./Piece.model.js";
+import { STATUSES } from "../../shared/globalVars.js";
 import { Subsession } from "./Subsession.model.js";
 
 const SESSIONSTATUSES = ["Completed", "InProgress", "Active", "Planned"];

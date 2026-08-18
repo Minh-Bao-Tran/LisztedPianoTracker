@@ -10,7 +10,7 @@ import { Resource } from "./Resource.model.js";
 import { Term } from "./Term.model.js";
 import { Subsession } from "./Subsession.model.js";
 
-export const STATUSES = ["Active", "Completed", "Planned"] as const;
+import { STATUSES } from "../../shared/globalVars.js";
 
 const PIECETYPES = [
   "Performance",
@@ -85,7 +85,7 @@ export class Piece implements TableModel, PieceData {
   public findLastPractice(): Goal | null {
     //Check join
     if (this.goals === undefined || this.goals.length === 0) {
-      return null
+      return null;
     }
     this.goals as Goal[];
 
@@ -123,7 +123,7 @@ export class Piece implements TableModel, PieceData {
       }
     }
 
-    return currentLatestGoal
+    return currentLatestGoal;
   }
 
   public static validateAndCreate(obj: Omit<Piece, "id"> | Piece): Piece {

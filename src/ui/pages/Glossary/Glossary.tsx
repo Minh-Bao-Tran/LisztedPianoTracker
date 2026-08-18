@@ -7,6 +7,32 @@ import type { PopupData } from "../../Layout";
 
 import styles from "./Glossary.module.css";
 
+const MUSICTERMTYPE: string[] = [
+  "Tempo",
+  "Technique",
+  "Dynamic",
+  "Chord",
+  "Expression",
+  "Others",
+] as const;
+
+const avalSortCriteria = {
+  az: "A to Z",
+  za: "Z to A",
+};
+
+const sortFunctions: Record<
+  keyof typeof avalSortCriteria,
+  (termList: TermData[]) => TermData[]
+> = {
+  az: (termList) => {
+    return [...termList].sort((a, b) => a.term.localeCompare(b.term));
+  },
+  za: (termList) => {
+    return [...termList].sort((a, b) => b.term.localeCompare(a.term));
+  },
+};
+
 export default function GlossaryPage() {
   const location = useLocation();
   const { setPopup } = useOutletContext<{
@@ -23,23 +49,58 @@ export default function GlossaryPage() {
     });
   }
 
-  const [allTerms, setAllTerms] = useState<TermData[]>([]);
+  const [terms, setTerms] = useState<TermData[]>([]);
+
+  const [searchCriteria, setSearchCriteria] = useState<string>("");
+  const [sortCriteria, setSortCriteria] = useState<string>("");
+  const [filterType, setFilterType] = useState<string>("");
 
   //Load all pieces
   useEffect(() => {
     async function loadTerms() {
       const data = await window.electron.getAllTerms();
-      setAllTerms(data);
+      setTerms(data);
     }
     loadTerms();
   }, [location.pathname]);
 
-  let terms: TermData[] = [];
-  if (allTerms) {
-    terms = allTerms;
+  let allTerms: TermData[] = [];
+  if (terms) {
+    allTerms = terms;
   }
 
-  const termElements = terms.map((term, index) => {
+  //Filter Piece
+  let filteredTerms: TermData[] = allTerms.filter((term) => {
+    return filterType === "" || filterType === term.type;
+  });
+
+  //Search Piece
+  const searchedTerms = filteredTerms.filter((term) => {
+    if (searchCriteria === "") return true;
+    return (
+      term.term.toLowerCase().slice(0, searchCriteria.length) ===
+      searchCriteria.toLowerCase()
+    );
+  });
+
+  //Sort Piece
+  const sortTerms: TermData[] = sortCriteria
+    ? sortFunctions[sortCriteria](searchedTerms)
+    : searchedTerms;
+
+  //----Render Components----
+  //Sort Criteria Component
+  const sortCriteriaList = [];
+  for (const criterion in avalSortCriteria) {
+    const criterionComponent = (
+      <option key={criterion} value={criterion}>
+        {avalSortCriteria[criterion]}
+      </option>
+    );
+    sortCriteriaList.push(criterionComponent);
+  }
+  //Create TermCards
+  const termElements = sortTerms.map((term, index) => {
     return (
       <>
         <MusicTermComponent
@@ -58,30 +119,64 @@ export default function GlossaryPage() {
           <h2>Glossary</h2>
         </div>
         <ul>
-          <li>
+          <div>
             <label htmlFor="search" className="h3">
               Search
             </label>
-            <input type="text" name="search" className="input-deco" />
-          </li>
-          <li>
+            <input
+              type="text"
+              name="search"
+              className="input-deco"
+              value={searchCriteria}
+              onChange={(e) => setSearchCriteria(e.target.value)}
+            />
+          </div>
+          <div>
             <label htmlFor="sort" className="h3">
               Sort
             </label>
-            <input type="text" name="sort" className="input-deco" />
-          </li>
-          <li>
-            <label htmlFor="TimeFrame" className="h3">
-              Timeframe
+            <select
+              name="status"
+              id="piece-status"
+              className="input-deco"
+              value={sortCriteria}
+              onChange={(e) => setSortCriteria(e.target.value)}
+            >
+              <option value="">None</option>
+              {sortCriteriaList}
+            </select>
+          </div>
+          <div>
+            <label htmlFor="sort" className="h3">
+              Filter by type:
             </label>
-            <input type="text" name="TimeFrame" className="input-deco" />
-          </li>
+            <select
+              name="status"
+              id="piece-status"
+              className="input-deco"
+              value={filterType}
+              onChange={(e) => setFilterType(e.target.value)}
+            >
+              <option value="">None</option>
+              {MUSICTERMTYPE.map((type) => {
+                return (
+                  <option key={type} value={type}>
+                    {type}
+                  </option>
+                );
+              })}
+            </select>
+          </div>
         </ul>
         <hr />
       </header>
       <main className={styles.main}>
         <section style={{ paddingTop: "2rem" }}>
-          <ul>{terms.length && termElements}</ul>
+          {termElements.length > 0 ? (
+            <ul>{terms.length && termElements}</ul>
+          ) : (
+            <p>No Terms found</p>
+          )}
         </section>
       </main>
     </>

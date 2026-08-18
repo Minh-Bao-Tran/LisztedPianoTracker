@@ -1,5 +1,4 @@
-import { STATUSES } from "../../class/Piece.model.js";
-
+import { STATUSES } from "../../../shared/globalVars.js";
 //----Primitive----
 export const stringConverter: Converter<string> = {
   fromDB(value: string): string {
