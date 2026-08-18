@@ -58,7 +58,9 @@ electron.contextBridge.exposeInMainWorld("electron", {
     electron.ipcRenderer.invoke("getAllPieceTerms", req),
 
   linkTermToPiece: (req) => electron.ipcRenderer.invoke("linkTermToPiece", req),
-
+  unlinkTermFromPiece: (req) =>
+    electron.ipcRenderer.invoke("unlinkTermFromPiece", req),
+  
   //----Analytics Routes----
   getAnalytics: (req) => electron.ipcRenderer.invoke("getAnalytics", req),
 } satisfies Window["electron"]);

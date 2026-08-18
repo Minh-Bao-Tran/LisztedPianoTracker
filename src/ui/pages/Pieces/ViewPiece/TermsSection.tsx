@@ -36,8 +36,7 @@ export default function TermsSection() {
         setPopup(undefined);
       },
       handleDeletePredicate: () => {
-        console.log("here");
-        handleLinkTerm(term.id);
+        handleUnlinkTerm(term.id);
       },
     });
   }
