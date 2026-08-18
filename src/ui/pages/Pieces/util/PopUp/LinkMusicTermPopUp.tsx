@@ -1,6 +1,6 @@
 import { useEffect, useState, type SubmitEvent } from "react";
 
-import styles from "./AddGoalPopUp.module.css";
+import styles from "./LinkMusicTermPopUp.module.css";
 
 export default function AddTermPopUp({
   currentValues = [],

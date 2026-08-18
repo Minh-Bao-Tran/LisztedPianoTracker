@@ -1,0 +1,43 @@
+.popUp {
+  width: 40vw;
+  height: 70vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.popUp header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.popUp h2 {
+  padding-left: 1rem;
+  text-align: center;
+}
+
+.popUp img{
+    width: 2rem;
+}
+
+.formField {
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+}
+
+.formField select {
+  width: 100%;
+}
+
+.actionSection {
+  display: flex;
+  justify-content: space-between;
+}
+
+.actionSection > div {
+  display: flex;
+  gap: 1rem;
+}

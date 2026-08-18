@@ -237,6 +237,7 @@ interface EventMapping {
   getAllTerms: { req: undefined; res: TermData[] };
   getAllPieceTerms: { req: { pieceId: string }; res: TermData[] };
   linkTermToPiece: { req: { pieceId: string; termId: string }; res: true };
+  unlinkTermFromPiece: { req: { pieceId: string; termId: string }; res: true };
 
   //----Analytics Routes----
   getAnalytics: {
@@ -322,6 +323,10 @@ interface Window {
     getAllTerms: () => Promise<TermData[]>;
     getAllPieceTerms: (req: { pieceId: string }) => Promise<TermData[]>;
     linkTermToPiece: (req: {
+      pieceId: string;
+      termId: string;
+    }) => Promise<true>;
+    unlinkTermFromPiece: (req: {
       pieceId: string;
       termId: string;
     }) => Promise<true>;

@@ -138,6 +138,10 @@ app.on("ready", () => {
     return termController.linkTermToPiece(req);
   });
 
+  ipcMainHandle("unlinkTermFromPiece", (req) => {
+    return termController.unlinkTermFromPiece(req);
+  });
+
   //----Analytics----
   ipcMainHandle("getAnalytics", (req) => {
     return analyticsController.getAnalytics(req);

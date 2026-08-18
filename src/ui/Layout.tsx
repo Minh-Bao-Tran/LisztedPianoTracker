@@ -10,6 +10,7 @@ import EditGoalPopUp from "./pages/Pieces/util/PopUp/EditGoalPopUp";
 
 import ViewSessionPopUp from "./pages/Session/util/ViewSubsessionPopUp";
 import LinkTermPopUp from "./pages/Pieces/util/PopUp/LinkMusicTermPopUp";
+import ViewMusicTermPopUp from "./shared/ViewMusicTermPopUp";
 
 type PopupState =
   | {
@@ -47,7 +48,8 @@ type PopupState =
       input: TermData[];
       delete?: null;
       output: string;
-    };
+    }
+  | { type: "viewMusicTerm"; input: TermData; delete?: string; output?: null };
 
 interface PopupProps {
   currentValues?: PopupState["input"];
@@ -138,6 +140,18 @@ const popupMapping: Record<PopupState["type"], PopupMappingElement> = {
       closeForm={closeForm}
       handleFormPredicate={(termId) => {
         handleFormPredicate(termId);
+      }}
+    />
+  ),
+
+  viewMusicTerm: ({ currentValues, closeForm, handleDeletePredicate }) => (
+    <ViewMusicTermPopUp
+      //@ts-ignore
+      currentValues={currentValues}
+      closeForm={closeForm}
+      handleDeletePredicate={(termId) => {
+        if (!handleDeletePredicate) return;
+        handleDeletePredicate(termId);
       }}
     />
   ),

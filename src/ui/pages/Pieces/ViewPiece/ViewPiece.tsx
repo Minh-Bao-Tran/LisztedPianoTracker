@@ -233,6 +233,23 @@ export default function ViewPiecePage() {
         setReloadCount((reloadCount) => reloadCount + 1);
       });
   }
+  async function handleUnlinkTerm(termId: string) {
+    window.electron
+      .unlinkTermFromPiece({
+        pieceId: pieceId as string,
+        termId: termId,
+      })
+      .then((result) => {
+        // console.log(data);
+        if (!result) {
+          alert("Link unsuccessful");
+          throw new Error("Link unsuccessful");
+        }
+        alert("Unlink Term to Piece Successfully");
+        setPopup(undefined);
+        setReloadCount((reloadCount) => reloadCount + 1);
+      });
+  }
 
   //---State Management---
   const [reloadCount, setReloadCount] = useState<number>(0);
@@ -352,6 +369,7 @@ export default function ViewPiecePage() {
 
               //Term Section
               handleLinkTerm,
+              handleUnlinkTerm,
             }}
           />
         </section>

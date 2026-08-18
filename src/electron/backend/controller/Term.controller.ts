@@ -78,9 +78,13 @@ export default class TermController {
     return true;
   }
 
-  public linkTermToPiece(
-    { pieceId, termId }: { pieceId: string; termId: string },
-  ): true {
+  public linkTermToPiece({
+    pieceId,
+    termId,
+  }: {
+    pieceId: string;
+    termId: string;
+  }): true {
     //Get Piece
     let returnedPieceObj: IndexedObj<Piece>;
     //term can be added without piece
@@ -116,10 +120,13 @@ export default class TermController {
     return true;
   }
 
-  public removeExistingTermFromPiece(
-    _: any,
-    { pieceId, termId }: { pieceId: string; termId: string },
-  ): boolean {
+  public unlinkTermFromPiece({
+    pieceId,
+    termId,
+  }: {
+    pieceId: string;
+    termId: string;
+  }): true {
     // ???????????????????Maybe check the term to be present in piece before removing
 
     //Get Piece

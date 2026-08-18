@@ -32,7 +32,7 @@ export default function MusicTermComponent({
         >
           {term.type}
         </em>
-        {onClick && <img src={EditIcon} alt="" />}
+        {onClick && <img src={EditIcon} alt="" onClick={onClick} />}
       </div>
     </div>
   );

@@ -6,13 +6,15 @@ import MusicTermComponent from "../../../shared/MusicTermComponent";
 import styles from "./TermsSection.module.css";
 
 export default function TermsSection() {
-  const { terms, setPopup, handleLinkTerm } = useOutletContext<{
-    terms: TermData[];
-    setPopup: (value: React.SetStateAction<PopupData | undefined>) => void;
-    handleLinkTerm: (termId: string) => void;
-  }>();
+  const { terms, setPopup, handleLinkTerm, handleUnlinkTerm } =
+    useOutletContext<{
+      terms: TermData[];
+      setPopup: (value: React.SetStateAction<PopupData | undefined>) => void;
+      handleLinkTerm: (termId: string) => void;
+      handleUnlinkTerm: (termId: string) => void;
+    }>();
 
-  function openlinkMusicTerm() {
+  function openLinkMusicTerm() {
     setPopup({
       type: "linkMusicTerm",
       currentValues: terms,
@@ -26,6 +28,20 @@ export default function TermsSection() {
     });
   }
 
+  function openViewMusicTerm(term: TermData) {
+    setPopup({
+      type: "viewMusicTerm",
+      currentValues: term,
+      closeForm: () => {
+        setPopup(undefined);
+      },
+      handleDeletePredicate: () => {
+        console.log("here");
+        handleLinkTerm(term.id);
+      },
+    });
+  }
+
   let pieceTerms: TermData[] = [];
   if (terms) {
     console.log(terms);
@@ -35,7 +51,11 @@ export default function TermsSection() {
   const termElements = pieceTerms.map((term, index) => {
     return (
       <>
-        <MusicTermComponent term={term} key={index} />
+        <MusicTermComponent
+          term={term}
+          key={index}
+          onClick={() => openViewMusicTerm(term)}
+        />
         <hr />
       </>
     );
@@ -45,7 +65,7 @@ export default function TermsSection() {
     <section className={styles.termSection}>
       <div className={styles.buttonDiv}>
         <h3>Linked Music Terms</h3>
-        <button className="btn-blue" onClick={openlinkMusicTerm}>
+        <button className="btn-blue" onClick={openLinkMusicTerm}>
           +Link New Term
         </button>
       </div>
