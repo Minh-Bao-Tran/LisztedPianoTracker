@@ -200,6 +200,7 @@ input[type="checkbox"] {
   width: 1.5rem;
   height: 1.5rem;
   accent-color: var(--color-b2);
+  background: var(--color-g4);
 }
 
 select.input-deco {

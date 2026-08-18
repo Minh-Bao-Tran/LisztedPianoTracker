@@ -1,10 +1,14 @@
+import { useEffect, useState } from "react";
 import { NavLink, useLocation } from "react-router";
 // import type { SetStateAction } from "react";
 // import SubNav from "../../shared/SubNav";
 import ExtendedPieceCard from "../util/Card/ExtendedPieceCard";
 
+import SearchIcon from "../../../assets/icon/Search_Icon.svg";
+import SortIcon from "../../../assets/icon/Sort_Icon.svg";
+import FilterIcon from "../../../assets/icon/Filter_Icon.svg";
+
 import styles from "./AllPieces.module.css";
-import { useEffect, useState } from "react";
 
 const avalSortCriteria = {
   az: "A to Z",
@@ -162,10 +166,8 @@ export default function AllPiecesPage() {
       <main className={styles.main}>
         <section className={styles.searchBox}>
           <div className="card-box">
-            <div>
-              <label htmlFor="search" className="h3">
-                Search
-              </label>
+            <div className={styles.actionDiv}>
+              <img src={SearchIcon} alt="" />
               <input
                 type="text"
                 name="search"
@@ -174,10 +176,8 @@ export default function AllPiecesPage() {
                 onChange={(e) => setSearchCriteria(e.target.value)}
               />
             </div>
-            <div>
-              <label htmlFor="sort" className="h3">
-                Sort
-              </label>
+            <div className={styles.actionDiv}>
+              <img src={SortIcon} alt="" />
               <select
                 name="status"
                 id="piece-status"
@@ -189,48 +189,65 @@ export default function AllPiecesPage() {
                 {sortCriteriaList}
               </select>
             </div>
-            <div style={{ display: "flex", justifyContent: "space-between" }}>
-              <label
-                className="h3"
-                style={{ display: "flex", gap: "0.5rem", alignItems: "center" }}
-              >
-                <input
-                  type="checkbox"
-                  checked={filterStatuses.includes("Active")}
-                  onChange={() => {
-                    toggleStatus("Active");
+            <div
+              style={{ display: "flex", flexDirection: "row", gap: "1rem" }}
+            >
+              <img src={FilterIcon} alt="" style={{ width: "45px" }} />
+              <ul style={{ display: "flex", justifyContent: "space-between", width:"100%"}}>
+                <label
+                  className="p"
+                  style={{
+                    display: "flex",
+                    gap: "0.5rem",
+                    alignItems: "center",
                   }}
-                />
-                Active
-              </label>
+                >
+                  <input
+                    type="checkbox"
+                    checked={filterStatuses.includes("Active")}
+                    onChange={() => {
+                      toggleStatus("Active");
+                    }}
+                  />
+                  Active
+                </label>
 
-              <label
-                className="h3"
-                style={{ display: "flex", gap: "0.5rem", alignItems: "center" }}
-              >
-                <input
-                  type="checkbox"
-                  checked={filterStatuses.includes("Completed")}
-                  onChange={() => {
-                    toggleStatus("Completed");
+                <label
+                  className="p"
+                  style={{
+                    display: "flex",
+                    gap: "0.5rem",
+                    alignItems: "center",
                   }}
-                />
-                Completed
-              </label>
+                >
+                  <input
+                    type="checkbox"
+                    checked={filterStatuses.includes("Completed")}
+                    onChange={() => {
+                      toggleStatus("Completed");
+                    }}
+                  />
+                  Completed
+                </label>
 
-              <label
-                className="h3"
-                style={{ display: "flex", gap: "0.5rem", alignItems: "center" }}
-              >
-                <input
-                  type="checkbox"
-                  checked={filterStatuses.includes("Planned")}
-                  onChange={() => {
-                    toggleStatus("Planned");
+                <label
+                  className="p"
+                  style={{
+                    display: "flex",
+                    gap: "0.5rem",
+                    alignItems: "center",
                   }}
-                />
-                Planned
-              </label>
+                >
+                  <input
+                    type="checkbox"
+                    checked={filterStatuses.includes("Planned")}
+                    onChange={() => {
+                      toggleStatus("Planned");
+                    }}
+                  />
+                  Planned
+                </label>
+              </ul>
             </div>
           </div>
         </section>

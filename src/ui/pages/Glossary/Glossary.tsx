@@ -1,8 +1,13 @@
 import { useState, useEffect } from "react";
 
-import { NavLink, useLocation, useOutletContext } from "react-router";
+import { useLocation, useOutletContext } from "react-router";
 
 import MusicTermComponent from "../../shared/MusicTermComponent";
+
+import SearchIcon from "../../assets/icon/Search_Icon.svg";
+import SortIcon from "../../assets/icon/Sort_Icon.svg";
+import FilterIcon from "../../assets/icon/Filter_Icon.svg";
+
 import type { PopupData } from "../../Layout";
 
 import styles from "./Glossary.module.css";
@@ -119,10 +124,41 @@ export default function GlossaryPage() {
           <h2>Glossary</h2>
         </div>
         <ul>
-          <div>
-            <label htmlFor="search" className="h3">
-              Search
-            </label>
+          <div style={{ display: "flex", gap: "3rem" }}>
+            <div className={styles.actionDiv}>
+              <img src={SortIcon} alt="" />
+              <select
+                name="status"
+                id="piece-status"
+                className="input-deco"
+                value={sortCriteria}
+                onChange={(e) => setSortCriteria(e.target.value)}
+              >
+                <option value="">None</option>
+                {sortCriteriaList}
+              </select>
+            </div>
+            <div className={styles.actionDiv}>
+              <img src={FilterIcon} alt="" />
+              <select
+                name="status"
+                id="piece-status"
+                className="input-deco"
+                value={filterType}
+                onChange={(e) => setFilterType(e.target.value)}
+              >
+                <option value="">None</option>
+                {MUSICTERMTYPE.map((type) => {
+                  return (
+                    <option key={type} value={type}>
+                      {type}
+                    </option>
+                  );
+                })}
+              </select>
+            </div>
+          </div>
+          <div className={styles.actionDiv}>
             <input
               type="text"
               name="search"
@@ -130,42 +166,7 @@ export default function GlossaryPage() {
               value={searchCriteria}
               onChange={(e) => setSearchCriteria(e.target.value)}
             />
-          </div>
-          <div>
-            <label htmlFor="sort" className="h3">
-              Sort
-            </label>
-            <select
-              name="status"
-              id="piece-status"
-              className="input-deco"
-              value={sortCriteria}
-              onChange={(e) => setSortCriteria(e.target.value)}
-            >
-              <option value="">None</option>
-              {sortCriteriaList}
-            </select>
-          </div>
-          <div>
-            <label htmlFor="sort" className="h3">
-              Filter by type:
-            </label>
-            <select
-              name="status"
-              id="piece-status"
-              className="input-deco"
-              value={filterType}
-              onChange={(e) => setFilterType(e.target.value)}
-            >
-              <option value="">None</option>
-              {MUSICTERMTYPE.map((type) => {
-                return (
-                  <option key={type} value={type}>
-                    {type}
-                  </option>
-                );
-              })}
-            </select>
+            <img src={SearchIcon} alt="" />
           </div>
         </ul>
         <hr />
