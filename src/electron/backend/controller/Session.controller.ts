@@ -344,6 +344,28 @@ export default class SessionController {
 
   public pauseSession({ sessionId }: { sessionId: string }): true {
     try {
+      db.getDb("session").join("subsessionIds");
+
+      let fetchedSession: IndexedObj<Session> | null;
+      try {
+        fetchedSession = db.getDb("session").findOnePrimaryKey(sessionId);
+      } catch (err) {
+        throw err;
+      }
+      if (!fetchedSession) {
+        throw new Error("No Session found");
+      }
+
+      const session = fetchedSession.obj;
+      const currentSubsessionId =
+        session.subsessionIds[
+          (session.currentIndex - 1) % session.subsessionIds.length
+        ];
+
+      db.getDb("subsession").updateOne(
+        { id: currentSubsessionId },
+        { date: new Date() },
+      );
       db.getDb("session").updateOne(
         { id: sessionId },
         { status: "InProgress" },
