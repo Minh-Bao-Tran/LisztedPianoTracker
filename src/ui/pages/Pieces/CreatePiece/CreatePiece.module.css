@@ -4,6 +4,10 @@
   gap: 3vh;
 }
 
+.header button{
+  text-align: left;
+}
+
 .header h2 {
   margin-left: 10px;
   font-weight: 700;

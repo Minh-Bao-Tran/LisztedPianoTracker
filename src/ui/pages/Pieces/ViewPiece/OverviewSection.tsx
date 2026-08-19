@@ -54,7 +54,7 @@ export default function OverviewSection() {
       label="Total Practice Time"
     />,
     <AnalyticsCard
-      data={`${averagePracticeTime.toFixed(0)} Min.`}
+      data={`${(isNaN(averagePracticeTime) ? 0 : averagePracticeTime).toFixed(0)} Min.`}
       label="Avg. Practice Time"
     />,
     <AnalyticsCard

@@ -1,75 +1,48 @@
-# React + TypeScript + Vite
+# Start the app:
+git pull [link]
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+npm i
 
-Currently, two official plugins are available:
+npm run dev
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+# Purpose: An offline, distraction-free music tracker solution that allows the user to
 
-## React Compiler
+1. Store Pieces and related data in a centralisingly
+2. Start practice sessions
+3. Provides analytics of the user's practice sessions
+4. Search music terms
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+# Purpose Breakdown
+Electron Framework is used to develop the offline, local app.
 
-## Expanding the ESLint configuration
+The Backend is developed using Nodejs(Typescript). Its purpose is to handle complex logic with relationships between different objects(entities), and store and fetch data on demand.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+The Frontend is developed using HTML, CSS, Javascript (React framework, React-Router-v7 Package). Its purpose is to provide an easy-to-use UI for the user.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+# Naming Convention
+Camel case
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+# Imports and Exports Convention
 
-```
+# Data Structures
+Local Variables
+Global Variables
+Constants
+Arrays
+Records
+Set
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+# Controls
+Sequence
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+Selection
 
-```
+Iteration
+
+# OOP Principles
+Generalisation
+Abstraction
+Inheritance
+Encapsulation

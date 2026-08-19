@@ -1,6 +1,6 @@
 import path from "node:path";
 
-import { readFileSync, writeFile } from "node:fs";
+import { readFileSync, writeFileSync } from "node:fs";
 
 const STORAGE_DIR = path.join(process.cwd(), "storage-files");
 
@@ -18,15 +18,9 @@ export function readAllCSV(file: string): string[][] {
   return data;
 }
 
-export async function writeCSV(file: string, data: string[]) {
+export  function writeCSV(file: string, data: string[]) {
   const filedir = path.join(STORAGE_DIR, file);
 
   const csvData: string = data.join("\n");
-
-  writeFile(filedir, csvData, "utf8", (err: any) => {
-    if (err) {
-      throw new Error(err.message);
-    }
-    console.log("WriteFile Successfully");
-  });
+    writeFileSync(filedir, csvData, "utf8");
 }

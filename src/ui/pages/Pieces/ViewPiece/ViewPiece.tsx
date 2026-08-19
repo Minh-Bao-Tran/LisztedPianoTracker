@@ -326,7 +326,7 @@ export default function ViewPiecePage() {
               <small>Practice Frequency</small>
             </div>
 
-            <NavLink to="/sessions/create" className="btn-blue">
+            <NavLink to="/session/create" className="btn-blue">
               Practice
             </NavLink>
           </div>

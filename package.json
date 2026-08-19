@@ -12,7 +12,8 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "transpile:elec": "tsc -p src/electron/tsconfig.json",
-    "dist:mac": "npm run transpile:elec && npm run build && electron-builder --mac --arm64"
+    "dist:mac": "npm run transpile:elec && npm run build && electron-builder --mac --arm64",
+    "dist:win": "npm run transpile:elec && npm run build && electron-builder --win --x64"
   },
   "dependencies": {
     "os-utils": "^0.0.14",

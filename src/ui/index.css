@@ -45,7 +45,7 @@ body {
 
   --corner-radius-big: 30px;
 
-  --shadow-1: 0px 4px 4px 1px #bbbbbb10;
+  --shadow-1: 2px 4px 4px 2px #bbbbbb15;
 
   padding: 0;
   margin: 0;

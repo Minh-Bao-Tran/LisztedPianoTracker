@@ -144,9 +144,14 @@ export default class PieceController {
 
       if (piece.goalIds && piece.goalIds.length > 0) {
         const subsessionTable = db.getDb("subsession");
-
         for (const goalId of piece.goalIds) {
-          db.getDb("goal").deleteOne({ id: goalId }, [subsessionTable]);
+           db.getDb("goal").deleteOne({ id: goalId }, [subsessionTable]);
+        }
+      }
+
+      if (piece.resourceIds && piece.resourceIds.length > 0) {
+        for (const resourceId of piece.resourceIds) {
+          db.getDb("resource").deleteOne({ id: resourceId }, []);
         }
       }
 

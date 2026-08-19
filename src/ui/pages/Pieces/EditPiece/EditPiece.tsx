@@ -72,6 +72,10 @@ export default function EditPiecePage() {
       <header className={styles.header}>
         <p
           onClick={() => {
+            const confirm = window.confirm(
+              "Leave? Unchange data would not be saved!",
+            );
+            if (!confirm) return;
             navigate(-1);
           }}
           className="small"
