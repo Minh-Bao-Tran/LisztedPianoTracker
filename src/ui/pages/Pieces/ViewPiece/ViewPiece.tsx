@@ -148,6 +148,8 @@ export default function ViewPiecePage() {
           alert("Error in Deleting Resource");
           throw new Error("Error in Deleting Resource");
         }
+        alert("Delete Resource Successfully");
+
         setPopup(undefined);
         setReloadCount((reloadCount) => reloadCount + 1);
       });
@@ -209,10 +211,11 @@ export default function ViewPiecePage() {
           throw new Error("Error in Deleting Goald");
         }
 
-        alert("Goal deleted Successfully");
         setPopup(undefined);
         setReloadCount((reloadCount) => reloadCount + 1);
       });
+
+    alert("Goal deleted Successfully");
   }
 
   //Term
@@ -309,11 +312,13 @@ export default function ViewPiecePage() {
             <div>
               <h3>
                 {piece &&
-                  piece.lastPracticeDate?.toLocaleString("en-AU", {
-                    day: "2-digit",
-                    month: "2-digit",
-                    year: "2-digit",
-                  })}
+                  (typeof piece.lastPracticeDate === "string" || !piece.lastPracticeDate
+                    ? "N/A"
+                    : piece.lastPracticeDate.toLocaleString("en-AU", {
+                        day: "2-digit",
+                        month: "2-digit",
+                        year: "2-digit",
+                      }))}
               </h3>
               <small>Last Practiced</small>
             </div>

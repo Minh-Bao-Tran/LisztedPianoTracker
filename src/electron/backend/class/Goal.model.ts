@@ -17,7 +17,7 @@ export class Goal implements GoalData {
   public notes?: string;
   public ratings: number; //percentage (0 - 100)
 
-  public lastPractice?: Date;
+  public lastPractice?: Date | string;
 
   public subsessions?: Subsession[];
   constructor({

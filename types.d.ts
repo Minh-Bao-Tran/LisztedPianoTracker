@@ -58,7 +58,7 @@ interface GoalData {
   notes?: string;
   ratings: number; //percentage (0 - 100)
 
-  lastPractice?: Date;
+  lastPractice?: Date | string;
 }
 interface ExtendedGoalData extends GoalData {
   pieceId?: string;

@@ -101,18 +101,22 @@ export class Piece implements TableModel, PieceData {
     let currentLatestGoal: Goal = filteredGoal[0];
 
     for (const goal of filteredGoal) {
-      let currentLatestDate: Date = new Date(0);
+      if (!goal.subsessions || !goal.subsessions.length) continue;
+      let currentLatestDate: Date | string = "N/A";
 
       for (const subsession of goal.subsessions as Subsession[]) {
         if (!subsession.date) {
           continue;
+        }
+        if (typeof currentLatestDate === "string") {
+          currentLatestDate = subsession.date;
         }
 
         if (subsession.date.getTime() > currentLatestDate.getTime()) {
           currentLatestDate = subsession.date;
         }
       }
-
+      if (typeof currentLatestDate === "string") continue;
       goal.lastPractice = currentLatestDate;
 
       if (

@@ -138,6 +138,8 @@ export default class Table<
 
   public convertFromDB(): Model[] {
     const data = this.fetch();
+
+    if (data[0][0] === '') return [];
     const referenceConverters: Schema<Model> = this.model.schema;
 
     return data.map((prevObj) => {

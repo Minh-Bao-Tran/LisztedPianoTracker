@@ -32,9 +32,10 @@ export default function PieceCard({
       <div className={`${styles.pieceParagraph} ${styles.div}`}>
         {" "}
         <p>
-          Last Practice:{" "}
-          {typeof piece.lastPracticeDate === "string"
-            ? piece.lastPracticeDate
+          Last Practice:
+          {typeof piece.lastPracticeDate === "string" ||
+          typeof piece.lastPracticeDate === "undefined"
+            ? "N/A"
             : piece.lastPracticeDate?.toLocaleString("en-AU", {
                 day: "2-digit",
                 month: "2-digit",

@@ -17,7 +17,6 @@ const avalSortCriteria = {
   oldestPracticeDate: "Oldest Practice",
   mostFrequent: "Most Frequent",
   leastFrequent: "Least Frequent",
-  completionStatus: "Status Completed",
 };
 
 //Sort compares the values of a and b. if a < b( a- b = 0), a comes before b
@@ -34,16 +33,16 @@ const sortFunctions: Record<
   },
   newestPracticeDate: (pieceList) => {
     return [...pieceList].sort((a, b) => {
-      if (a.lastPracticeDate === "N/A") return 1;
-      if (b.lastPracticeDate === "N/A") return -1;
+      if (a.lastPracticeDate === "N/A" || !a.lastPracticeDate) return 1;
+      if (b.lastPracticeDate === "N/A" || !b.lastPracticeDate) return -1;
 
       return b.lastPracticeDate.getTime() - a.lastPracticeDate.getTime();
     });
   },
   oldestPracticeDate: (pieceList) => {
     return [...pieceList].sort((a, b) => {
-      if (a.lastPracticeDate === "N/A") return 1;
-      if (b.lastPracticeDate === "N/A") return -1;
+      if (a.lastPracticeDate === "N/A" || !a.lastPracticeDate) return 1;
+      if (b.lastPracticeDate === "N/A" || !b.lastPracticeDate) return -1;
 
       return a.lastPracticeDate.getTime() - b.lastPracticeDate.getTime();
     });
@@ -72,17 +71,6 @@ const sortFunctions: Record<
         a.freqNumber / (timeFrameConversion[a.freqFrame] ?? 1000) -
         b.freqNumber / (timeFrameConversion[b.freqFrame] ?? 1000)
       );
-    });
-  },
-  completionStatus: (pieceList) => {
-    //Ranking the importance(1 = first, 2 = second, 3 = last)
-    const statusConversion: Record<Status, number> = {
-      Active: 1,
-      Planned: 2,
-      Completed: 3,
-    };
-    return [...pieceList].sort((a, b) => {
-      return statusConversion[a.status] - statusConversion[b.status];
     });
   },
 };
@@ -189,11 +177,15 @@ export default function AllPiecesPage() {
                 {sortCriteriaList}
               </select>
             </div>
-            <div
-              style={{ display: "flex", flexDirection: "row", gap: "1rem" }}
-            >
+            <div style={{ display: "flex", flexDirection: "row", gap: "1rem" }}>
               <img src={FilterIcon} alt="" style={{ width: "45px" }} />
-              <ul style={{ display: "flex", justifyContent: "space-between", width:"100%"}}>
+              <ul
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  width: "100%",
+                }}
+              >
                 <label
                   className="p"
                   style={{

@@ -18,7 +18,12 @@ export default function HomePage() {
     const data = await window.electron.getAllSessions({});
     setAllSessions(data);
   }
-
+  //----POST FUNCTIONS----
+  async function exitSession(activeSessionId: string) {
+    window.electron.pauseSession({
+      sessionId: activeSessionId as string,
+    });
+  }
   //----STATE MANAGEMENT----
   const [allPieces, setAllPieces] = useState<ExtendedPieceData[]>([]);
   const [allSessions, setAllSessions] = useState<ExtendedSessionData[]>([]);
@@ -32,11 +37,29 @@ export default function HomePage() {
   let latestInProgressSession: ExtendedSessionData;
   let plannedSession: ExtendedSessionData;
   let thisWeekTotalTime: number = 0;
-  if (allPieces.length && allSessions.length) {
+  if (allPieces.length > 0 && allSessions.length > 0) {
+    //Find if any piece should be reopened if the app closed abruptly
+    console.log("ere");
+    const activeSession = allSessions.find(
+      (session) => session.status === "Active",
+    );
+    console.log(activeSession);
+    if (activeSession) {
+      const confirm = window.confirm(
+        "The app closed abruptly. Do you want to continue at the last session",
+      );
+      if (confirm) {
+         navigate(`/session/${activeSession.id}/practice`);
+      } else {
+        //Change the status to inProgress as this is similar to the user exiting a session
+        exitSession(activeSession.id);
+      }
+    }
+
     //Find Latest piece by looping through all pieces
     latestPiece = allPieces[0];
     for (const piece of allPieces) {
-      if (piece.lastPracticeDate === "N/A") continue;
+      if (piece.lastPracticeDate === "N/A" || !piece.lastPracticeDate) continue;
 
       if (latestPiece.lastPracticeDate === "N/A") {
         latestPiece = piece;

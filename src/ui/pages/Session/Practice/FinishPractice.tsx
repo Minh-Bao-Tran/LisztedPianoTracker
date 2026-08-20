@@ -42,7 +42,12 @@ export default function FinishPracticePage() {
         alert("An Error has Occured while saving Session!");
         throw new Error("An Error has Occured while saving Session!");
       }
-      navigate(`/session/${sessionId}/view`);
+
+      navigate(`/sessions`);
+
+      setTimeout(() => {
+        navigate(`/session/${sessionId}/view`);
+      }, 10);
     });
   }
 

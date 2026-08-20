@@ -93,7 +93,7 @@ export default function ResourcesSection() {
             +Add New Resource
           </button>
         </div>
-        <ul>{resources && resourceElements}</ul>
+        <ul>{resources.length !== 0? resourceElements : <p>No Resources Created yet</p>}</ul>
       </section>
     </div>
   );

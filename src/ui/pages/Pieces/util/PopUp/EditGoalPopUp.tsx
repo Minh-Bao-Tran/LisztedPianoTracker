@@ -116,10 +116,10 @@ export default function EditGoalPopUp({
           name="goalType"
           id="piece-status"
           className="input-deco"
-          defaultValue={values.status}
+          defaultValue={values.goalType}
           required
         >
-          <option value="Others" disabled hidden>
+          <option value="" disabled hidden>
             ---Select a type---
           </option>
           <option value="Dynamic">Dynamic</option>

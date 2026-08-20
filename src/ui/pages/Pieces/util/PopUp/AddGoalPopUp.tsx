@@ -100,7 +100,7 @@ export default function AddGoalPopUp({
           defaultValue={values.status}
           required
         >
-          <option value="Others" disabled hidden>
+          <option value="" disabled hidden>
             ---Select a type---
           </option>
           <option value="Dynamic">Dynamic</option>

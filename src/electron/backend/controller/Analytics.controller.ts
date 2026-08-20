@@ -84,12 +84,12 @@ export default class AnalyticsController {
 
     const newSubsessions = [...allSubsessions];
 
-    // console.log(newSubsessions);
+    console.log(newSubsessions);
     for (let i = allSubsessions.length - 1; i >= 0; i--) {
       const { date, totalTime } = allSubsessions[i];
 
       //-----Validation-----
-      if (!date || !date.getTime()) {
+      if (!date || typeof date === "string" || !date.getTime()) {
         //Not started yet
         console.log(1);
 
@@ -152,6 +152,8 @@ export default class AnalyticsController {
       return b.date.getTime() - a.date.getTime();
     });
 
+    // console.log(sortedTotalSubsessions);
+
     //Find Streak
     const latestSubsession = sortedTotalSubsessions[0];
 
@@ -164,8 +166,9 @@ export default class AnalyticsController {
       const removedStartDate = subsession.date.toDateString();
       const removedCurrentDate = currentDate.toDateString();
       if (
-        new Date(removedStartDate).getTime() - new Date().getTime() >
-        1000 * 60 * 60 * 24
+        new Date(removedCurrentDate).getTime() -
+          new Date(removedStartDate).getTime() >
+        1000 * 60 * 60 * 24 //Number of milliseconds in 1 day
       ) {
         //remove the hours, minute, and seconds
         break;

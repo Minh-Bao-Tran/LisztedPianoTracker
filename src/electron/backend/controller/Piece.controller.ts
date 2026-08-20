@@ -38,6 +38,7 @@ export default class PieceController {
     // pieceDejoin();
     // goalDejoin();
 
+    //@ts-ignore
     return result;
   }
 
@@ -78,6 +79,7 @@ export default class PieceController {
       goalDejoin();
       pieceDejoin();
 
+      //@ts-ignore
       return { ...piece.obj, ...extendedData };
     }
 

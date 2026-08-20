@@ -68,7 +68,7 @@ export default function TermsSection() {
           +Link New Term
         </button>
       </div>
-      <ul>{pieceTerms && termElements}</ul>
+      <ul>{pieceTerms.length > 0 ? termElements : <p>No Terms Linked yet</p>}</ul>
     </section>
   );
 }
