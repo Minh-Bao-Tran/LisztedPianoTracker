@@ -1,3 +1,4 @@
+// Purpose: small reusable card component used on the Home page.
 import styles from "./HomeCard.module.css";
 
 export default function HomeCard({
@@ -12,6 +13,7 @@ export default function HomeCard({
   subTitle?: string;
   info1?: string;
   info2?: string;
+  // `decoration` is an arbitrary style object applied inline; its shape may vary.
   decoration?: Record<string, any>;
   onClick: () => void;
 }) {

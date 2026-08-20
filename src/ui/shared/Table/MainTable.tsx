@@ -1,3 +1,4 @@
+// Purpose: generic table renderer used across the UI with pluggable columns.
 import styles from "./MainTable.module.css";
 
 export interface Column<T> {

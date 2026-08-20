@@ -6,7 +6,8 @@ import { Goal } from "../class/Goal.model.js";
 
 import { db } from "../database/database.js";
 import { session } from "electron";
-
+// SessionController: manages `Session` and `Subsession` lifecycle and maps
+// ID arrays to runtime objects for UI consumption and analytics.
 export default class SessionController {
   constructor() {}
 
@@ -198,7 +199,8 @@ export default class SessionController {
 
     console.log(returnedSubsessionIds);
 
-    //@ts-ignore
+    // Session object shape is validated at runtime by the model
+    // @ts-ignore
     let sessionId = db.getDb("session").insertOne({
       ...sessionData,
       status: "Planned",
@@ -213,6 +215,7 @@ export default class SessionController {
     //Create a new session with identical fields, also clone subsessions
     let indexedPastSession: IndexedObj<Session>;
     try {
+      // `findOnePrimaryKey` returns runtime-shaped data
       // @ts-ignore
       indexedPastSession = db.getDb("session").findOnePrimaryKey(sessionId);
     } catch (err) {
@@ -226,6 +229,8 @@ export default class SessionController {
 
     //create new subsessions
     const idList = [];
+    // `pastSession.subsessions` is expected to be an array cloned from runtime
+    // data
     // @ts-ignore
     for (const subsession of pastSession.subsessions) {
       try {
@@ -243,6 +248,7 @@ export default class SessionController {
     }
 
     const newSession: Session = { ...pastSession, subsessionIds: idList };
+    // `id` is removed so the DB layer can generate a new id
     // @ts-ignore
     delete newSession.id;
 
@@ -477,6 +483,7 @@ export default class SessionController {
       db.getDb("subsession").updateOne(
         { id: subsessionId },
         {
+          // `time` is a runtime-updated array field
           // @ts-ignore
           time: currentTime,
         },

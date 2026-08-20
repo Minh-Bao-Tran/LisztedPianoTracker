@@ -1,3 +1,4 @@
+// Purpose: compact piece card used in practice UI to quickly navigate to a piece.
 import { useNavigate } from "react-router";
 import styles from "./MinimisedPieceCard.module.css";
 

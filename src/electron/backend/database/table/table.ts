@@ -8,6 +8,8 @@ export type ForeignKey<
   Model extends TableModel,
   ReferenceModel extends TableModel,
 > = {
+  // ForeignKey links a field on `Model` to an ID on `ReferenceModel`.
+  // Using string ID references keeps CSV rows flat and converters simple.
   key: Field<Model>; //Belongs to the list of Fields of the Model
   referenceTable: Table<ReferenceModel, any>;
   referenceTableKey: Field<ReferenceModel>;
@@ -21,6 +23,7 @@ type ForeignKeys<
 }[number][];
 
 type Field<Model> = keyof Model & string;
+// `Fields` is an ordered list of model keys that maps to CSV columns.
 type Fields<Model> = Field<Model>[]; // A fields must have be a class property and a string
 
 export type TableModel = {
@@ -115,6 +118,10 @@ export default class Table<
     for (const { key, referenceTable, referenceTableKey } of this.foreignKeys) {
       //Go through each foreign key
       for (const obj of values) {
+        // Expectation: foreign key fields are stored as arrays of id strings
+        // (e.g. `goalIds: string[]`) after conversion via schema.converters.
+        // We cast to a generic array here because the concrete Model type is
+        // not easily expressible for all reference-model combinations.
         for (const keyValue of obj[key] as []) {
           //Go through each foreign key of each value
           // const thisForeignKeyValue = obj[key]; //Get the value of the current Obj
@@ -140,7 +147,9 @@ export default class Table<
 
   public convertFromDB(): Model[] {
     const data = this.fetch();
-
+    // CSV fetch returns rows as arrays of strings. When CSV is empty the
+    // implementation returns a single row with an empty string in first
+    // column; guard against that shape and return empty dataset.
     if (data[0][0] === '') return [];
     const referenceConverters: Schema<Model> = this.model.schema;
 
@@ -239,6 +248,9 @@ export default class Table<
 
   //call by the table that you want to
   public reverseJoin<parentTableModel extends TableModel>(
+    // `parentTable` is the table that references *this* table via a
+    // foreign key. We use `any` on the second generic since representing
+    // the full array of reference model types here would be overly complex.
     parentTable: Table<parentTableModel, any>,
     newField: Field<Model>,
   ): () => boolean {
@@ -257,6 +269,10 @@ export default class Table<
     //check that field on object exist to append
     for (const obj of this.values) {
       //Loop through the
+      // `relationship.referenceTableKey` is a key on this table's model but
+      // TypeScript cannot always infer that at compile time in this generic
+      // function; `@ts-ignore` is used to keep runtime behavior clear while
+      // avoiding deeply nested generic constraints.
       // @ts-ignore
       const thisKeyValue = obj[relationship.referenceTableKey];
       const parentElements = parentTable.findManyPredicate(

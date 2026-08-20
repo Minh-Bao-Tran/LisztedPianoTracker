@@ -1,3 +1,5 @@
+//Purpose: the test file for backend before integration
+
 // import { Database } from "./database/database.js";
 
 // import PieceController from "./controller/Piece.controller.js";

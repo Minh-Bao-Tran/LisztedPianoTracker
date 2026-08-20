@@ -1,3 +1,4 @@
+// Purpose: popup used to update a subsession's recorded time and reflections.
 import type { SubmitEvent } from "react";
 
 import styles from "./UpdateSubsessionPopUp.module.css";

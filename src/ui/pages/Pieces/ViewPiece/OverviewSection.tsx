@@ -1,7 +1,8 @@
+// Purpose: displays main metadata overview for a piece (title, composer, notes).
 import { useOutletContext } from "react-router";
 
-import AnalyticsCard from "../util/Card/AnalyticsCard";
 
+import AnalyticsCard from "../util/Card/AnalyticsCard";
 import styles from "./OverviewSection.module.css";
 import GoalCard from "../util/Card/GoalCard";
 

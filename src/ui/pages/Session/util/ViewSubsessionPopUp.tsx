@@ -1,3 +1,4 @@
+// Purpose: popup to view and edit a subsession's details during session flow.
 import { useNavigate } from "react-router";
 
 import GoalCard from "../../Pieces/util/Card/GoalCard";

@@ -1,3 +1,4 @@
+// Purpose: list and manage goals associated with a piece.
 import type { ReactElement } from "react";
 import { useOutletContext } from "react-router";
 

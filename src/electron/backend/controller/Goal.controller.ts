@@ -2,9 +2,10 @@ import { Goal } from "../class/Goal.model.js";
 import { Piece } from "../class/Piece.model.js";
 
 import { db } from "../database/database.js";
-
+// GoalController: handles CRUD for `Goal` and coordinates joins to related
+// entities (Piece, Subsession) so controllers stay thin.
 export default class GoalController {
-  public getGoalById(_: any, goalId: string): IndexedObj<Goal> | null {
+  public getGoalById(goalId: string): IndexedObj<Goal> | null {
     try {
       return db.getDb("goal").findOnePrimaryKey(goalId);
     } catch (err) {
@@ -18,6 +19,7 @@ export default class GoalController {
       //Join Piece with Goal
       db.getDb("piece").join("goalIds");
       //Get Piece
+      // `findOnePrimaryKey` returns runtime-shaped data
       // @ts-ignore
       const returnedPieceObj: IndexedObj<Piece> = db
         .getDb("piece")
@@ -31,6 +33,7 @@ export default class GoalController {
     } catch (err) {
       throw err;
     }
+    // `goals` is injected by `Table.join` at runtime
     // @ts-ignore
     return piece.goals;
   }

@@ -1,6 +1,6 @@
-//Purpose: To act as the blueprint for creating Subsession objects. Making handling data relating to Subsession Easier
-// Providing the database with the schema to convert CSV file to Piece Object.
-
+// Subsession model: represents timed practice chunks where `time` is an array
+// (history of loop times) so we can store multiple attempts per subsession in
+// one CSV field and compute totals at runtime.
 //Data Source: CSV File subsession.csv and user entered through GUI
 
 import {

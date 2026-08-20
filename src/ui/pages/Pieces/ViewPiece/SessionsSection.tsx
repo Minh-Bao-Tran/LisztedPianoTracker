@@ -1,3 +1,4 @@
+// Purpose: displays past sessions and allows navigation to session details.
 import { useNavigate, useOutletContext } from "react-router";
 
 import type { Column } from "../../../shared/Table/MainTable";

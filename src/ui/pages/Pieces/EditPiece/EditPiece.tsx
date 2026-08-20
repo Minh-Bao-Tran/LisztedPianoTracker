@@ -1,3 +1,4 @@
+// Purpose: edit existing `Piece` details; reuses the piece form coßmponent.
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router";
 

@@ -1,3 +1,4 @@
+// Purpose: form page to create a new `Piece` via the UI and send to backend.
 import { useNavigate } from "react-router";
 
 import PieceForm from "../util/Form/PieceForm";

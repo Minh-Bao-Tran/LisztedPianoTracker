@@ -1,6 +1,13 @@
-import { Piece } from "../class/Piece.model.js";
+//Purpose: To act as the blueprint for creating Goal objects. Making handling data relating to Goal Easier
+// Providing the database with the schema to convert CSV file to Goal Object.
 
+//Data Source: CSV File goal.csv and user entered through GUI
+
+import { Piece } from "../class/Piece.model.js";
 import { db } from "../database/database.js";
+
+// PieceController: orchestrates CRUD for `Piece` and composes runtime joins
+// to produce extended views used by the UI.
 
 export default class PieceController {
   constructor() {}
@@ -38,7 +45,8 @@ export default class PieceController {
     // pieceDejoin();
     // goalDejoin();
 
-    //@ts-ignore
+    // `result` includes runtime-injected fields from `join`
+    // @ts-ignore
     return result;
   }
 
@@ -79,7 +87,8 @@ export default class PieceController {
       goalDejoin();
       pieceDejoin();
 
-      //@ts-ignore
+      // Merging runtime object with computed fields
+      // @ts-ignore
       return { ...piece.obj, ...extendedData };
     }
 
@@ -115,16 +124,13 @@ export default class PieceController {
     return true;
   }
 
-  public updateStatus(
-    _: any,
-    {
-      updateCriteria, //usually id
-      updatedStatus,
-    }: {
-      updateCriteria: Partial<Pick<Piece, keyof Piece>>;
-      updatedStatus: Status;
-    },
-  ) {
+  public updateStatus({
+    updateCriteria, //usually id
+    updatedStatus,
+  }: {
+    updateCriteria: Partial<Pick<Piece, keyof Piece>>;
+    updatedStatus: Status;
+  }) {
     let result: Piece;
     try {
       result = db
@@ -147,7 +153,7 @@ export default class PieceController {
       if (piece.goalIds && piece.goalIds.length > 0) {
         const subsessionTable = db.getDb("subsession");
         for (const goalId of piece.goalIds) {
-           db.getDb("goal").deleteOne({ id: goalId }, [subsessionTable]);
+          db.getDb("goal").deleteOne({ id: goalId }, [subsessionTable]);
         }
       }
 

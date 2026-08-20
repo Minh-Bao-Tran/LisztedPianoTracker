@@ -1,3 +1,4 @@
+// Purpose: renders a simple sub-navigation bar from an array of links.
 import { NavLink } from "react-router";
 
 import "./SubNav.css";

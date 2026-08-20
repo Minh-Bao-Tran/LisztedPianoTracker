@@ -1,3 +1,4 @@
+// Purpose: application layout and popup routing; provides global popup state.
 import { useEffect, useState } from "react";
 import { Outlet, useLocation } from "react-router";
 import MainNav from "./shared/Nav/MainNav";
@@ -12,6 +13,8 @@ import ViewSessionPopUp from "./pages/Session/util/ViewSubsessionPopUp";
 import LinkTermPopUp from "./pages/Pieces/util/PopUp/LinkMusicTermPopUp";
 import ViewMusicTermPopUp from "./shared/ViewMusicTermPopUp";
 
+// `PopupState` is a discriminated union describing each popup's input/output
+// shapes so component callers get compile-time safety when opening popups.
 type PopupState =
   | {
       type: "addResource";
@@ -51,6 +54,7 @@ type PopupState =
     }
   | { type: "viewMusicTerm"; input: TermData; delete?: string; output?: null };
 
+// Props passed to a popup component; input and callbacks use `PopupState` types
 interface PopupProps {
   currentValues?: PopupState["input"];
   handleFormPredicate?: (data: PopupState["output"]) => void;
@@ -58,10 +62,12 @@ interface PopupProps {
   closeForm: () => void;
 }
 
+// Runtime popup descriptor combining `type` with `PopupProps`.
 export interface PopupData extends PopupProps {
   type: PopupState["type"];
 }
 
+// Mapping element shape: function that renders a popup given `PopupProps`.
 type PopupMappingElement = (props: PopupProps) => React.ReactElement;
 
 //Helps to define popup event should receive which

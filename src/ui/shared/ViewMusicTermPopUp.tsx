@@ -1,3 +1,4 @@
+// Purpose: popup UI to view (and optionally unlink) a music term.
 import DeleteIcon from "../assets/icon/Delete_Icon.svg";
 
 import styles from "./ViewMusicTermPopUp.module.css";

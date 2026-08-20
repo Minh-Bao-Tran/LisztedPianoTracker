@@ -1,3 +1,4 @@
+// Purpose: page that lists all pieces with sorting and filtering controls.
 import { useEffect, useState } from "react";
 import { NavLink, useLocation } from "react-router";
 // import type { SetStateAction } from "react";

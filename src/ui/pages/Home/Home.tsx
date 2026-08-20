@@ -1,3 +1,4 @@
+// Purpose: Home page UI that shows overview cards for pieces and sessions.
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router";
 

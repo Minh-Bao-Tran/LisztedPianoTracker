@@ -1,5 +1,5 @@
+// Purpose: interactive practice session UI handling playback, timing, and UI controls.
 import { useEffect, useState } from "react";
-
 import { useParams, useLocation, useNavigate } from "react-router";
 
 import MinimisedPieceCard from "./MinimisedPieceCard.tsx";

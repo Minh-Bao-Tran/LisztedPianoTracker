@@ -1,3 +1,4 @@
+// Purpose: glossary page listing music terms with search and filter controls.
 import { useState, useEffect } from "react";
 
 import { useLocation, useOutletContext } from "react-router";

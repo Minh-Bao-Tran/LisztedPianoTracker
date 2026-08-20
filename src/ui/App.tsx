@@ -1,3 +1,4 @@
+// Purpose: application route definitions that map URLs to page components.
 import { Routes, Route } from "react-router";
 
 import Layout from "./Layout";

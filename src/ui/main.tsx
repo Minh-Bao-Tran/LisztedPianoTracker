@@ -1,3 +1,4 @@
+// Purpose: bootstraps the React app and mounts `App` into the DOM.
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { HashRouter } from "react-router";

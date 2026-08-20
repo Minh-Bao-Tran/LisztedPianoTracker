@@ -1,6 +1,6 @@
-//Purpose: To act as the blueprint for creating Goal objects. Making handling data relating to Goal Easier
-// Providing the database with the schema to convert CSV file to Goal Object.
-
+// Goal model: simple primitive fields with optional reverse-joined `subsessions`.
+// Ratings and dates are stored as primitives; `subsessions` are linked via
+// ID arrays to keep CSV rows flat and conversion straightforward.
 //Data Source: CSV File goal.csv and user entered through GUI
 
 import {

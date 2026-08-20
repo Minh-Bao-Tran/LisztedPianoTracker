@@ -1,3 +1,4 @@
+// Purpose: visual progress bar component showing completion percentage.
 import styles from "./CompletionBar.module.css";
 
 export default function CompletionBar({

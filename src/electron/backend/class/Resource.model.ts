@@ -1,6 +1,6 @@
-//Purpose: To act as the blueprint for creating Resource objects. Making handling data relating to Resource Easier
-// Providing the database with the schema to convert CSV file to Resource Object.
-
+// Resource model: stores small primitive fields (type, link) suitable for
+// single-row CSV storage; enums are used for `resourceType` to validate values
+// during CSV conversion.
 //Data Source: CSV File resource.csv and user entered through GUI
 
 import {

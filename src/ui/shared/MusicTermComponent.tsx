@@ -1,3 +1,4 @@
+// Purpose: UI element that displays a music term and its definition.
 import EditIcon from "../assets/icon/Edit_icon.svg";
 
 import styles from "./MusicTermComponent.module.css";

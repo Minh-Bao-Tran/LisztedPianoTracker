@@ -1,6 +1,6 @@
-//Purpose: To act as the blueprint for creating Session objects. Making handling data relating to Session Easier
-// Providing the database with the schema to convert CSV file to Session Object.
-
+// Session model: models a practice session referencing subsession IDs. Using an
+// ID-array (`subsessionIds`) keeps the CSV representation compact and allows
+// joining/mapping to full `Subsession` objects at runtime.
 //Data Source: CSV File session.csv and user entered through GUI
 
 import {

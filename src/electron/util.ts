@@ -6,8 +6,9 @@ export function isDev(): boolean {
   return process.env.NODE_ENV === "development";
 }
 
-//This function makes the whole process from backend to frontend typesafe. This is because the communication by default is not type safe
-//keyof limits the type to only the defined event types
+// `ipcMainHandle` maps a typed EventMapping key to a handler so IPC requests
+// and responses are type-checked at compile time while remaining runtime-safe.
+// `keyof` restricts calls to known event names in `EventMapping`.
 export function ipcMainHandle<Key extends keyof EventMapping>(
   key: Key,
   handler: (req: EventMapping[Key]["req"]) => EventMapping[Key]["res"], // value returned is the res

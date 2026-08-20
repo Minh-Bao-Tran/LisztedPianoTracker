@@ -1,6 +1,6 @@
 
 interface ModelConstructor<T> {
-  new (...args: any): T; // This is needed to define that the callback so that class Table can create objects with the wanted classes
+  new (...args: any): T; // used for runtime instantiation inside `Table`
   schema: Schema<T>;
   validateAndCreate(...arg: any): T;
 }
@@ -8,13 +8,15 @@ interface ModelConstructor<T> {
 type Primitive = string | number | boolean;
 
 
+// Converter: transforms between CSV string representation and the typed value
+// used in the model. Implementations must handle primitive types and also
+// complex fields (arrays, nested ids) as the application expects.
 type Converter<Type> = {
   fromDB(value: string): Type;
   toDB(value: Type): string;
 };
 
 type Schema<Model> = {
-  // Go through each key, Gets its value and enforce that a converter must converts from the defined type to string
   IdPrefix: string;
   converters: { [Key in keyof Model]?: Converter<Model[Key]> };
 };

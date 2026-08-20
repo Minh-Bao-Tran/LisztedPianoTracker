@@ -1,3 +1,4 @@
+// Purpose: page that lists all sessions and their summary data in a table.
 import { useState, useEffect } from "react";
 
 import { NavLink, useLocation, useNavigate } from "react-router";

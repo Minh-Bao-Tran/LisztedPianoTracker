@@ -1,9 +1,13 @@
+
+
 import { Goal } from "../class/Goal.model.js";
 import { Piece } from "../class/Piece.model.js";
 import { Subsession } from "../class/Subsession.model.js";
 
 import { db } from "../database/database.js";
 
+// AnalyticsController: computes derived analytics (total time, streaks,
+// averages) from joined runtime data; keeps business logic separate from DB.
 export default class AnalyticsController {
   private getallGoalsCompleted(pieceId: string): Goal[] | [] {
     //Join Piece with Goal
@@ -44,7 +48,8 @@ export default class AnalyticsController {
 
     const piece = returnedObj.obj;
 
-    //@ts-ignore
+    // `goals` is injected at runtime by `Table.join` and not visible to TS.
+    // @ts-ignore
     const goalLists = [...piece.goals];
 
     //get all subsession
@@ -148,7 +153,8 @@ export default class AnalyticsController {
       (subsession) => subsession.date,
     );
     const sortedTotalSubsessions = [...filteredSubsession].sort((a, b) => {
-      //@ts-ignore
+      // Assume `date` exists here after filtering
+      // @ts-ignore
       return b.date.getTime() - a.date.getTime();
     });
 

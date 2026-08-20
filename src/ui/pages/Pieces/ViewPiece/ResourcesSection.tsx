@@ -1,3 +1,4 @@
+// Purpose: displays and manages resources linked to a piece.
 import { useOutletContext } from "react-router";
 
 import ResourceCard from "../util/Card/ResourceCard";

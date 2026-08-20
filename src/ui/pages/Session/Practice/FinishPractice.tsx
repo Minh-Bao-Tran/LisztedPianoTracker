@@ -1,3 +1,4 @@
+// Purpose: final screen for a completed practice session showing summary.
 import { useEffect, useState } from "react";
 import type { SubmitEvent } from "react";
 

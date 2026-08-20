@@ -1,3 +1,4 @@
+// Purpose: visual star-rating renderer mapping a numeric score to star icons.
 import filledStarIcon from "../assets/icon/Filled_Star_Icon.svg";
 import halfFilledStarIcon from "../assets/icon/Half_filled_Star_Icon.svg";
 import emptyStarIcon from "../assets/icon/Empty_Star_Icon.svg";

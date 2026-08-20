@@ -26,41 +26,36 @@ Pascal Case (or Upper Camel Case, ex: MyVar) is utilised for type declarations(e
 
 All Capitallised Snake Case is utilised for Global Variable/Constant (Ex: PIECE_TYPES)
 
-# Data Sources:
-see:
-Term.model.ts
+
+# Data Sources
+The main data sources are the CSV file and the data entered by the user. 
+However, a part of a public data set is also used(see term.model.ts)
+
+Examples:
+
+- `csv-util.ts` — `readAllCSV`
+- `csv-util.ts` — `writeCSV`
+- `table.ts` — `fetch`
+- `table.ts` — `storeData`
+- `preload.cts` — `getAllPiece`
 
 # Data Structures
-Local Variables
+The app uses simple classes for each data type. Relations are stored as arrays of IDs in CSV rows, and converters map CSV strings to typed fields when loading.
 
+Examples:
 
-Global Variables/Constants
+- `Piece.model.ts` — `validateAndCreate`
+- `Piece.model.ts` — `findLastPractice`
+- `Goal.model.ts` — `schema`
+- `Subsession.model.ts` — `validateAndCreate`
+- `table.ts` — `TableModel` (type)
 
+# Controls (code patterns used)
 
-Constants
-
-
-Arrays:
-see: Piece.model.ts. Properties marked as Foreign Key
-table.ts. Public findMany()
-
-
-Records(Objects):
-see: any files with .model.ts
-
-
-Set
-
-
-# Controls
-Sequence
-
-Selection
-
-Iteration
+- `Subsession.model.ts` — `constructor` (computes totalTime)
+- `Piece.model.ts` — `findLastPractice`
+- `table.ts` — `generateNewId`
+- `table.ts` — `validateForeignKeys`
+- `Piece.controller.ts` — `getAllPiece`
 
 # OOP Principles
-Generalisation
-Abstraction
-Inheritance
-Encapsulation

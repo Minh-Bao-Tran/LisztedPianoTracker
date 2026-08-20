@@ -2,6 +2,8 @@ import { Term } from "../class/Term.model.js";
 import { Piece } from "../class/Piece.model.js";
 
 import { db } from "../database/database.js";
+// TermController: provides access to a small developer-maintained term
+// dataset and links terms to pieces using ID arrays for compact storage.
 export default class TermController {
   public getAllTerms(): Term[] {
     try {
@@ -28,6 +30,7 @@ export default class TermController {
       //Join Piece with Term
       db.getDb("piece").join("termIds");
       //Get Piece
+      // `findOnePrimaryKey` returns runtime data
       // @ts-ignore
       const returnedPieceObj: IndexedObj<Piece> = db
         .getDb("piece")
@@ -41,12 +44,12 @@ export default class TermController {
     } catch (err) {
       throw err;
     }
+    // `terms` is injected at runtime by `Table.join`
     // @ts-ignore
     return piece.terms;
   }
 
   public addTerm(
-    _: any,
     { pieceId, term }: { pieceId: string | null; term: Omit<Term, "id"> },
   ): boolean {
     let newTermId: string;
@@ -60,6 +63,7 @@ export default class TermController {
     let returnedPieceObj: IndexedObj<Piece>;
     if (pieceId) {
       //term can be added without piece
+      // `findOnePrimaryKey` returns runtime-shaped object; silence TS here.
       // @ts-ignore
       returnedPieceObj = db.getDb("piece").findOnePrimaryKey(pieceId);
       if (!returnedPieceObj) {
@@ -89,6 +93,7 @@ export default class TermController {
     let returnedPieceObj: IndexedObj<Piece>;
     //term can be added without piece
     try {
+      // `findOnePrimaryKey` returns runtime-shaped object
       // @ts-ignore
       returnedPieceObj = db.getDb("piece").findOnePrimaryKey(pieceId);
       if (!returnedPieceObj) {
@@ -101,6 +106,7 @@ export default class TermController {
     //Get Term
     try {
       let returnedTermObj: IndexedObj<Term>;
+      // `findOnePrimaryKey` returns runtime-shaped object
       // @ts-ignore
       returnedTermObj = db.getDb("term").findOnePrimaryKey(termId);
       if (!returnedTermObj) {
@@ -165,7 +171,6 @@ export default class TermController {
   }
 
   public updateTerm(
-    _: any,
     criteria: Partial<Pick<Term, keyof Term>>,
     updatingFields: Partial<Term>,
   ): boolean {

@@ -4,6 +4,8 @@ const electron = require("electron");
 
 electron.contextBridge.exposeInMainWorld("electron", {
   //Makes the methods available for frontend to call
+  // `subscribeStatistics` forwards IPC stats to the renderer; the event arg
+  // and stats payload are dynamic and asserted as `any` here.
   subscribeStatistics: (callback: (statistics: any) => void) => {
     electron.ipcRenderer.on("statistics", (_: any, stats: any) => {
       callback(stats);

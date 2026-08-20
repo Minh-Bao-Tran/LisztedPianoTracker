@@ -1,3 +1,4 @@
+// Purpose: detailed view for a single piece, composed from multiple sections.
 import { useEffect, useState } from "react";
 import { useParams, NavLink, Outlet, useOutletContext } from "react-router";
 

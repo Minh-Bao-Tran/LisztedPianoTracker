@@ -1,3 +1,4 @@
+// Purpose: lists linked music terms for a piece and allows linking/unlinking.
 import { useOutletContext } from "react-router";
 
 import type { PopupData } from "../../../Layout";

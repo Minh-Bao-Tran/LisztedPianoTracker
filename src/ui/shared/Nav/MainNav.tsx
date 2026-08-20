@@ -1,3 +1,4 @@
+// Purpose: main navigation component for app-level routing and icons.
 import { NavLink } from "react-router";
 
 import appIcon from "../../assets/icon/App_icon.svg";

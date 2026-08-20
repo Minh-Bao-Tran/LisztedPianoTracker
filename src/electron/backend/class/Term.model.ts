@@ -1,8 +1,7 @@
-//Purpose: To act as the blueprint for creating Term objects. Making handling data relating to Term Easier
-// Providing the database with the schema to convert CSV file to Term Object.
-
-//Data Source: CSV File term.csv / chosen 50 terms randomly from the public dataset of commonly used Music Terms by ABRSM. ABRSM is used as it is a credible authority on the subject
-// through and user entered through GUI
+// Term model: small, developer-provided dataset of music terms stored as CSV.
+// Types are narrow (string literals) to validate values during CSV conversion
+// and prevent invalid developer-provided entries.
+//Data Source: CSV File term.csv / chosen 50 terms from ABRSM and GUI input
 
 import { stringConverter } from "../database/table/converters.js";
 

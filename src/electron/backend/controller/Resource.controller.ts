@@ -2,6 +2,8 @@ import { Resource } from "../class/Resource.model.js";
 import { Piece } from "../class/Piece.model.js";
 
 import { db } from "../database/database.js";
+// ResourceController: CRUD wrapper for `Resource` and helpers to link
+// resource ID arrays on `Piece` objects; keeps CSV-backed storage flat.
 export default class ResourceController {
   public getResourceById(resourceId: string): IndexedObj<Resource> | null {
     try {
@@ -30,6 +32,7 @@ export default class ResourceController {
     } catch (err) {
       throw err;
     }
+    // `resources` is injected by `Table.join`
     // @ts-ignore
     return piece.resources;
   }
@@ -42,6 +45,7 @@ export default class ResourceController {
     resource: Omit<Resource, "id">;
   }): string {
     //Get Piece
+    // `findOnePrimaryKey` returns runtime-shaped data
     // @ts-ignore
     const returnedPieceObj: IndexedObj<Piece> = db
       .getDb("piece")
