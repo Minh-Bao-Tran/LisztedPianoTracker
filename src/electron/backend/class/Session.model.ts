@@ -1,15 +1,18 @@
+//Purpose: To act as the blueprint for creating Session objects. Making handling data relating to Session Easier
+// Providing the database with the schema to convert CSV file to Session Object.
+
+//Data Source: CSV File session.csv and user entered through GUI
+
 import {
   numberConverter,
-  statusConverter,
   stringArrayConverter,
   stringConverter,
 } from "../database/table/converters.js";
-import { STATUSES } from "../../shared/globalVars.js";
 import { Subsession } from "./Subsession.model.js";
 
-const SESSIONSTATUSES = ["Completed", "InProgress", "Active", "Planned"];
+const SESSION_STATUSES = ["Completed", "InProgress", "Active", "Planned"];
 
-const SESSIONSTRUCTURE = ["Blocked", "Interleaved", "Unstructured"] as const;
+const SESSION_STRUCTURES = ["Blocked", "Interleaved", "Unstructured"] as const;
 
 export class Session implements SessionData {
   public id: string;
@@ -59,17 +62,14 @@ export class Session implements SessionData {
     this.subsessionIds = subsessionIds;
   }
 
-  // public findCurrentSubsession(){
-  //   return this.currentIndex % this.subsessionIds.length
-  // }
-
+  //Purpose: ensure the data is validated before allow creating the object
   public static validateAndCreate(obj: Omit<Session, "id">): Session {
     if (!obj.title || !obj.structure || !obj.subsessionIds) {
       console.log(obj);
       throw new Error("Missing Properties");
     }
 
-    if (obj.status && !SESSIONSTATUSES.includes(obj.status)) {
+    if (obj.status && !SESSION_STATUSES.includes(obj.status)) {
       throw new Error("Invalid Session Status");
     }
 
@@ -83,10 +83,12 @@ export class Session implements SessionData {
     return new Session({ ...obj });
   }
 
-  //Converters
+  //----CONVERTERS----
+  //Purpose: Provide the Database instructions to convert Data from JS Obj to CSV
   public static sessionStatusConverter: Converter<SessionStatus> = {
+    //Data Source: CSV File
     fromDB(value: string): SessionStatus {
-      if ((SESSIONSTATUSES as readonly string[]).includes(value)) {
+      if ((SESSION_STATUSES as readonly string[]).includes(value)) {
         //Has to widen STATUES types here to check
         return value as Status;
       }
@@ -95,8 +97,9 @@ export class Session implements SessionData {
       );
     },
 
+    //Data Source: Provide by the user through the GUI, through the Controller
     toDB(value: SessionStatus): string {
-      if (SESSIONSTATUSES.includes(value)) {
+      if (SESSION_STATUSES.includes(value)) {
         //Has to widen STATUES types here to check
         return value as string;
       }
@@ -109,7 +112,7 @@ export class Session implements SessionData {
 
   public static sessionStructureConverter: Converter<SessionStructure> = {
     fromDB(value: string): SessionStructure {
-      if ((SESSIONSTRUCTURE as readonly string[]).includes(value)) {
+      if ((SESSION_STRUCTURES as readonly string[]).includes(value)) {
         //Has to widen STATUES types here to check
         return value as SessionStructure;
       }
@@ -119,7 +122,7 @@ export class Session implements SessionData {
     },
 
     toDB(value: SessionStructure): string {
-      if (SESSIONSTRUCTURE.includes(value)) {
+      if (SESSION_STRUCTURES.includes(value)) {
         //Has to widen STATUES types here to check
         return value as string;
       }
@@ -130,6 +133,8 @@ export class Session implements SessionData {
     },
   };
 
+  //----SCHEMA----
+  //Purpose: Provide the information on data Conversion and ID generation
   public static schema: Schema<Session> = {
     IdPrefix: "S",
     converters: {

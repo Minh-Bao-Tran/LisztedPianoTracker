@@ -1,6 +1,12 @@
+//Purpose: To act as the blueprint for creating Term objects. Making handling data relating to Term Easier
+// Providing the database with the schema to convert CSV file to Term Object.
+
+//Data Source: CSV File term.csv / chosen 50 terms randomly from the public dataset of commonly used Music Terms by ABRSM. ABRSM is used as it is a credible authority on the subject
+// through and user entered through GUI
+
 import { stringConverter } from "../database/table/converters.js";
 
-const MUSICTERMTYPE = [
+const MUSIC_TERM_TYPES = [
   "Tempo",
   "Technique",
   "Dynamic",
@@ -9,7 +15,7 @@ const MUSICTERMTYPE = [
   "Others",
 ] as const;
 
-type TermType = (typeof MUSICTERMTYPE)[number];
+type TermType = (typeof MUSIC_TERM_TYPES)[number];
 
 export class Term implements TermData {
   public id: string;
@@ -39,34 +45,24 @@ export class Term implements TermData {
   }
 
   public static validateAndCreate(obj: Omit<Term, "id">): Term {
-    // if (!obj.name || !obj.composer || !obj.status || !obj.pieceType) {
-    //   throw new Error("Missing Properties");
-    // }
-    // if (!STATUSES.includes(obj.status)) {
-    //   //Exist but wrong
-    //   throw new Error("Wrong Status");
-    // }
-    // if (obj.freqFrame && !FREQ_FRAME.includes(obj.freqFrame)) {
-    //   //Exist but wrong
-    //   throw new Error("Wrong freq_frame");
-    // }
-
-    // if (typeof obj.freqNumber !== "number") {
-    //   throw new Error("Type error, FreqNumber");
-    // }
+    //Terms does not need validation as its data source is entered by the developer
     return new Term({ ...obj });
   }
 
-  public static MusicTermConverter: Converter<TermType> = {
+  //----CONVERTERS----Purpose: Provide the Database instructions to convert Data from JS Obj to CSV
+  public static MusicTermTypeConverter: Converter<TermType> = {
+    //Data Source: CSV File / developer entered 50 terms from a list of ABRSM term
     fromDB(value: string): TermType {
-      if ((MUSICTERMTYPE as readonly string[]).includes(value)) {
+      if ((MUSIC_TERM_TYPES as readonly string[]).includes(value)) {
         //Has to widen STATUES types here to check
         return value as TermType;
       }
       throw new Error(`TermType is not valid: ${value} is not TermType type`);
     },
+
+    //Data Source: Provided by user through GUI
     toDB(value: TermType): string {
-      if (MUSICTERMTYPE.includes(value)) {
+      if (MUSIC_TERM_TYPES.includes(value)) {
         //Has to widen STATUES types here to check
         return value as string;
       }
@@ -74,13 +70,15 @@ export class Term implements TermData {
     },
   };
 
+  //----SCHEMA----
+  //Purpose: Provide the information on data Conversion and ID generation
   public static schema: Schema<Term> = {
     IdPrefix: "M",
     converters: {
       id: stringConverter,
       term: stringConverter,
       definition: stringConverter,
-      type: Term.MusicTermConverter,
+      type: Term.MusicTermTypeConverter,
       notes: stringConverter,
     },
   };

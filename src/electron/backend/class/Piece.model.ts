@@ -1,3 +1,9 @@
+//Purpose: To act as the blueprint for creating Piece objects. Making handling data relating to Piece Easier
+// Providing the database with the schema to convert CSV file to Piece Object.
+
+//Data Source: CSV File piece.csv and user entered through GUI
+
+
 import {
   numberConverter,
   stringArrayConverter,
@@ -12,7 +18,7 @@ import { Subsession } from "./Subsession.model.js";
 
 import { STATUSES } from "../../shared/globalVars.js";
 
-const PIECETYPES = [
+const PIECE_TYPES = [
   "Performance",
   "Technical",
   "Scale/Arpeggio",
@@ -34,9 +40,12 @@ export class Piece implements TableModel, PieceData {
   public freqFrame?: FreqFrame;
   public notes?: string;
   public totalTime?: number; //In minutes
-  public termIds?: string[]; //Foreign Key
-  public goalIds?: string[]; //Foreign Key
-  public resourceIds?: string[]; //Foreign Key
+
+  //Foreign Key
+  //An array is used as it can use Sequence control structure, increase code conciseness
+  public termIds?: string[]; 
+  public goalIds?: string[]; 
+  public resourceIds?: string[]; 
 
   //Initialise to prepare for joining
   public terms?: Term[] = [];
@@ -130,6 +139,7 @@ export class Piece implements TableModel, PieceData {
     return currentLatestGoal;
   }
 
+  //Purpose: ensure the data is validated before allow creating the object
   public static validateAndCreate(obj: Omit<Piece, "id"> | Piece): Piece {
     if (!obj.name || !obj.composer || !obj.status || !obj.pieceType) {
       throw new Error("Missing Properties");
@@ -149,18 +159,21 @@ export class Piece implements TableModel, PieceData {
     return new Piece({ ...obj });
   }
 
-  //Converters
+  //----CONVERTERS----
+  //Purpose: Provide the Database instructions to convert Data from JS Obj to CSV
   public static pieceTypeConverter: Converter<PieceType> = {
+    //Data Source: CSV File
     fromDB(value: string): PieceType {
-      if ((PIECETYPES as readonly string[]).includes(value)) {
+      if ((PIECE_TYPES as readonly string[]).includes(value)) {
         //Has to widen STATUES types here to check
         return value as PieceType;
       }
       throw new Error(`PieceType is not valid: ${value} is not PieceType type`);
     },
 
+    //Data Source: Provide by the user through the GUI, through the Controller
     toDB(value: PieceType): string {
-      if (PIECETYPES.includes(value)) {
+      if (PIECE_TYPES.includes(value)) {
         //Has to widen STATUES types here to check
         return value as string;
       }
@@ -187,6 +200,9 @@ export class Piece implements TableModel, PieceData {
       throw new Error(`PieceType is not valid: ${value} is not PieceType type`);
     },
   };
+
+  //----SCHEMA----
+  //Purpose: Provide the information on data Conversion and ID generation
 
   public static schema: Schema<Piece> = {
     IdPrefix: "P",

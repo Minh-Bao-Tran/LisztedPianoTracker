@@ -1,3 +1,5 @@
+//Purpose: A generalised module that handles data fetch and update requests. Uses the principle of Abstraction, where each Model must have certain properties inherited from interface ModelConstructor<T> in backend-types.d.ts
+
 import { readAllCSV, writeCSV } from "../csv-storage/csv-util.js";
 import { generateId } from "./table-util.js";
 
@@ -313,6 +315,7 @@ export default class Table<
     return { obj: targetObj, index: targetObjIndex };
   }
 
+  //Returns an array as this allows multiple objects as the same kind to be found
   public findMany<K extends Field<Model>>(
     criteria: Partial<Pick<Model, K>> = {},
   ): IndexedObj<Model>[] | [] {

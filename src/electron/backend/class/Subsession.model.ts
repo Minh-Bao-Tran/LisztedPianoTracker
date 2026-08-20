@@ -1,3 +1,8 @@
+//Purpose: To act as the blueprint for creating Subsession objects. Making handling data relating to Subsession Easier
+// Providing the database with the schema to convert CSV file to Piece Object.
+
+//Data Source: CSV File subsession.csv and user entered through GUI
+
 import {
   dateConverter,
   numberArrayConverter,
@@ -63,6 +68,7 @@ export class Subsession implements SubsessionData {
     }
   }
 
+  //Purpose: ensure the data is validated before allow creating the object
   public static validateAndCreate(obj: Omit<Subsession, "id">): Subsession {
     if (!obj.title || obj.time === null || !obj.maxTime) {
       console.log(obj);
@@ -91,14 +97,18 @@ export class Subsession implements SubsessionData {
     return new Subsession({ ...obj });
   }
 
+  //----CONVERTERS----Purpose: Provide the Database instructions to convert Data from JS Obj to CSV
+  //Support if the session is not finished
   public static undefinedlDateConverter: Converter<Date | undefined> = {
-    //Support if the session is not finished
+    //Data Source: CSV File
     fromDB(value: string): Date | undefined {
       if (value === "") {
         return undefined;
       }
       return dateConverter.fromDB(value);
     },
+
+    //Data Source: Provided by user through GUI
     toDB(value: Date | undefined): string {
       if (!value) {
         return "";
@@ -107,6 +117,8 @@ export class Subsession implements SubsessionData {
     },
   };
 
+  //----SCHEMA----
+  //Purpose: Provide the information on data Conversion and ID generation
   public static schema: Schema<Subsession> = {
     IdPrefix: "B", //As S is already taken up by the Session
     converters: {

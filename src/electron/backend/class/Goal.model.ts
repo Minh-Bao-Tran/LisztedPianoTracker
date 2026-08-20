@@ -1,15 +1,20 @@
+//Purpose: To act as the blueprint for creating Goal objects. Making handling data relating to Goal Easier
+// Providing the database with the schema to convert CSV file to Goal Object.
+
+//Data Source: CSV File goal.csv and user entered through GUI
+
 import {
   stringConverter,
   statusConverter,
-  numberArrayConverter,
   numberConverter,
 } from "../database/table/converters.js";
 import { STATUSES } from "../../shared/globalVars.js";
 import { Subsession } from "./Subsession.model.js";
+import { TableModel } from "../database/table/table.js";
 
 const GOALTYPE = ["Dynamic", "Tempo", "Technique", "Expression", "Others"];
 
-export class Goal implements GoalData {
+export class Goal implements TableModel, GoalData {
   public id: string;
   public name: string;
   public status: Status;
@@ -44,6 +49,7 @@ export class Goal implements GoalData {
     this.ratings = ratings;
   }
 
+  //Purpose: ensure the data is validated before allow creating the object
   public static validateAndCreate(obj: Omit<Goal, "id"> | Goal): Goal {
     if (!obj.name || !obj.status || !obj.goalType) {
       throw new Error("Missing Properties");
@@ -63,8 +69,10 @@ export class Goal implements GoalData {
     return new Goal({ ...obj });
   }
 
-  //Converters
+  //----CONVERTERS----
+  //Purpose: Provide the Database instructions to convert Data from JS Obj to CSV
   public static goalTypeConverter: Converter<GoalType> = {
+    //Data Source: CSV File
     fromDB(value: string): GoalType {
       if ((GOALTYPE as readonly string[]).includes(value)) {
         //Has to widen STATUES types here to check
@@ -73,6 +81,7 @@ export class Goal implements GoalData {
       throw new Error(`GoalType is not valid: ${value} is not GoalType type`);
     },
 
+    //Data Source: Provide by the user through the GUI, through the Controller
     toDB(value: GoalType): string {
       if (GOALTYPE.includes(value)) {
         //Has to widen STATUES types here to check
@@ -83,6 +92,8 @@ export class Goal implements GoalData {
     },
   };
 
+  //----SCHEMA----
+  //Purpose: Provide the information on data Conversion and ID generation
   public static schema: Schema<Goal> = {
     IdPrefix: "G",
     converters: {

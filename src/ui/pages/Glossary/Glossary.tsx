@@ -12,7 +12,7 @@ import type { PopupData } from "../../Layout";
 
 import styles from "./Glossary.module.css";
 
-const MUSICTERMTYPE: string[] = [
+const MUSIC_TERM_TYPES: string[] = [
   "Tempo",
   "Technique",
   "Dynamic",
@@ -148,7 +148,7 @@ export default function GlossaryPage() {
                 onChange={(e) => setFilterType(e.target.value)}
               >
                 <option value="">None</option>
-                {MUSICTERMTYPE.map((type) => {
+                {MUSIC_TERM_TYPES.map((type) => {
                   return (
                     <option key={type} value={type}>
                       {type}

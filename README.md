@@ -20,17 +20,35 @@ The Backend is developed using Nodejs(Typescript). Its purpose is to handle comp
 The Frontend is developed using HTML, CSS, Javascript (React framework, React-Router-v7 Package). Its purpose is to provide an easy-to-use UI for the user.
 
 # Naming Convention
-Camel case
+Camel Case(ex: myVar) is utilised for local constants(ex: filteredGoal), variables(ex: currentLatestGoal), functions(ex:  readAllCSV()), and class attributes(ex: schema) and methods(ex: findLastPractice()).
 
+Pascal Case (or Upper Camel Case, ex: MyVar) is utilised for type declarations(ex: TableModel), classes (ex: Piece), and interface (PieceData).
 
-# Imports and Exports Convention
+All Capitallised Snake Case is utilised for Global Variable/Constant (Ex: PIECE_TYPES)
+
+# Data Sources:
+see:
+Term.model.ts
 
 # Data Structures
 Local Variables
-Global Variables
+
+
+Global Variables/Constants
+
+
 Constants
-Arrays
-Records
+
+
+Arrays:
+see: Piece.model.ts. Properties marked as Foreign Key
+table.ts. Public findMany()
+
+
+Records(Objects):
+see: any files with .model.ts
+
+
 Set
 
 
