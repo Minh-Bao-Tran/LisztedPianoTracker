@@ -17,8 +17,10 @@ import { Session } from "./Session.model.js";
 export class Subsession implements SubsessionData {
   public id: string;
   public title: string;
-  public time: number[]; //in minutes
+  // `time` is an array to record multiple loop attempts; totals are computed at runtime
+  public time: number[]; //in minutes. Number array is used as it could store multiple data piece of the same type.
   public maxTime: number; //in minutes
+  // `date` is optional (undefined allowed) because some subsessions may be unfinished
   public date?: Date | undefined;
   public ratings: number; //out of 100%
   public reflections?: string;

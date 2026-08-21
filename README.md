@@ -1,3 +1,7 @@
+# Important notes:
+Time in Practice session is sped up to not waste your marking time(by 10 times). However, the logic still works correctly if it is slowed down.
+
+
 # Start the app:
 git pull [link]
 
@@ -40,9 +44,7 @@ Examples:
 - `preload.cts` — `getAllPiece`
 
 # Data Structures
-The app uses simple classes for each data type. Relations are stored as arrays of IDs in CSV rows, and converters map CSV strings to typed fields when loading.
-
-Examples:
+Records:
 
 - `Piece.model.ts` — `validateAndCreate`
 - `Piece.model.ts` — `findLastPractice`
@@ -50,12 +52,17 @@ Examples:
 - `Subsession.model.ts` — `validateAndCreate`
 - `table.ts` — `TableModel` (type)
 
-# Controls (code patterns used)
+Set: `table.ts` - `generateNewId`
 
-- `Subsession.model.ts` — `constructor` (computes totalTime)
-- `Piece.model.ts` — `findLastPractice`
-- `table.ts` — `generateNewId`
-- `table.ts` — `validateForeignKeys`
-- `Piece.controller.ts` — `getAllPiece`
+Array: 
+- `AllPieces.tsx` - `line 107 and line 129 - using arrays as they provide quick methods to iterate on the same type of data`
+- `table.ts` - Foreign Key
+- `Piece.model.ts` - Foreign Keys
 
-# OOP Principles
+OOP principles: please see all files with `.model.ts ` and `table.ts`
+
+# Data types
+Please see all files with `.model.ts`
+Notes: Boolean is not frequently used as it is replaced by enums in most case, as Enums allows more specific, but still discrete, information to be displayed
+
+Boolean is reserved for The status of update/Add/Delete success status (see `types.d.ts` - `EventMapping`)

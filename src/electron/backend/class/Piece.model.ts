@@ -37,12 +37,14 @@ export class Piece implements TableModel, PieceData {
   public pieceType: PieceType;
 
   public freqNumber?: number;
+  // Freq frame is a literal union (Week/Fortnight/Month) to limit allowed values
   public freqFrame?: FreqFrame;
   public notes?: string;
   public totalTime?: number; //In minutes
 
   //Foreign Key
   //An array is used as it can use Sequence control structure, increase code conciseness
+  // Stored as ID arrays in CSV so rows stay flat and joins can be done later
   public termIds?: string[]; 
   public goalIds?: string[]; 
   public resourceIds?: string[]; 

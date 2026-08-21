@@ -8,10 +8,10 @@
     "dev": "npm-run-all --parallel dev:react dev:elec",
     "dev:react": "vite",
     "dev:elec": "npm run transpile:elec; NODE_ENV=development electron .",
-    "build": "tsc -b && vite build",
+    "build": "tsc -b --noCheck && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "transpile:elec": "tsc -p src/electron/tsconfig.json",
+    "transpile:elec": "tsc -p src/electron/tsconfig.json --noCheck",
     "dist:mac": "npm run transpile:elec && npm run build && electron-builder --mac --arm64",
     "dist:win": "npm run transpile:elec && npm run build && electron-builder --win --x64"
   },

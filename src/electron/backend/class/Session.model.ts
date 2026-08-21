@@ -18,6 +18,7 @@ export class Session implements SessionData {
   public id: string;
   public title: string;
   public structure: SessionStructure;
+  // `structure` is a literal union to control session scheduling strategies
 
   public status: SessionStatus;
   public currentIndex: number; // starts at 1
@@ -26,6 +27,8 @@ export class Session implements SessionData {
 
   public notes?: string;
   public subsessionIds: string[]; //Required
+  // `subsessionIds` stored as ID array so CSV stays flat and joins can attach full objects
+
 
   //Initialise to prepare for joining
   public subsessions?: Subsession[] | [] = [];

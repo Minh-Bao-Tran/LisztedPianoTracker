@@ -3,9 +3,7 @@
 // during CSV conversion.
 //Data Source: CSV File resource.csv and user entered through GUI
 
-import {
-  stringConverter,
-} from "../database/table/converters.js";
+import { stringConverter } from "../database/table/converters.js";
 import { TableModel } from "../database/table/table.js";
 
 const RESOURCE_TYPES = [
@@ -17,9 +15,9 @@ const RESOURCE_TYPES = [
 
 export class Resource implements TableModel, ResourceData {
   public id: string;
-  public resourceType: ResourceType;
+  public resourceType: ResourceType; // `resourceType` is a literal union to validate allowed resource categories
   public notes?: string;
-  public resourceLink: string; //Validation needed for checking link works
+  public resourceLink: string; // `resourceLink` is a string because links are stored as plain text in CSV
 
   constructor({
     id = "",

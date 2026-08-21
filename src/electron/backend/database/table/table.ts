@@ -70,6 +70,7 @@ export default class Table<
   }
 
   //------ID Related------
+  //Set is used here as checking for duplicate for set is more efficient and concise than a simple array
   public getAllId(): Set<string> {
     let id_list = new Set([]);
     for (const { id } of this.values) {
@@ -110,7 +111,7 @@ export default class Table<
 
   //------Database Handling------
   public fetch(): string[][] {
-    //get data
+    //get data for CSV files
     return readAllCSV(this.file);
   }
 

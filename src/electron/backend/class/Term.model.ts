@@ -20,6 +20,7 @@ export class Term implements TermData {
   public id: string;
   public term: string;
   public definition: string;
+  // `type` is a narrow literal type so only known music term categories are allowed
   public type: TermType;
   public notes?: string;
 

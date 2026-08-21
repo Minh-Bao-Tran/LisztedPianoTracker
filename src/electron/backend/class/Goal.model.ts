@@ -20,7 +20,9 @@ export class Goal implements TableModel, GoalData {
   public status: Status;
   public goalType?: GoalType;
   public notes?: string;
-  public ratings: number; //percentage (0 - 100)
+  public ratings: number;
+
+  // Ratings stored as number (0-100) so it's easy to compute averages and ranges
 
   public lastPractice?: Date | string;
 

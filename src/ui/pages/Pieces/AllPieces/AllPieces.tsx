@@ -103,6 +103,8 @@ export default function AllPiecesPage() {
     loadPieces();
   }, [location.pathname]);
 
+  //----Filter, Search, and Sort----
+  //Arrays are use for each of the variables here as ts arrays already provide quick methods to filter, find, and sort
   //Filter Piece
   let fliteredPieces: ExtendedPieceData[] = allPieces.filter((piece) => {
     return filterStatuses.length === 0 || filterStatuses.includes(piece.status);
@@ -124,6 +126,7 @@ export default function AllPiecesPage() {
     : searchedPieces;
 
   //----Render Components----
+  //Using arrays also make transforming data into visible components easier through the map() method
   //Create PieceCards
   const allPiecesCardList = sortPieces.map((piece, index) => {
     return <ExtendedPieceCard piece={piece} key={index} />;

@@ -244,7 +244,7 @@ export default function CreateSessionPage({
                   className="btn-blue"
                   onClick={addSubsession}
                 >
-                  Add Subsession
+                  +Add Subsession
                 </button>
               </div>
 
@@ -276,7 +276,7 @@ export default function CreateSessionPage({
                 setForm(defaultValues);
               }}
             >
-              Cancel
+              Reset
             </button>
 
             <button type="submit" className="btn-blue">
